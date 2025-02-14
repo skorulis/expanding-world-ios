@@ -16,9 +16,7 @@ final class ActionService {
     }
     
     func actions(place: Place) -> [PlaceAction] {
-        return [
-            .look
-        ]
+        return place.spec.actions
     }
     
     func perform(action: PlaceAction, place: Place) {

@@ -18,6 +18,15 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         container.register(ActionService.self) { r in
             ActionService.make(resolver: r)
         }
+        
+        container.register(AlertService.self) { _ in
+            AlertService()
+        }
+        .inObjectScope(.container
+        )
+        container.register(GameService.self) { r in
+            GameService(alertService: r.alertService())
+        }
     }
     
     @MainActor
@@ -38,6 +47,8 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         container.register(PlaceViewModel.self) { (resolver: Resolver, place: Place) in
             PlaceViewModel.make(resolver: resolver, place: place)
         }
+        
+        container.register(ContentViewModel.self) { ContentViewModel.make(resolver: $0) }
     }
 }
 

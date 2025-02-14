@@ -9,11 +9,19 @@ final class PlaceLibrary {
         id: .pinkyTavern,
         name: "Pinky's Tavern",
         description: "A small Tavern with a questionable odor",
+        actions: [
+            .look,
+        ],
         features: [
             .init(
                 id: .pinkyTavernBar,
                 name: "Bar",
                 description: "A wooden bar with a bartender behind it"
+            ),
+            .init(
+                id: .pinkyTavernTables,
+                name: "Tables",
+                description: "A collection of tables each seating 4 patrons"
             )
         ]
     )

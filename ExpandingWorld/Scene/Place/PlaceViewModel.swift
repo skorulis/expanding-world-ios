@@ -7,8 +7,8 @@ import KnitMacros
 @MainActor @Observable final class PlaceViewModel {
     
     let place: Place
-    let knowledgeStore: KnowledgeStore
-    let actionService: ActionService
+    private let knowledgeStore: KnowledgeStore
+    private let actionService: ActionService
     private(set) var visibleFeatures: [Place.Feature]
     
     @Resolvable<Resolver>

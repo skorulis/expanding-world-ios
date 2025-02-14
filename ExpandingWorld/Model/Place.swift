@@ -19,6 +19,7 @@ struct PlaceSpec {
     /// High level description of the place
     let description: String
     
+    let actions: [PlaceAction]
     let features: [Place.Feature]
 }
 
@@ -33,6 +34,7 @@ extension Place {
 enum PlaceFeatureID {
     // pinkyTavern
     case pinkyTavernBar
+    case pinkyTavernTables
 }
 
 enum PlaceID {

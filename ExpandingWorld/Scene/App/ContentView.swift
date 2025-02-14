@@ -3,17 +3,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var viewModel: ContentViewModel
+    @Environment(\.resolver) private var resolver
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        PlaceView(
+            viewModel: resolver.placeViewModel(place: viewModel.currentPlace)
+        )
+        .overlay(maybeAlert)
+    }
+    
+    @ViewBuilder
+    private var maybeAlert: some View {
+        if let alert = viewModel.currentAlert {
+            AlertView(
+                alert: alert,
+                onAction: viewModel.alertService.close
+            )
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    let assembler = ExpandingWorldAssembly.testing()
+    ContentView(viewModel: assembler.resolver.contentViewModel())
 }

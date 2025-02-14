@@ -5,4 +5,5 @@ import Foundation
 final class KnowledgeStore {
     
     var placeFeatures: Set<PlaceFeatureID> = []
+    var gameFeatures: Set<GameFeature> = []
 }

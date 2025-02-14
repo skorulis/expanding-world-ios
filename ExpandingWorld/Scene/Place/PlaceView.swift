@@ -21,7 +21,7 @@ extension PlaceView: View {
             ScrollView {
                 VStack {
                     features
-                    actions   
+                    actions
                 }
             }
         }
@@ -30,14 +30,14 @@ extension PlaceView: View {
     private var features: some View {
         VStack {
             ForEach(viewModel.visibleFeatures) { feature in
-                Text(feature.name)
+                PlaceFeatureView(feature: feature)
             }
         }
     }
     
     private var actions: some View {
         VStack {
-            ForEach(viewModel.actions, id: \.self) { action in
+            ForEach(viewModel.actions) { action in
                 Button(action: { viewModel.perform(action: action) }) {
                     Text(action.text)
                 }
