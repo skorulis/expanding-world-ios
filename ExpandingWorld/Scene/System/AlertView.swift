@@ -26,6 +26,7 @@ extension AlertView: View {
             }
             .padding(12)
             .background(Color.white)
+            .padding(24)
         }
     }
 }
@@ -34,7 +35,7 @@ extension AlertView: View {
 
 #Preview {
     AlertView(
-        alert: .init(message: "Here is my alert"),
+        alert: .init(message: "Here is my alert which has some text"),
         onAction: {}
     )
 }

@@ -5,13 +5,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State var viewModel: ContentViewModel
-    @Environment(\.resolver) private var resolver
     
     var body: some View {
-        PlaceView(
-            viewModel: resolver.placeViewModel(place: viewModel.currentPlace)
-        )
-        .overlay(maybeAlert)
+        MainTabsView()
+            .overlay(maybeAlert)
     }
     
     @ViewBuilder

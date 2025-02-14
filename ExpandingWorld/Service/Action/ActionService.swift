@@ -26,6 +26,8 @@ final class ActionService {
             for feature in place.spec.features {
                 knowledgeStore.placeFeatures.insert(feature.id)
             }
+        case .shop:
+            break
         }
         
     }

@@ -23,8 +23,5 @@ import KnitMacros
 }
 
 extension ContentViewModel {
-    var currentPlace: Place {
-        let spec = PlaceLibrary.tavern1
-        return .init(spec: spec)
-    }
+    
 }

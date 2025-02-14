@@ -16,12 +16,26 @@ final class PlaceLibrary {
             .init(
                 id: .pinkyTavernBar,
                 name: "Bar",
-                description: "A wooden bar with a bartender behind it"
+                description: "A wooden bar with a bartender behind it",
+                actions: [
+                    .look,
+                ]
             ),
             .init(
                 id: .pinkyTavernTables,
                 name: "Tables",
-                description: "A collection of tables each seating 4 patrons"
+                description: "A collection of tables each seating 4 patrons",
+                actions: [
+                    .look,
+                ]
+            ),
+            .init(
+                id: .pinkyTavernExit,
+                name: "Exit",
+                description: "A door out into the street",
+                actions: [
+                    .look,
+                ]
             )
         ]
     )
