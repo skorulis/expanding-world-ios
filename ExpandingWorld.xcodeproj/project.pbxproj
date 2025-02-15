@@ -11,6 +11,7 @@
 		FA60246E2D5ED2840003286A /* Knit in Frameworks */ = {isa = PBXBuildFile; productRef = FA60246D2D5ED2840003286A /* Knit */; };
 		FA6024702D5ED2840003286A /* KnitMacros in Frameworks */ = {isa = PBXBuildFile; productRef = FA60246F2D5ED2840003286A /* KnitMacros */; };
 		FA6024862D5EE1D80003286A /* ASKCore in Frameworks */ = {isa = PBXBuildFile; productRef = FA6024852D5EE1D80003286A /* ASKCore */; };
+		FA6025A72D6057600003286A /* UIColorHexSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA6025A62D6057600003286A /* UIColorHexSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 			files = (
 				FA6024862D5EE1D80003286A /* ASKCore in Frameworks */,
 				FA60246E2D5ED2840003286A /* Knit in Frameworks */,
+				FA6025A72D6057600003286A /* UIColorHexSwift in Frameworks */,
 				FA6024702D5ED2840003286A /* KnitMacros in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,6 +108,7 @@
 				FA60246D2D5ED2840003286A /* Knit */,
 				FA60246F2D5ED2840003286A /* KnitMacros */,
 				FA6024852D5EE1D80003286A /* ASKCore */,
+				FA6025A62D6057600003286A /* UIColorHexSwift */,
 			);
 			productName = ExpandingWorld;
 			productReference = FA6023D72D5EC5410003286A /* ExpandingWorld.app */;
@@ -165,6 +168,7 @@
 			packageReferences = (
 				FA60246C2D5ED2840003286A /* XCRemoteSwiftPackageReference "knit" */,
 				FA6024842D5EE1D80003286A /* XCRemoteSwiftPackageReference "ASKCore" */,
+				FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA6023D82D5EC5410003286A /* Products */;
@@ -489,6 +493,14 @@
 				kind = branch;
 			};
 		};
+		FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yeahdongcn/UIColor-Hex-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -511,6 +523,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA6024842D5EE1D80003286A /* XCRemoteSwiftPackageReference "ASKCore" */;
 			productName = ASKCore;
+		};
+		FA6025A62D6057600003286A /* UIColorHexSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */;
+			productName = UIColorHexSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

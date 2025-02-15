@@ -26,10 +26,11 @@ final class ActionService {
         switch action {
         case .look:
             for feature in place.spec.features {
-                knowledgeStore.placeFeatures.insert(feature.id)
+                knowledgeStore.learn(placeFeature: feature.id)
             }
             alertService.post(message: place.spec.description)
         case .shop:
+            knowledgeStore.learn(game: .money)
             break
         }
     }
@@ -40,6 +41,7 @@ final class ActionService {
         case .look:
             alertService.post(message: feature.description)
         case .shop:
+            knowledgeStore.learn(game: .money)
             break
         }
     }

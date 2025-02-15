@@ -36,8 +36,8 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         }
         .inObjectScope(.container)
         
-        container.register(KnowledgeStore.self) { _ in
-            KnowledgeStore()
+        container.register(KnowledgeStore.self) {
+            KnowledgeStore.make(resolver: $0)
         }
         .inObjectScope(.container)
     }

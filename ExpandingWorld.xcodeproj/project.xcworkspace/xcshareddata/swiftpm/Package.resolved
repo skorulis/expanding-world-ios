@@ -1,5 +1,5 @@
 {
-  "originHash" : "8543fd3098f974d04b1b3fc2f723ae008351578184d42c2c7afcc4609b0ff329",
+  "originHash" : "0e0edbb1bc383bc203307022afe66fe128a6b01332bad2d24fca9ec41da6221a",
   "pins" : [
     {
       "identity" : "askcore",
@@ -35,6 +35,15 @@
       "state" : {
         "revision" : "2bc86522d115234d1f588efe2bcb4ce4be8f8b82",
         "version" : "510.0.3"
+      }
+    },
+    {
+      "identity" : "uicolor-hex-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yeahdongcn/UIColor-Hex-Swift",
+      "state" : {
+        "revision" : "f37f97bc1a5b545b39ab5330e133e56fa4f38cff",
+        "version" : "5.1.9"
       }
     }
   ],
