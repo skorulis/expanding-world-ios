@@ -8,7 +8,7 @@ final class PlaceLibrary {
     static var tavern1 = PlaceSpec(
         id: .pinkyTavern,
         name: "Pinky's Tavern",
-        description: "A small Tavern with a questionable odor",
+        description: "A small tavern with a questionable odor. There is a bar towards the back of the room and assorted tables",
         actions: [
             .look,
         ],
@@ -16,9 +16,10 @@ final class PlaceLibrary {
             .init(
                 id: .pinkyTavernBar,
                 name: "Bar",
-                description: "A wooden bar with a bartender behind it",
+                description: "There is an short old bartender behind the bar and a sign above the bar reads \"Pinky's Tavern 24/7\"",
                 actions: [
                     .look,
+                    .shop,
                 ]
             ),
             .init(

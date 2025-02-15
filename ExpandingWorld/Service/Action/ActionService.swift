@@ -8,11 +8,13 @@ final class ActionService {
     
     private let timeStore: TimeStore
     private let knowledgeStore: KnowledgeStore
+    private let alertService: AlertService
     
     @Resolvable<Resolver>
-    init(timeStore: TimeStore, knowledgeStore: KnowledgeStore) {
+    init(timeStore: TimeStore, knowledgeStore: KnowledgeStore, alertService: AlertService) {
         self.timeStore = timeStore
         self.knowledgeStore = knowledgeStore
+        self.alertService = alertService
     }
     
     func actions(place: Place) -> [PlaceAction] {
@@ -26,9 +28,19 @@ final class ActionService {
             for feature in place.spec.features {
                 knowledgeStore.placeFeatures.insert(feature.id)
             }
+            alertService.post(message: place.spec.description)
         case .shop:
             break
         }
-        
+    }
+    
+    func perform(action: PlaceAction, place: Place, feature: Place.Feature) {
+        timeStore.advance(seconds: action.time)
+        switch action {
+        case .look:
+            alertService.post(message: feature.description)
+        case .shop:
+            break
+        }
     }
 }

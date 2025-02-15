@@ -11,7 +11,7 @@ final class GameService {
     }
     
     func startNewGame() {
-        alertService.post(message: "You wake up in a dimly lit small room with a few tables and a bar towards the back of the room")
+        alertService.post(message: "You wake up in a dimly lit room sitting at a table. It is not a place you recognise.")
     }
     
     func loadSavedGame() {

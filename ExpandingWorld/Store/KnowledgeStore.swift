@@ -2,8 +2,8 @@
 
 import Foundation
 
-final class KnowledgeStore {
+final class KnowledgeStore: ObservableObject {
     
-    var placeFeatures: Set<PlaceFeatureID> = []
-    var gameFeatures: Set<GameFeature> = []
+    @Published var placeFeatures: Set<PlaceFeatureID> = []
+    @Published var gameFeatures: Set<GameFeature> = []
 }

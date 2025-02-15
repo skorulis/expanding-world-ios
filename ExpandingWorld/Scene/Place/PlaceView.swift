@@ -20,8 +20,9 @@ extension PlaceView: View {
                 .font(.title)
             ScrollView {
                 VStack {
-                    features
                     actions
+                    Divider()
+                    features
                 }
             }
         }
@@ -30,7 +31,10 @@ extension PlaceView: View {
     private var features: some View {
         VStack {
             ForEach(viewModel.visibleFeatures) { feature in
-                PlaceFeatureView(feature: feature)
+                PlaceFeatureView(feature: feature) { action in
+                    viewModel.perform(action: action, feature: feature)
+                }
+                Divider()
             }
         }
     }

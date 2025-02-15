@@ -23,17 +23,20 @@ struct HexagonGrid: Layout {
         subviews: Subviews,
         cache: inout Cache
     ) -> CGSize {
-        if let width = proposal.width {
-            cache.columns = min(Int(width / hexSize / 2), subviews.count)
+        if subviews.isEmpty { return .zero }
+        if let width = proposal.width, width > 0, width != .infinity {
+            cache.columns = max(min(Int(width / hexSize / 2), subviews.count), 1)
             cache.rows = (subviews.count + cache.columns - 1) / cache.columns
         }
         let hexWidth = hexSize * 2
         let spacingX = hexWidth * 0.75
         let spacingY = hexHeight
+        let hasExtraBottom = subviews.count % cache.columns != 1 && subviews.count > 1
+        let bottomSpace = hasExtraBottom ? hexSize : hexSize / 2
         
         return CGSize(
             width: CGFloat(cache.columns) * spacingX + hexSize / 2,
-            height: CGFloat(cache.rows) * spacingY + hexSize
+            height: CGFloat(cache.rows) * spacingY + bottomSpace
         )
     }
     
@@ -73,7 +76,7 @@ extension HexagonGrid {
 
 #Preview {
     HexagonGrid(hexSize: 40) {
-        ForEach(0..<16, id: \.self) { index in
+        ForEach(0..<1, id: \.self) { index in
             ZStack {
                 Text("\(index)")
                 HexagonShape()

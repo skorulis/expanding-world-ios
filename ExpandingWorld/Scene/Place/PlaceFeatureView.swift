@@ -7,6 +7,7 @@ import SwiftUI
 
 struct PlaceFeatureView {
     let feature: Place.Feature
+    let onAction: (PlaceAction) -> Void
     @State private var expanded: Bool = false
 }
 
@@ -15,8 +16,20 @@ struct PlaceFeatureView {
 extension PlaceFeatureView: View {
     
     var body: some View {
-        DisclosureGroup(feature.name) {
-            Text("Inner")
+        HStack(alignment: .center) {
+            Text(feature.name)
+                .font(.title)
+            Spacer()
+            maybeActions
+        }
+    }
+    
+    @ViewBuilder
+    private var maybeActions: some View {
+        if feature.actions.count > 0 {
+            ActionButtonRow(actions: feature.actions) { action in
+                onAction(action)
+            }
         }
     }
 }
@@ -25,6 +38,7 @@ extension PlaceFeatureView: View {
 
 #Preview {
     let feature = PlaceLibrary.tavern1.features[0]
-    PlaceFeatureView(feature: feature)
+    PlaceFeatureView(feature: feature, onAction: { _ in })
+        .padding()
 }
 

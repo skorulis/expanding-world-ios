@@ -27,4 +27,8 @@ import KnitMacros
         actionService.perform(action: action, place: place)
         self.visibleFeatures = place.spec.features.filter { knowledgeStore.placeFeatures.contains($0.id) }
     }
+    
+    func perform(action: PlaceAction, feature: Place.Feature) {
+        actionService.perform(action: action, place: place, feature: feature)
+    }
 }
