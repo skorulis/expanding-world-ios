@@ -8,7 +8,7 @@ struct ActionButton {
     let placeAction: PlaceAction
     let action: () -> Void
     
-    private static let size: CGFloat = 80
+    fileprivate static let size: CGFloat = 80
 }
 
 // MARK: - Rendering
@@ -40,7 +40,7 @@ struct ActionButtonRow: View {
 
 extension ActionButtonRow {
     var body: some View {
-        HStack {
+        HexagonGrid(hexSize: ActionButton.size / 2) {
             ForEach(actions) { action in
                 ActionButton(placeAction: action) {
                     onPress(action)
@@ -53,8 +53,6 @@ extension ActionButtonRow {
 // MARK: - Previews
 
 #Preview {
-    ActionButtonRow(actions: [.look, .shop], onPress: {_ in })
-    
-    
+    ActionButtonRow(actions: [.look, .shop, .look], onPress: {_ in })
 }
 

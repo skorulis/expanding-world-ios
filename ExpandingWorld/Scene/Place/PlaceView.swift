@@ -36,12 +36,8 @@ extension PlaceView: View {
     }
     
     private var actions: some View {
-        VStack {
-            ForEach(viewModel.actions) { action in
-                Button(action: { viewModel.perform(action: action) }) {
-                    Text(action.text)
-                }
-            }
+        ActionButtonRow(actions: viewModel.actions) {
+            viewModel.perform(action: $0)
         }
     }
 }
