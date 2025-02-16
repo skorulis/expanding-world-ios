@@ -5,11 +5,11 @@ import Foundation
 struct Shop {
     
     let spec: ShopSpec
-    var items: [Item.Instance]
+    var inventory: Inventory
     
     init(spec: ShopSpec) {
         self.spec = spec
-        self.items = spec.startingItems
+        self.inventory = .init(items: spec.startingItems)
     }
 }
 

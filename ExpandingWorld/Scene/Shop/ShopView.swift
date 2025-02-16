@@ -8,6 +8,7 @@ import SwiftUI
 struct ShopView {
     
     @State var viewModel: ShopViewModel
+    @Environment(\.presentationMode) var presentationMode
 }
 
 // MARK: - Rendering
@@ -16,6 +17,13 @@ extension ShopView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            NavBar(
+                leadingButton: .init(
+                    icon: Image(systemName: "xmark.circle.fill"),
+                    action: { presentationMode.wrappedValue.dismiss() }
+                ),
+                title: "Shop"
+            )
             items
             Spacer()
             maybeBuyPane
@@ -31,18 +39,17 @@ extension ShopView: View {
             ) { result in
                     switch result {
                     case let .confirm(quantity):
-                        viewModel.buy(item: selected, quantity: quantity)
+                        viewModel.buy(item: .init(type: selected, amount: quantity))
                     case .cancel:
                         viewModel.selectedItem = nil
                     }
                 }
-            Text("Test")
         }
     }
     
     private var items: some View {
         HexagonGrid(hexSize: ItemView.size / 2) {
-            ForEach(viewModel.shop.items) { item in
+            ForEach(viewModel.shop.inventory.all) { item in
                 Button(action: { viewModel.selectedItem = item.type }) {
                     ItemView(
                         item: item,

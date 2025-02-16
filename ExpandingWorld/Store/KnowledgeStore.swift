@@ -26,4 +26,8 @@ final class KnowledgeStore: ObservableObject {
             alertService.post(message: game.discoveryText)
         }
     }
+    
+    func contains(any: [GameFeature]) -> Bool {
+        return any.contains(where: { gameFeatures.contains($0) })
+    }
 }

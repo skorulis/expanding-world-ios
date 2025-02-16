@@ -6,6 +6,9 @@ import SwiftUI
 // MARK: - Memory footprint
 
 struct MainTabsView {
+    
+    @ObservedObject var knowledgeStore: KnowledgeStore
+    
     @Environment(\.resolver) private var resolver
 }
 
@@ -16,6 +19,8 @@ extension MainTabsView: View {
     var body: some View {
         TabView {
             placeTab
+            maybeInventory
+            maybePlayerStatus
         }
     }
     
@@ -25,6 +30,30 @@ extension MainTabsView: View {
         )
         .tabItem {
             Image(systemName: "map.fill")
+        }
+    }
+    
+    @ViewBuilder
+    var maybeInventory: some View {
+        if knowledgeStore.gameFeatures.contains(.inventory) {
+            PlayerInventoryView(
+                viewModel: resolver.playerInventoryViewModel()
+            )
+            .tabItem {
+                Image(systemName: "backpack.fill")
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var maybePlayerStatus: some View {
+        if knowledgeStore.contains(any: GameFeature.playerStatuses) {
+            PlayerStatusView(
+                viewModel: resolver.playerStatusViewModel()
+            )
+            .tabItem {
+                Image(systemName: "level.fill")
+            }
         }
     }
     
@@ -38,7 +67,7 @@ extension MainTabsView: View {
 
 #Preview {
     let assembler = ExpandingWorldAssembly.testing()
-    MainTabsView()
+    MainTabsView(knowledgeStore: assembler.resolver.knowledgeStore())
         .environment(\.resolver, assembler.resolver)
 }
 

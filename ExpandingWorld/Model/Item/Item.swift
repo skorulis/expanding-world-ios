@@ -10,6 +10,10 @@ enum Item {
 
 extension Item {
     
+    enum Action {
+        case consume
+    }
+    
     enum Category {
         case food
         
@@ -52,9 +56,13 @@ extension Item {
     
     struct Instance: Identifiable {
         let type: Item
-        let amount: Int
+        var amount: Int
         
         var id: Item { type }
+        
+        var baseCost: Int64 {
+            return type.basePrice * Int64(amount)
+        }
     }
 }
 
@@ -106,6 +114,37 @@ extension Item {
             return 2
         case .stew:
             return 3
+        }
+    }
+    
+    
+}
+
+// MARK: - Consumption
+
+extension Item {
+    var consumableString: String? {
+        switch self {
+        case .grog:
+            return "Drink"
+        case .stew:
+            return "Eat"
+        }
+    }
+    
+    var consumptionEffects: [ItemEffect] {
+        switch self {
+        case .grog:
+            [ItemEffect.addStatus(.intoxication, 1)]
+        case .stew:
+            [ItemEffect.addStatus(.satiation, 2)]
+        }
+    }
+    
+    var consumptionTime: Int64 {
+        switch self {
+        case .grog: return 90
+        case .stew: return 120
         }
     }
 }

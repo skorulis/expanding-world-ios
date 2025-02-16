@@ -5,21 +5,12 @@ import SwiftUI
 struct ContentView: View {
     
     @State var viewModel: ContentViewModel
+    @Environment(\.resolver) private var resolver
     
     var body: some View {
-        MainTabsView()
-            .overlay(maybeAlert)
+        MainTabsView(knowledgeStore: resolver.knowledgeStore())
     }
     
-    @ViewBuilder
-    private var maybeAlert: some View {
-        if let alert = viewModel.currentAlert {
-            AlertView(
-                alert: alert,
-                onAction: viewModel.alertService.close
-            )
-        }
-    }
 }
 
 #Preview {

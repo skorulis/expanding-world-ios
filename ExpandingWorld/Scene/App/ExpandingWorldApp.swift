@@ -8,7 +8,7 @@ import Knit
 struct ExpandingWorldApp: App {
     
     private let assembler: ModuleAssembler = {
-        let assembler = ModuleAssembler([ExpandingWorldAssembly()])
+        let assembler = ModuleAssembler([ExpandingWorldAssembly(purpose: .normal)])
         assembler.resolver.gameService().startNewGame()
         return assembler
     }()
@@ -17,6 +17,14 @@ struct ExpandingWorldApp: App {
         WindowGroup {
             ContentView(viewModel: assembler.resolver.contentViewModel())
                 .environment(\.resolver, assembler.resolver)
+                .onAppear {
+                    startup()
+                }
         }
+    }
+    
+    private func startup() {
+        assembler.resolver.alertService().window = .init()
+        _ = assembler.resolver.playerStatusService()
     }
 }

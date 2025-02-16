@@ -14,4 +14,8 @@ final class ShopStore: ObservableObject {
         shops[id] = shop
         return shop
     }
+    
+    func update(shop: Shop) {
+        shops[shop.spec.id] = shop
+    }
 }
