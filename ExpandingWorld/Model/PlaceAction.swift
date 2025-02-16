@@ -7,7 +7,7 @@ import SwiftUI
 enum PlaceAction: Identifiable {
     
     case look
-    case shop
+    case shop(ShopID)
 
     /// Time to perform the action in seconds
     var time: Int64 {
@@ -37,6 +37,13 @@ enum PlaceAction: Identifiable {
         }
     }
     
-    var id: Self { self }
+    var id: String {
+        switch self {
+        case .look:
+            return "look"
+        case .shop(let shopID):
+            return "shop-\(shopID)"
+        }
+    }
     
 }

@@ -11,6 +11,8 @@ import KnitMacros
     private let actionService: ActionService
     private(set) var visibleFeatures: [Place.Feature]
     
+    var shopID: ShopID?
+    
     @Resolvable<Resolver>
     init(@Argument place: Place, actionService: ActionService, knowledgeStore: KnowledgeStore) {
         self.place = place
@@ -29,6 +31,9 @@ import KnitMacros
     }
     
     func perform(action: PlaceAction, feature: Place.Feature) {
+        if case let .shop(shopID) = action {
+            self.shopID = shopID
+        }
         actionService.perform(action: action, place: place, feature: feature)
     }
 }

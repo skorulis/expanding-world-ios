@@ -8,6 +8,7 @@ import SwiftUI
 @MainActor
 struct PlaceView {
     @State var viewModel: PlaceViewModel
+    @Environment(\.resolver) private var resolver
 }
 
 // MARK: - Rendering
@@ -25,6 +26,9 @@ extension PlaceView: View {
                     features
                 }
             }
+        }
+        .sheet(item: $viewModel.shopID) { shopID in
+            ShopView(viewModel: resolver.shopViewModel(shopID: shopID))
         }
     }
     

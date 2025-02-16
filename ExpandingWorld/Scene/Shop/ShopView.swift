@@ -6,8 +6,8 @@ import SwiftUI
 // MARK: - Memory footprint
 
 struct ShopView {
-    let shop: Shop
-    let onSelect: (Item) -> Void
+    
+    @State var viewModel: ShopViewModel
 }
 
 // MARK: - Rendering
@@ -15,10 +15,40 @@ struct ShopView {
 extension ShopView: View {
     
     var body: some View {
+        VStack(spacing: 0) {
+            items
+            Spacer()
+            maybeBuyPane
+        }
+    }
+    
+    @ViewBuilder
+    private var maybeBuyPane: some View {
+        if let selected = viewModel.selectedItem {
+            ShopBuyPane(
+                item: selected,
+                maxQuantity: 20
+            ) { result in
+                    switch result {
+                    case let .confirm(quantity):
+                        viewModel.buy(item: selected, quantity: quantity)
+                    case .cancel:
+                        viewModel.selectedItem = nil
+                    }
+                }
+            Text("Test")
+        }
+    }
+    
+    private var items: some View {
         HexagonGrid(hexSize: ItemView.size / 2) {
-            ForEach(shop.items) { item in
-                Button(action: {}) {
-                    ItemView(item: item, style: .cost)
+            ForEach(viewModel.shop.items) { item in
+                Button(action: { viewModel.selectedItem = item.type }) {
+                    ItemView(
+                        item: item,
+                        style: .cost,
+                        selected: viewModel.selectedItem == item.type
+                    )
                 }
             }
         }
@@ -28,9 +58,8 @@ extension ShopView: View {
 // MARK: - Previews
 
 #Preview {
-    let shop = Shop(
-        spec: ShopLibrary.pinkyTavern
-    )
-    ShopView(shop: shop, onSelect: { _ in })
+    let assembler = ExpandingWorldAssembly.testing()
+    let viewModel = assembler.resolver.shopViewModel(shopID: .pinkyTavern)
+    ShopView(viewModel: viewModel)
 }
 

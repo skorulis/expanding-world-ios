@@ -53,6 +53,6 @@ extension ActionButtonRow {
 // MARK: - Previews
 
 #Preview {
-    ActionButtonRow(actions: [.look, .shop, .look], onPress: {_ in })
+    ActionButtonRow(actions: [.look, .shop(.pinkyTavern), .look], onPress: {_ in })
 }
 

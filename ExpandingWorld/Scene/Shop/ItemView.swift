@@ -8,6 +8,7 @@ import SwiftUI
 struct ItemView {
     let item: Item.Instance
     let style: Style
+    let selected: Bool
     
     static let size: CGFloat = 72
     
@@ -32,14 +33,21 @@ extension ItemView: View {
             text
         }
         .frame(width: Self.size, height: Self.size)
-        .background(
+        .background(backgroundContent)
+    }
+    
+    @ViewBuilder
+    private var backgroundContent: some View {
+        HexagonShape()
+            .fill(.linearGradient(
+                Gradient(colors: [item.type.rarity.color, item.type.category.color]),
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
+            ))
+        if selected {
             HexagonShape()
-                .fill(.linearGradient(
-                    Gradient(colors: [item.type.rarity.color, item.type.category.color]),
-                    startPoint: UnitPoint(x: 0.5, y: 0),
-                    endPoint: UnitPoint(x: 0.5, y: 1)
-                ))
-        )
+                .stroke(Color.green, lineWidth: 2)
+        }
     }
     
     @ViewBuilder
@@ -61,14 +69,17 @@ extension ItemView: View {
     VStack(spacing: 0) {
         ItemView(
             item: .init(type: .grog, amount: 10),
-            style: .cost
+            style: .cost,
+            selected: true
         )
         
         ItemView(
             item: .init(type: .grog, amount: 10),
-            style: .quantity
+            style: .quantity,
+            selected: false
         )
     }
+    .background(Color.gray)
     
 }
 

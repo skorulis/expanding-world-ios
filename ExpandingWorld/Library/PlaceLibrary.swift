@@ -16,10 +16,10 @@ final class PlaceLibrary {
             .init(
                 id: .pinkyTavernBar,
                 name: "Bar",
-                description: "There is an short old bartender behind the bar and a sign above the bar reads \"Pinky's Tavern 24/7\"",
+                description: "There is an short grizzled bartender behind the bar and a sign above the bar reads \"Pinky's Tavern 24/7\"",
                 actions: [
                     .look,
-                    .shop,
+                    .shop(.pinkyTavern),
                 ]
             ),
             .init(

@@ -13,8 +13,16 @@ final class ShopLibrary {
             ]
         )
     }
+    
+    static var specsByID: [ShopID: ShopSpec] {
+        [
+            .pinkyTavern: pinkyTavern
+        ]
+    }
 }
 
-enum ShopID {
+enum ShopID: Identifiable, Equatable {
     case pinkyTavern
+    
+    var id: Self { self }
 }

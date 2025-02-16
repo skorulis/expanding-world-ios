@@ -40,6 +40,11 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
             KnowledgeStore.make(resolver: $0)
         }
         .inObjectScope(.container)
+        
+        container.register(ShopStore.self) { _ in
+            ShopStore()
+        }
+        .inObjectScope(.container)
     }
     
     @MainActor
@@ -49,6 +54,10 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         }
         
         container.register(ContentViewModel.self) { ContentViewModel.make(resolver: $0) }
+        
+        container.register(ShopViewModel.self) { (resolver: Resolver, shopID: ShopID) in
+            ShopViewModel.make(resolver: resolver, shopID: shopID)
+        }
     }
 }
 
