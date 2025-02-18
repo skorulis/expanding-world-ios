@@ -44,8 +44,21 @@ extension PlaceView: View {
     }
     
     private var actions: some View {
-        ActionButtonRow(actions: viewModel.actions) {
-            viewModel.perform(action: $0)
+        HexagonGrid(hexSize: ActionButton.size / 2) {
+            ForEach(viewModel.actions) { action in
+                ActionButton(placeAction: action) {
+                    viewModel.perform(action: action)
+                }
+            }
+            ForEach(viewModel.transit) { transit in
+                Button(action: { viewModel.changeLocation(id: transit.to) }) {
+                    VStack {
+                        Image(systemName: "door.left.hand.closed")
+                        Text("\(transit.text)")
+                    }
+                }
+                .buttonStyle(HexagonButtonStyle())
+            }
         }
     }
 }

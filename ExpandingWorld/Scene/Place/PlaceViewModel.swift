@@ -9,20 +9,26 @@ import KnitMacros
     let place: Place
     private let knowledgeStore: KnowledgeStore
     private let actionService: ActionService
+    private let playerStore: PlayerStore
     private(set) var visibleFeatures: [Place.Feature]
     
     var shopID: ShopID?
     
     @Resolvable<Resolver>
-    init(@Argument place: Place, actionService: ActionService, knowledgeStore: KnowledgeStore) {
+    init(@Argument place: Place, actionService: ActionService, knowledgeStore: KnowledgeStore, playerStore: PlayerStore) {
         self.place = place
         self.actionService = actionService
         self.knowledgeStore = knowledgeStore
+        self.playerStore = playerStore
         self.visibleFeatures = place.spec.features.filter { knowledgeStore.knowledge.placeFeatures.contains($0.id) }
     }
     
     var actions: [PlaceAction] {
         actionService.actions(place: place)
+    }
+    
+    var transit: [PlaceTransit] {
+        place.spec.transit
     }
     
     func perform(action: PlaceAction) {
@@ -35,5 +41,9 @@ import KnitMacros
             self.shopID = shopID
         }
         actionService.perform(action: action, place: place, feature: feature)
+    }
+    
+    func changeLocation(id: PlaceID) {
+        playerStore.player.location = id
     }
 }

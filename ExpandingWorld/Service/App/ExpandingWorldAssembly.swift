@@ -60,6 +60,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
             PlaceViewModel.make(resolver: resolver, place: place)
         }
         
+        container.register(PlaceContainerViewModel.self) { PlaceContainerViewModel.make(resolver: $0) }
         container.register(ContentViewModel.self) { ContentViewModel.make(resolver: $0) }
         container.register(PlayerInventoryViewModel.self) { PlayerInventoryViewModel.make(resolver: $0) }
         container.register(PlayerStatusViewModel.self) { PlayerStatusViewModel.make(resolver: $0) }

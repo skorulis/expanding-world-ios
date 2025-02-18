@@ -8,7 +8,7 @@ struct ActionButton {
     let placeAction: PlaceAction
     let action: () -> Void
     
-    fileprivate static let size: CGFloat = 80
+    static let size: CGFloat = 80
 }
 
 // MARK: - Rendering
@@ -24,12 +24,8 @@ extension ActionButton: View {
                     .frame(width: 32, height: 32)
                 Text(placeAction.text)
             }
-            .frame(width: ActionButton.size, height: ActionButton.size)
-            .background(
-                HexagonShape()
-                    .stroke(Color.black, lineWidth: 2)
-            )
         }
+        .buttonStyle(HexagonButtonStyle())
     }
 }
 

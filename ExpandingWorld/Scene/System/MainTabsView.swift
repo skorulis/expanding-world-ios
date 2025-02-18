@@ -26,12 +26,10 @@ extension MainTabsView: View {
     }
     
     var placeTab: some View {
-        PlaceView(
-            viewModel: resolver.placeViewModel(place: currentPlace)
-        )
-        .tabItem {
-            Image(systemName: "map.fill")
-        }
+        PlaceContainerView(viewModel: resolver.placeContainerViewModel())
+            .tabItem {
+                Image(systemName: "map.fill")
+            }
     }
     
     @ViewBuilder
@@ -66,10 +64,6 @@ extension MainTabsView: View {
             }
     }
     
-    var currentPlace: Place {
-        let spec = PlaceLibrary.tavern1
-        return .init(spec: spec)
-    }
 }
 
 // MARK: - Previews

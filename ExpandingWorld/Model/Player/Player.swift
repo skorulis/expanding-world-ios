@@ -6,9 +6,10 @@ struct Player: Codable {
     var money: Int64
     var inventory: Inventory
     var statuses: Statuses
+    var location: PlaceID
     
     static var defaultValue: Player {
-        .init(money: 100, inventory: .init(), statuses: .default)
+        .init(money: 100, inventory: .init(), statuses: .default, location: .pinkyTavern)
     }
 }
 

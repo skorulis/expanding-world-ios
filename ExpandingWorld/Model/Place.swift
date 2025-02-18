@@ -22,6 +22,9 @@ struct PlaceSpec {
     /// Actions that can be performed at this place
     let actions: [PlaceAction]
     
+    /// Ways to move to other locations
+    let transit: [PlaceTransit]
+    
     /// The individual elements that make up this place
     let features: [Place.Feature]
 }
@@ -47,6 +50,7 @@ enum PlaceFeatureID: Codable {
     case pinkyTavernExit
 }
 
-enum PlaceID {
+enum PlaceID: Codable {
     case pinkyTavern
+    case wharfRoad
 }
