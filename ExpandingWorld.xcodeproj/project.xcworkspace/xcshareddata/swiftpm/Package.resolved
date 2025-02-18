@@ -6,8 +6,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/skorulis/ASKCore",
       "state" : {
-        "branch" : "tmp",
-        "revision" : "b3a15b2ca163b225275c5e33d11452b79d52a21e"
+        "revision" : "6c227f7a0f8df0938903ecf5468a7fdfa9dcd6e6"
       }
     },
     {

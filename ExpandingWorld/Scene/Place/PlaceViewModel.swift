@@ -18,7 +18,7 @@ import KnitMacros
         self.place = place
         self.actionService = actionService
         self.knowledgeStore = knowledgeStore
-        self.visibleFeatures = place.spec.features.filter { knowledgeStore.placeFeatures.contains($0.id) }
+        self.visibleFeatures = place.spec.features.filter { knowledgeStore.knowledge.placeFeatures.contains($0.id) }
     }
     
     var actions: [PlaceAction] {
@@ -27,7 +27,7 @@ import KnitMacros
     
     func perform(action: PlaceAction) {
         actionService.perform(action: action, place: place)
-        self.visibleFeatures = place.spec.features.filter { knowledgeStore.placeFeatures.contains($0.id) }
+        self.visibleFeatures = place.spec.features.filter { knowledgeStore.knowledge.placeFeatures.contains($0.id) }
     }
     
     func perform(action: PlaceAction, feature: Place.Feature) {

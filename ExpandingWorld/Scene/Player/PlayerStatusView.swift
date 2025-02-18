@@ -26,7 +26,7 @@ extension PlayerStatusView: View {
     
     @ViewBuilder
     private func maybeRow(_ status: Player.Status) -> some View {
-        if viewModel.knowledgeStore.gameFeatures.contains(status.gameFeature) {
+        if viewModel.knowledgeStore.knowledge.gameFeatures.contains(status.gameFeature) {
             VStack(alignment: .leading, spacing: 0) {
                 Text(status.text)
                 StatusBar(value: 5, max: 10)

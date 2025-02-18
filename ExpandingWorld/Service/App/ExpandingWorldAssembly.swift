@@ -6,23 +6,11 @@ import Knit
 
 final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     typealias TargetResolver = Resolver
-    static var dependencies: [any Knit.ModuleAssembly.Type] = []
+    static var dependencies: [any Knit.ModuleAssembly.Type] = [ASKCoreAssembly.self]
     
-    private let purpose: IOCPurpose
+    init() {}
     
-    init(purpose: IOCPurpose) {
-        self.purpose = purpose
-    }
-    
-    init() {
-        self.purpose = .testing
-    }
-    
-    @MainActor func assemble(container: Container) {
-        container.register(IOCPurpose.self) { _ in
-            self.purpose
-        }
-        
+    @MainActor func assemble(container: Container) {        
         registerServices(container: container)
         registerStores(container: container)
         registerViewModels(container: container)
@@ -59,7 +47,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         }
         .inObjectScope(.container)
         
-        container.register(ShopStore.self) { _ in ShopStore() }
+        container.register(ShopStore.self) { ShopStore.make(resolver: $0) }
             .inObjectScope(.container)
         
         container.register(PlayerStore.self) { PlayerStore.make(resolver: $0) }
@@ -75,6 +63,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         container.register(ContentViewModel.self) { ContentViewModel.make(resolver: $0) }
         container.register(PlayerInventoryViewModel.self) { PlayerInventoryViewModel.make(resolver: $0) }
         container.register(PlayerStatusViewModel.self) { PlayerStatusViewModel.make(resolver: $0) }
+        container.register(SettingsViewModel.self) { SettingsViewModel.make(resolver: $0) }
         
         container.register(ShopViewModel.self) { (resolver: Resolver, shopID: ShopID) in
             ShopViewModel.make(resolver: resolver, shopID: shopID)
@@ -84,6 +73,6 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
 
 extension ExpandingWorldAssembly {
     @MainActor static func testing() -> ModuleAssembler {
-        ModuleAssembler([ExpandingWorldAssembly(purpose: .testing)])
+        ModuleAssembler([ExpandingWorldAssembly(), ASKCoreAssembly(purpose: .testing)])
     }
 }

@@ -21,7 +21,7 @@ final class ShopLibrary {
     }
 }
 
-enum ShopID: Identifiable, Equatable {
+enum ShopID: Identifiable, Equatable, Codable {
     case pinkyTavern
     
     var id: Self { self }

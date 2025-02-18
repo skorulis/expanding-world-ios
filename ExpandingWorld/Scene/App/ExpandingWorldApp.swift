@@ -8,7 +8,10 @@ import Knit
 struct ExpandingWorldApp: App {
     
     private let assembler: ModuleAssembler = {
-        let assembler = ModuleAssembler([ExpandingWorldAssembly(purpose: .normal)])
+        let assembler = ModuleAssembler([
+            ExpandingWorldAssembly(),
+            ASKCoreAssembly(purpose: .normal),
+        ])
         assembler.resolver.gameService().startNewGame()
         return assembler
     }()

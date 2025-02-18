@@ -21,6 +21,7 @@ extension MainTabsView: View {
             placeTab
             maybeInventory
             maybePlayerStatus
+            settings
         }
     }
     
@@ -35,7 +36,7 @@ extension MainTabsView: View {
     
     @ViewBuilder
     var maybeInventory: some View {
-        if knowledgeStore.gameFeatures.contains(.inventory) {
+        if knowledgeStore.knowledge.gameFeatures.contains(.inventory) {
             PlayerInventoryView(
                 viewModel: resolver.playerInventoryViewModel()
             )
@@ -55,6 +56,14 @@ extension MainTabsView: View {
                 Image(systemName: "level.fill")
             }
         }
+    }
+    
+    @ViewBuilder
+    private var settings: some View {
+        SettingsView(viewModel: resolver.settingsViewModel())
+            .tabItem {
+                Image(systemName: "gearshape.fill")
+            }
     }
     
     var currentPlace: Place {

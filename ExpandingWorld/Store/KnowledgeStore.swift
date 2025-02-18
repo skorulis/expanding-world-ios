@@ -1,33 +1,44 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
+import ASKCore
 import Foundation
 import KnitMacros
 import Knit
 
 final class KnowledgeStore: ObservableObject {
     
-    @Published private(set) var placeFeatures: Set<PlaceFeatureID> = []
-    @Published private(set) var gameFeatures: Set<GameFeature> = []
+    @Published var knowledge: Knowledge {
+        didSet {
+            try? keyValueStore.set(knowledge)
+        }
+    }
     
     private let alertService: AlertService
+    private let keyValueStore: PKeyValueStore
     
     @Resolvable<Resolver>
-    init(alertService: AlertService) {
+    init(alertService: AlertService, keyValueStore: PKeyValueStore) {
+        self.knowledge = keyValueStore.dataStorable()
         self.alertService = alertService
+        self.keyValueStore = keyValueStore
     }
     
     func learn(placeFeature: PlaceFeatureID) {
-        placeFeatures.insert(placeFeature)
+        knowledge.placeFeatures.insert(placeFeature)
     }
     
     func learn(game: GameFeature) {
-        if !gameFeatures.contains(game) {
-            gameFeatures.insert(game)
+        if !knowledge.gameFeatures.contains(game) {
+            knowledge.gameFeatures.insert(game)
             alertService.post(message: game.discoveryText)
         }
     }
     
     func contains(any: [GameFeature]) -> Bool {
-        return any.contains(where: { gameFeatures.contains($0) })
+        return any.contains(where: { knowledge.gameFeatures.contains($0) })
+    }
+    
+    func reset() {
+        knowledge = .init()
     }
 }

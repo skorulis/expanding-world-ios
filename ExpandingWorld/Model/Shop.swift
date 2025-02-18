@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Shop {
+struct Shop: Codable {
     
     let spec: ShopSpec
     var inventory: Inventory
@@ -13,7 +13,7 @@ struct Shop {
     }
 }
 
-struct ShopSpec {
+struct ShopSpec: Codable {
     
     let id: ShopID
     let startingItems: [Item.Instance]

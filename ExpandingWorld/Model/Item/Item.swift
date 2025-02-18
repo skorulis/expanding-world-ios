@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-enum Item {
+enum Item: Codable {
     case grog
     case stew
 }
@@ -54,7 +54,7 @@ extension Item {
         }
     }
     
-    struct Instance: Identifiable {
+    struct Instance: Identifiable, Codable {
         let type: Item
         var amount: Int
         

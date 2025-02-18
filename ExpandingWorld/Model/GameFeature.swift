@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum GameFeature: Identifiable {
+enum GameFeature: Identifiable, Codable {
     case money
     case time
     case inventory

@@ -25,4 +25,14 @@ extension TimeStore {
         func timeAdvanced(seconds: Int64)
     }
 
+    struct Time: Codable, DataStorable {
+        
+        var seconds: Int64
+        static var storageKey: DataStoreKey { .time }
+        static var defaultValue: TimeStore.Time { .init(seconds: 0) }
+        
+        
+    }
 }
+
+

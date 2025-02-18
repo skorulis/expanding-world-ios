@@ -2,20 +2,24 @@
 
 import Foundation
 
-struct Player {
+struct Player: Codable {
     var money: Int64
     var inventory: Inventory
     var statuses: Statuses
     
-    static var `default`: Player {
+    static var defaultValue: Player {
         .init(money: 100, inventory: .init(), statuses: .default)
     }
+}
+
+extension Player: DataStorable {
+    static var storageKey: DataStoreKey { .player }
 }
 
 extension Player {
     
     // TODO: Change name
-    enum Status: CaseIterable, Identifiable {
+    enum Status: CaseIterable, Identifiable, Codable {
         case intoxication
         case satiation
         
@@ -47,7 +51,7 @@ extension Player {
         }
     }
     
-    struct Statuses {
+    struct Statuses: Codable {
         var values: [Status: Float] = [:]
         
         mutating func add(status: Status, amount: Int) {

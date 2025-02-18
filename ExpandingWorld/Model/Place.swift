@@ -40,7 +40,7 @@ extension Place {
     }
 }
 
-enum PlaceFeatureID {
+enum PlaceFeatureID: Codable {
     // pinkyTavern
     case pinkyTavernBar
     case pinkyTavernTables

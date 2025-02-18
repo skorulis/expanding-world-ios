@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Inventory {
+struct Inventory: Codable {
     private var items: [Item: Int]
     
     init(items: [Item.Instance]) {
