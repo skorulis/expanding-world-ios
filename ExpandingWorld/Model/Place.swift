@@ -47,7 +47,6 @@ enum PlaceFeatureID: Codable {
     // pinkyTavern
     case pinkyTavernBar
     case pinkyTavernTables
-    case pinkyTavernExit
 }
 
 enum PlaceID: Codable {

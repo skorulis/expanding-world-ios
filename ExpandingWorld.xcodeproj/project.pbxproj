@@ -490,7 +490,7 @@
 			repositoryURL = "https://github.com/skorulis/ASKCore";
 			requirement = {
 				kind = revision;
-				revision = 6c227f7a0f8df0938903ecf5468a7fdfa9dcd6e6;
+				revision = 1b09b5f3d311f0a95aa9015793e71b92f620f6f7;
 			};
 		};
 		FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */ = {

@@ -29,3 +29,9 @@ import KnitMacros
     }
     
 }
+
+extension PlayerStore: ResettableService {
+    func resetData() {
+        player = .defaultValue
+    }
+}

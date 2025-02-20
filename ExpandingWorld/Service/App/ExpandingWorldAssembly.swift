@@ -11,6 +11,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     init() {}
     
     @MainActor func assemble(container: Container) {        
+        registerBehaviors(container: container)
         registerServices(container: container)
         registerStores(container: container)
         registerViewModels(container: container)
@@ -27,9 +28,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         }
         .inObjectScope(.container)
         
-        container.register(GameService.self) { r in
-            GameService(alertService: r.alertService())
-        }
+        container.register(GameService.self) { r in GameService.make(resolver: r) }
         
         container.register(PlayerStatusService.self) { PlayerStatusService.make(resolver: $0) }
             .inObjectScope(.container)
@@ -68,6 +67,21 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         
         container.register(ShopViewModel.self) { (resolver: Resolver, shopID: ShopID) in
             ShopViewModel.make(resolver: resolver, shopID: shopID)
+        }
+    }
+    
+    private func registerBehaviors(container: Container) {
+        container.register(InstanceAggregation<ResettableService>.self, name: "resettableService") { _ in
+            .init(isChild: { $0 is ResettableService.Type })
+        }
+        .inObjectScope(.container)
+        
+        container.addBehavior(container.instanceAggregation(name: .resettableService))
+        
+        container.register(ResettableServiceProvider.self) { resolver in
+            return {
+                resolver.instanceAggregation(name: .resettableService).factories.compactMap { $0(resolver) }
+            }
         }
     }
 }

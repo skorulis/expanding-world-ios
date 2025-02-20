@@ -1,5 +1,6 @@
 //Created by Alexander Skorulis on 16/2/2025.
 
+import ASKCore
 import Foundation
 import Knit
 import KnitMacros
@@ -7,13 +8,18 @@ import KnitMacros
 @Observable final class SettingsViewModel {
     
     private let knowledgeStore: KnowledgeStore
+    private let resettableServiceProvider: ResettableServiceProvider
     
     @Resolvable<Resolver>
-    init(knowledgeStore: KnowledgeStore) {
+    init(
+        knowledgeStore: KnowledgeStore,
+        resettableServiceProvider: @escaping ResettableServiceProvider
+    ) {
         self.knowledgeStore = knowledgeStore
+        self.resettableServiceProvider = resettableServiceProvider
     }
     
-    private func reset() {
-        knowledgeStore.reset()
+    func reset() {
+        resettableServiceProvider().forEach { $0.resetData() }
     }
 }

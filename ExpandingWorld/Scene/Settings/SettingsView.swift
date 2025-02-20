@@ -16,7 +16,7 @@ extension SettingsView: View {
     
     var body: some View {
         VStack {
-            Button(action: {}) {
+            Button(action: viewModel.reset) {
                 Text("Reset Data")
             }
         }

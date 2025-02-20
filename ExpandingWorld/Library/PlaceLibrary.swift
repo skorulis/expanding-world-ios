@@ -8,8 +8,10 @@ final class PlaceLibrary {
     static var wharfRoad = PlaceSpec(
         id: .wharfRoad,
         name: "Wharf Road",
-        description: "A road between the wharf",
-        actions: [],
+        description: "A wide road heading east down towards the water and west upwards to the city where you can see the clock tower.",
+        actions: [
+            .look,
+        ],
         transit: [
             .init(
                 to: .pinkyTavern,
@@ -46,14 +48,6 @@ final class PlaceLibrary {
                 id: .pinkyTavernTables,
                 name: "Tables",
                 description: "A collection of tables each seating 4 patrons",
-                actions: [
-                    .look,
-                ]
-            ),
-            .init(
-                id: .pinkyTavernExit,
-                name: "Exit",
-                description: "A door out into the street",
                 actions: [
                     .look,
                 ]

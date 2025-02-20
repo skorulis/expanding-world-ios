@@ -18,7 +18,7 @@ enum GameFeature: Identifiable, Codable {
         case .money:
             return "You reach into your pocket to see what money you have to pay with"
         case .time:
-            return ""
+            return "What time is it?"
         case .inventory:
             return "I guess I'll put this in my pocket"
         case .satiation:

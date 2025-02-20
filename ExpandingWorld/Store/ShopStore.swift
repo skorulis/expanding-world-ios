@@ -42,3 +42,9 @@ struct Shops: Codable, DataStorable {
     
     var shops: [ShopID: Shop]
 }
+
+extension ShopStore: ResettableService {
+    func resetData() {
+        shops = .defaultValue
+    }
+}

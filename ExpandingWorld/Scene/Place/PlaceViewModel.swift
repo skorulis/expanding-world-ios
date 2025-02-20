@@ -1,5 +1,6 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
+import Combine
 import Foundation
 import Knit
 import KnitMacros
@@ -10,7 +11,8 @@ import KnitMacros
     private let knowledgeStore: KnowledgeStore
     private let actionService: ActionService
     private let playerStore: PlayerStore
-    private(set) var visibleFeatures: [Place.Feature]
+    private(set) var visibleFeatures: [Place.Feature] = []
+    private var cancellables: Set<AnyCancellable> = []
     
     var shopID: ShopID?
     
@@ -20,7 +22,11 @@ import KnitMacros
         self.actionService = actionService
         self.knowledgeStore = knowledgeStore
         self.playerStore = playerStore
-        self.visibleFeatures = place.spec.features.filter { knowledgeStore.knowledge.placeFeatures.contains($0.id) }
+        
+        knowledgeStore.$knowledge.sink { knowledge in
+            self.visibleFeatures = place.spec.features.filter { knowledge.placeFeatures.contains($0.id) }
+        }
+        .store(in: &cancellables)
     }
     
     var actions: [PlaceAction] {
@@ -33,7 +39,6 @@ import KnitMacros
     
     func perform(action: PlaceAction) {
         actionService.perform(action: action, place: place)
-        self.visibleFeatures = place.spec.features.filter { knowledgeStore.knowledge.placeFeatures.contains($0.id) }
     }
     
     func perform(action: PlaceAction, feature: Place.Feature) {

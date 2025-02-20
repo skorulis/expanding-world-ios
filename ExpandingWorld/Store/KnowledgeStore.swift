@@ -38,7 +38,10 @@ final class KnowledgeStore: ObservableObject {
         return any.contains(where: { knowledge.gameFeatures.contains($0) })
     }
     
-    func reset() {
-        knowledge = .init()
+}
+
+extension KnowledgeStore: ResettableService {
+    func resetData() {
+        knowledge = .defaultValue
     }
 }
