@@ -15,7 +15,31 @@ struct NumericExpressionTests {
         #expect(calculate { 1.c * 5.c - 5.c } == 0)
     }
     
-    private func calculate(@ExpressionBuilder _ builder: () -> NumericExpression) -> Double {
-        return builder().evaluate()
+    @Test func lessThan() {
+        #expect(calculate { 4.c < 5.c} == 1)
+        #expect(calculate { 6.c < 5.c} == 0)
+    }
+    
+    @Test func greaterThanOrEqual() {
+        #expect(calculate { 1.c >= 1.c} == 1)
+        #expect(calculate { 0.c >= 0.c} == 1)
+        #expect(calculate { 0.c >= 0.5.c} == 0)
+    }
+    
+    @Test func statusValue() {
+        #expect(calculate { Player.Status.intoxication.v * 6.c } == 30)
+    }
+    
+    private func calculate(
+        context: NumericExpression.Context = .fixed,
+        @ExpressionBuilder _ builder: () -> NumericExpression
+    ) -> Double {
+        return builder().evaluate(context)
+    }
+}
+
+extension NumericExpression.Context {
+    static var fixed: Self {
+        .init(status: { _ in 5 })
     }
 }

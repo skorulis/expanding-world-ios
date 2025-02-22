@@ -3,6 +3,7 @@
 import Foundation
 
 extension NumericExpression {
+    
     static func +(lhs: NumericExpression, rhs: NumericExpression) -> NumericExpression {
         return NumericExpression.add(lhs, rhs)
     }
@@ -18,10 +19,18 @@ extension NumericExpression {
     static func /(lhs: NumericExpression, rhs: NumericExpression) -> NumericExpression {
         return NumericExpression.divide(lhs, rhs)
     }
-}
-
-extension Double {
-    var c: NumericExpression { return NumericExpression.number(self) }
+    
+    static func < (lhs: NumericExpression, rhs: NumericExpression) -> NumericExpression {
+        return NumericExpression.lessThan(lhs, rhs)
+    }
+    
+    static func > (lhs: NumericExpression, rhs: NumericExpression) -> NumericExpression {
+        return NumericExpression.greaterThan(lhs, rhs)
+    }
+    
+    static func >= (lhs: NumericExpression, rhs: NumericExpression) -> NumericExpression {
+        return NumericExpression.greaterThanOrEqual(lhs, rhs)
+    }
 }
 
 indirect enum NumericExpression {
@@ -30,20 +39,41 @@ indirect enum NumericExpression {
     case subtract(NumericExpression, NumericExpression)
     case multiply(NumericExpression, NumericExpression)
     case divide(NumericExpression, NumericExpression)
+    case lessThan(NumericExpression, NumericExpression)
+    case greaterThan(NumericExpression, NumericExpression)
+    case greaterThanOrEqual(NumericExpression, NumericExpression)
+    
+    // Variables
+    case status(Player.Status)
+    // TODO: Add greater than and less than
 
-    func evaluate() -> Double {
+    func evaluate(_ context: Context) -> Double {
         switch self {
-        case .number(let value):
+        case let .number(value):
             return value
-        case .add(let lhs, let rhs):
-            return lhs.evaluate() + rhs.evaluate()
-        case .subtract(let lhs, let rhs):
-            return lhs.evaluate() - rhs.evaluate()
-        case .multiply(let lhs, let rhs):
-            return lhs.evaluate() * rhs.evaluate()
-        case .divide(let lhs, let rhs):
-            return lhs.evaluate() / rhs.evaluate()
+        case let .add(lhs, rhs):
+            return lhs.evaluate(context) + rhs.evaluate(context)
+        case let .subtract(lhs, rhs):
+            return lhs.evaluate(context) - rhs.evaluate(context)
+        case let .multiply(lhs, rhs):
+            return lhs.evaluate(context) * rhs.evaluate(context)
+        case let .divide(lhs, rhs):
+            return lhs.evaluate(context) / rhs.evaluate(context)
+        case let .lessThan(lhs, rhs):
+            return lhs.evaluate(context) < rhs.evaluate(context) ? 1 : 0
+        case let .greaterThan(lhs, rhs):
+            return lhs.evaluate(context) > rhs.evaluate(context) ? 1 : 0
+        case let .greaterThanOrEqual(lhs, rhs):
+            return lhs.evaluate(context) >= rhs.evaluate(context) ? 1 : 0
+        case let .status(status):
+            return context.status(status)
         }
+    }
+}
+
+extension NumericExpression {
+    struct Context {
+        var status: (Player.Status) -> Double
     }
 }
 
@@ -52,4 +82,12 @@ struct ExpressionBuilder {
     static func buildBlock(_ components: NumericExpression...) -> NumericExpression {
         return components.reduce(NumericExpression.number(0)) { $0 + $1 }
     }
+}
+
+extension Double {
+    var c: NumericExpression { return NumericExpression.number(self) }
+}
+
+extension Player.Status {
+    var v: NumericExpression { NumericExpression.status(self) }
 }

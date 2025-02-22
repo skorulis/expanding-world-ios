@@ -8,7 +8,7 @@ enum PlaceAction: Identifiable {
     
     case look
     case shop(ShopID)
-    case talk
+    case talk(ActionPossibilities)
 
     /// Time to perform the action in seconds
     var time: Int64 {

@@ -48,7 +48,20 @@ final class PlaceLibrary {
                 name: "Tables",
                 description: "A collection of tables each seating 4 patrons",
                 actions: [
-                    .talk
+                    .talk(
+                        .init(
+                            conditionals: [
+                                .init(
+                                    condition: { Player.Status.intoxication.v >= 4.c },
+                                    outcomes: [
+                                        .alert("Yes")
+                                    ])
+                            ],
+                            fallback: [
+                                .alert("Nobody seems interested in talking to you. They glance in your direction and return to their drunken conversations")
+                            ]
+                        )
+                    )
                 ]
             )
         ]

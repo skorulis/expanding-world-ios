@@ -20,6 +20,11 @@ struct ActionPossibilities {
 
 struct ActionConditional {
     
-    // TODO: Add type for condition
+    let condition: NumericExpression
     let outcomes: [ActionOutcome]
+    
+    init(@ExpressionBuilder condition: () -> NumericExpression, outcomes: [ActionOutcome]) {
+        self.condition = condition()
+        self.outcomes = outcomes
+    }
 }

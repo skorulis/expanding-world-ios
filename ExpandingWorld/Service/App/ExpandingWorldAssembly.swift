@@ -23,10 +23,9 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
             ActionService.make(resolver: r)
         }
         
-        container.register(AlertService.self) { _ in
-            AlertService()
-        }
-        .inObjectScope(.container)
+        container.register(Evaluator.self) { Evaluator.make(resolver: $0) } 
+        container.register(AlertService.self) { _ in AlertService() }
+            .inObjectScope(.container)
         
         container.register(GameService.self) { r in GameService.make(resolver: r) }
         
