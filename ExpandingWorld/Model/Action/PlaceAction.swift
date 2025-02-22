@@ -8,6 +8,7 @@ enum PlaceAction: Identifiable {
     
     case look
     case shop(ShopID)
+    case talk
 
     /// Time to perform the action in seconds
     var time: Int64 {
@@ -16,6 +17,8 @@ enum PlaceAction: Identifiable {
             return 10
         case .shop:
             return 0
+        case .talk:
+            return 60
         }
     }
     
@@ -25,6 +28,8 @@ enum PlaceAction: Identifiable {
             return "Look"
         case .shop:
             return "Shop"
+        case .talk:
+            return "Talk"
         }
     }
     
@@ -34,15 +39,17 @@ enum PlaceAction: Identifiable {
             Image(systemName: "eye.fill")
         case .shop:
             Image(systemName: "dollarsign.bank.building.fill")
+        case .talk:
+            Image(systemName: "captions.bubble")
         }
     }
     
     var id: String {
         switch self {
-        case .look:
-            return "look"
         case .shop(let shopID):
             return "shop-\(shopID)"
+        default:
+            return text
         }
     }
     

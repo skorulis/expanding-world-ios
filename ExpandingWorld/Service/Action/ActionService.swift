@@ -31,6 +31,7 @@ final class ActionService {
             alertService.post(message: place.spec.description)
         case .shop:
             knowledgeStore.learn(game: .money)
+        case .talk:
             break
         }
     }
@@ -42,6 +43,7 @@ final class ActionService {
             alertService.post(message: feature.description)
         case .shop:
             knowledgeStore.learn(game: .money)
+        case .talk:
             break
         }
     }

@@ -40,7 +40,6 @@ final class PlaceLibrary {
                 name: "Bar",
                 description: "There is an short grizzled bartender behind the bar and a sign above the bar reads \"Pinky's Tavern 24/7\"",
                 actions: [
-                    .look,
                     .shop(.pinkyTavern),
                 ]
             ),
@@ -49,7 +48,7 @@ final class PlaceLibrary {
                 name: "Tables",
                 description: "A collection of tables each seating 4 patrons",
                 actions: [
-                    .look,
+                    .talk
                 ]
             )
         ]

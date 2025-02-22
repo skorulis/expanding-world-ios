@@ -16,7 +16,7 @@ struct ActionServiceTests {
         sut.perform(action: .look, place: place)
         
         #expect(time.seconds == 10)
-        #expect(knowledge.placeFeatures.contains(.pinkyTavernBar))
+        #expect(knowledge.knowledge.placeFeatures.contains(.pinkyTavernBar))
     }
 
 }
