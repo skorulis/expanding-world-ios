@@ -1,11 +1,25 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
+import ASKCore
 import Foundation
+import Knit
+import KnitMacros
 
-final class TimeStore {
-    private(set) var seconds: Int64 = 0
-    
+final class TimeStore: ObservableObject {
+    @Published private(set) var seconds: Int64 {
+        didSet {
+            try! keyValueStore.set(Time(seconds: seconds))
+        }
+    }
     private var observers: [() -> Observer?] = []
+    
+    private let keyValueStore: PKeyValueStore
+    
+    @Resolvable<Resolver>
+    init(keyValueStore: PKeyValueStore) {
+        self.keyValueStore = keyValueStore
+        self.seconds = keyValueStore.dataStorable(Time.self).seconds
+    }
     
     func advance(seconds: Int64) {
         self.seconds += seconds

@@ -52,4 +52,5 @@ enum PlaceFeatureID: Codable {
 enum PlaceID: Codable {
     case pinkyTavern
     case wharfRoad
+    case docks
 }

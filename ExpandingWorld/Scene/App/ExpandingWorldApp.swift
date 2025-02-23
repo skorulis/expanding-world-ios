@@ -20,11 +20,15 @@ struct ExpandingWorldApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: assembler.resolver.contentViewModel())
-                .environment(\.resolver, assembler.resolver)
-                .onAppear {
-                    startup()
-                }
+            ZStack(alignment: .top) {
+                ContentView(viewModel: assembler.resolver.contentViewModel())
+                    .environment(\.resolver, assembler.resolver)
+                    .onAppear {
+                        startup()
+                    }
+                GameStatusBar(viewModel: assembler.resolver.gameStatusBarViewModel())
+            }
+            .statusBar(hidden: true)
         }
     }
     

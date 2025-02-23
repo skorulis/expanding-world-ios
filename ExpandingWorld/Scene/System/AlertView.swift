@@ -28,6 +28,7 @@ extension AlertView: View {
             .background(Color.white)
             .padding(24)
         }
+        .statusBarHidden()
     }
 }
 

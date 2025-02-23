@@ -5,7 +5,7 @@ import Foundation
 // The library of places that exist
 final class PlaceLibrary {
     
-    static var wharfRoad = PlaceSpec(
+    static let wharfRoad = PlaceSpec(
         id: .wharfRoad,
         name: "Wharf Road",
         description: "A wide road heading east down towards the water and west upwards to the city where you can see the clock tower.",
@@ -16,12 +16,13 @@ final class PlaceLibrary {
             .init(
                 to: .pinkyTavern,
                 text: "Pinky's"
-            )
+            ),
+            .init(to: .docks, text: "Docks")
         ],
         features: []
     )
     
-    static var tavern1 = PlaceSpec(
+    static let tavern1 = PlaceSpec(
         id: .pinkyTavern,
         name: "Pinky's Tavern",
         description: "A small tavern with a questionable odor. There is a bar towards the back of the room and assorted tables",
@@ -67,12 +68,22 @@ final class PlaceLibrary {
         ]
     )
     
+    static let docks = PlaceSpec(
+        id: .docks,
+        name: "The Docks",
+        description: "A number of wooden jetties jut out into the bay. Ships of various sizes are docked and goods are being loaded and unloaded.",
+        actions: [
+            .look,
+        ],
+        transit: [.init(to: .wharfRoad, text: "Wharf Road")],
+        features: []
+    )
+    
     static func spec(for id: PlaceID) -> PlaceSpec {
         switch id {
-        case .pinkyTavern:
-            return tavern1
-        case .wharfRoad:
-            return wharfRoad
+        case .pinkyTavern: return tavern1
+        case .wharfRoad: return wharfRoad
+        case .docks: return docks
         }
     }
 }

@@ -8,7 +8,11 @@ struct ContentView: View {
     @Environment(\.resolver) private var resolver
     
     var body: some View {
-        MainTabsView(knowledgeStore: resolver.knowledgeStore())
+        VStack(spacing: 0) {
+            GameStatusBar(viewModel: resolver.gameStatusBarViewModel())
+            MainTabsView(knowledgeStore: resolver.knowledgeStore())
+        }
+        .ignoresSafeArea(edges: .top)
     }
     
 }

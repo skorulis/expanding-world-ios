@@ -23,7 +23,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
             ActionService.make(resolver: r)
         }
         
-        container.register(Evaluator.self) { Evaluator.make(resolver: $0) } 
+        container.register(Evaluator.self) { Evaluator.make(resolver: $0) }
         container.register(AlertService.self) { _ in AlertService() }
             .inObjectScope(.container)
         
@@ -35,15 +35,11 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     
     @MainActor
     private func registerStores(container: Container) {
-        container.register(TimeStore.self) { _ in
-            TimeStore()
-        }
-        .inObjectScope(.container)
+        container.register(TimeStore.self) { TimeStore.make(resolver: $0) }
+            .inObjectScope(.container)
         
-        container.register(KnowledgeStore.self) {
-            KnowledgeStore.make(resolver: $0)
-        }
-        .inObjectScope(.container)
+        container.register(KnowledgeStore.self) { KnowledgeStore.make(resolver: $0) }
+            .inObjectScope(.container)
         
         container.register(ShopStore.self) { ShopStore.make(resolver: $0) }
             .inObjectScope(.container)
@@ -63,6 +59,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         container.register(PlayerInventoryViewModel.self) { PlayerInventoryViewModel.make(resolver: $0) }
         container.register(PlayerStatusViewModel.self) { PlayerStatusViewModel.make(resolver: $0) }
         container.register(SettingsViewModel.self) { SettingsViewModel.make(resolver: $0) }
+        container.register(GameStatusBarViewModel.self) { GameStatusBarViewModel.make(resolver: $0) }
         
         container.register(ShopViewModel.self) { (resolver: Resolver, shopID: ShopID) in
             ShopViewModel.make(resolver: resolver, shopID: shopID)

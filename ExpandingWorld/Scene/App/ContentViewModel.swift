@@ -8,7 +8,7 @@ import KnitMacros
 @Observable final class ContentViewModel {
     
     var currentAlert: AlertService.Alert?
-    var cancellables: Set<AnyCancellable> = []
+    private var cancellables: Set<AnyCancellable> = []
     
     let alertService: AlertService
     

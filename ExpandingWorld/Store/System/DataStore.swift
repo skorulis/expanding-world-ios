@@ -9,7 +9,7 @@ extension PKeyValueStore {
         try self.set(codable: value, forKey: T.storageKey.rawValue)
     }
     
-    func dataStorable<T: DataStorable>() -> T {
+    func dataStorable<T: DataStorable>(_ type: T.Type = T.self) -> T {
         return (try? self.codable(forKey: T.storageKey.rawValue)) ?? .defaultValue
     }
     

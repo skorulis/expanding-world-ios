@@ -6,6 +6,7 @@ import SwiftUI
 struct HexagonButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .multilineTextAlignment(.center)
             .frame(width: ActionButton.size, height: ActionButton.size)
             .background(
                 HexagonShape()

@@ -23,6 +23,7 @@ extension ActionButton: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 32, height: 32)
                 Text(placeAction.text)
+                    .multilineTextAlignment(.center)
             }
         }
         .buttonStyle(HexagonButtonStyle())

@@ -50,5 +50,11 @@ import KnitMacros
     
     func changeLocation(id: PlaceID) {
         playerStore.player.location = id
+        switch id {
+        case .wharfRoad:
+            knowledgeStore.learn(game: .time)
+        default:
+            break
+        }
     }
 }
