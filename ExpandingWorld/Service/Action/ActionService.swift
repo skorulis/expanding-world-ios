@@ -34,8 +34,9 @@ final class ActionService {
         case .shop:
             knowledgeStore.learn(game: .money)
         case let .talk(possibilities):
-            let result = resolve(possibilities: possibilities)
-            enact(outcomes: result)
+            complete(possibilities: possibilities)
+        case let .work(_, possibilities):
+            complete(possibilities: possibilities)
         }
     }
     
@@ -47,9 +48,15 @@ final class ActionService {
         case .shop:
             knowledgeStore.learn(game: .money)
         case let .talk(possibilities):
-            let result = resolve(possibilities: possibilities)
-            enact(outcomes: result)
+            complete(possibilities: possibilities)
+        case let .work(_, possibilities):
+            complete(possibilities: possibilities)
         }
+    }
+    
+    func complete(possibilities: ActionPossibilities) {
+        let result = resolve(possibilities: possibilities)
+        enact(outcomes: result)
     }
     
     /// Find the outcomes from a set of possibilities
@@ -70,6 +77,8 @@ final class ActionService {
         switch outcome {
         case let .alert(message):
             alertService.post(message: message)
+        case let .time(seconds):
+            timeStore.advance(seconds: seconds)
         }
     }
 }

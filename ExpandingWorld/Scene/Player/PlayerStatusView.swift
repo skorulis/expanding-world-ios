@@ -29,7 +29,7 @@ extension PlayerStatusView: View {
         if viewModel.knowledgeStore.knowledge.gameFeatures.contains(status.gameFeature) {
             VStack(alignment: .leading, spacing: 0) {
                 Text(status.text)
-                StatusBar(value: 5, max: 10)
+                StatusBar(value: viewModel.value(status), max: 10)
             }
         }
     }

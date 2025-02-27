@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 16/2/2025.
 
 import ASKCore
+import Combine
 import Foundation
 import Knit
 import KnitMacros
@@ -17,15 +18,23 @@ import KnitMacros
             if player.statuses.value(.satiation) <= 5 {
                 knowledgeStore.learn(game: .satiation)
             }
+            if player.statuses.value(.health) <= 5 {
+                knowledgeStore.learn(game: .health)
+            }
             try? keyValueStore.set(player)
+            playerSubject.send(player)
         }
     }
+    
+    var playerSubject: CurrentValueSubject<Player, Never>
     
     @Resolvable<Resolver>
     init(keyValueStore: PKeyValueStore, knowledgeStore: KnowledgeStore) {
         self.keyValueStore = keyValueStore
         self.knowledgeStore = knowledgeStore
-        self.player = keyValueStore.dataStorable()
+        let player: Player = keyValueStore.dataStorable()
+        self.player = player
+        self.playerSubject = .init(player)
     }
     
 }

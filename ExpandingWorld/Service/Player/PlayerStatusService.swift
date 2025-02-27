@@ -33,6 +33,13 @@ extension PlayerStatusService: TimeStore.Observer {
             }
             player.statuses.values[status] = value
         }
+        if player.statuses.value(.satiation) == 0 {
+            let health = player.statuses.value(.health) - 0.5 / 3600
+            player.statuses.values[.health] = health
+        } else if player.statuses.value(.satiation) >= 8 {
+            let health = player.statuses.value(.health) + 1 / 3600
+            player.statuses.values[.health] = health
+        }
         playerStore.player = player
     }
 }

@@ -15,3 +15,9 @@ import KnitMacros
         self.knowledgeStore = knowledgeStore
     }
 }
+
+extension PlayerStatusViewModel {
+    func value(_ status: Player.Status) -> Float {
+        return playerStore.player.statuses.value(status)
+    }
+}

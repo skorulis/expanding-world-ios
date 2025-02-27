@@ -7,9 +7,24 @@ struct Player: Codable {
     var inventory: Inventory
     var statuses: Statuses
     var location: PlaceID
+    var deaths: Int
     
     static var defaultValue: Player {
-        .init(money: 100, inventory: .init(), statuses: .default, location: .pinkyTavern)
+        .init(
+            money: 100,
+            inventory: .init(),
+            statuses: .default,
+            location: .pinkyTavern,
+            deaths: 0
+        )
+    }
+    
+    mutating func playerDied() {
+        money = 100
+        inventory = .init()
+        statuses = .default
+        location = .pinkyTavern
+        deaths += 1
     }
 }
 
@@ -23,11 +38,14 @@ extension Player {
     enum Status: CaseIterable, Identifiable, Codable {
         case intoxication
         case satiation
+        case health
         
         var id: Self { self }
         
         var normalisationRate: Float {
             switch self {
+            case .health:
+                return 0
             case .intoxication:
                 return 1 / 3600
             case .satiation:
@@ -41,6 +59,8 @@ extension Player {
                 return "Intoxication"
             case .satiation:
                 return "Satiation"
+            case .health:
+                return "Health"
             }
         }
         
@@ -48,6 +68,7 @@ extension Player {
             switch self {
             case .intoxication: return .intoxication
             case .satiation: return .satiation
+            case .health: return .health
             }
         }
     }
@@ -64,7 +85,7 @@ extension Player {
         }
         
         static var `default`: Statuses {
-            .init(values: [.satiation: 10])
+            .init(values: [.satiation: 10, .health: 10])
         }
         
         var intoxication: Float {

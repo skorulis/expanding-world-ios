@@ -7,6 +7,9 @@ enum ActionOutcome {
     
     /// Show an alert to the user
     case alert(String)
+    
+    /// Time advances by x seconds
+    case time(Int64)
 }
 
 
@@ -16,6 +19,10 @@ struct ActionPossibilities {
     
     /// Fallback outcome when no conditionals are matched
     let fallback: [ActionOutcome]
+    
+    static func fixed(_ outcomes: [ActionOutcome]) -> Self {
+        .init(conditionals: [], fallback: outcomes)
+    }
 }
 
 struct ActionConditional {

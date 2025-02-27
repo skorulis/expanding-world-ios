@@ -26,6 +26,13 @@ struct ActionServiceTests {
         
         #expect(alertService.currentAlert?.message == "Hello")
     }
+    
+    @Test func timeOutcome() {
+        let sut = assembler.resolver.actionService()
+        let timeStore = assembler.resolver.timeStore()
+        sut.enact(outcome: .time(50))
+        #expect(timeStore.seconds == 50)
+    }
 
 }
 

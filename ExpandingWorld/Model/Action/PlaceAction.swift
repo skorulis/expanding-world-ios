@@ -9,6 +9,7 @@ enum PlaceAction: Identifiable {
     case look
     case shop(ShopID)
     case talk(ActionPossibilities)
+    case work(Int64, ActionPossibilities)
 
     /// Time to perform the action in seconds
     var time: Int64 {
@@ -19,6 +20,8 @@ enum PlaceAction: Identifiable {
             return 0
         case .talk:
             return 60
+        case let .work(duration, _):
+            return duration
         }
     }
     
@@ -30,6 +33,8 @@ enum PlaceAction: Identifiable {
             return "Shop"
         case .talk:
             return "Talk"
+        case let .work(duration, _):
+            return "Work \(TimeFormatter.default.format(time: duration))"
         }
     }
     
@@ -41,6 +46,8 @@ enum PlaceAction: Identifiable {
             Image(systemName: "dollarsign.bank.building.fill")
         case .talk:
             Image(systemName: "captions.bubble")
+        case .work:
+            Image(systemName: "figure.run.circle")
         }
     }
     

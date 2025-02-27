@@ -8,6 +8,7 @@ enum GameFeature: Identifiable, Codable {
     case inventory
     case satiation
     case intoxication
+    case health
     
     static var playerStatuses: [GameFeature] {
         return Player.Status.allCases.map { $0.gameFeature }
@@ -25,6 +26,8 @@ enum GameFeature: Identifiable, Codable {
             return "You're beginning to feel hungry"
         case .intoxication:
             return "Those drinks are really starting to go to your head"
+        case .health:
+            return "You're not feeling great"
         }
     }
     

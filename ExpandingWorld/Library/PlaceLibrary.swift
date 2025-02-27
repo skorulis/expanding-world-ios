@@ -42,6 +42,9 @@ final class PlaceLibrary {
                 description: "There is an short grizzled bartender behind the bar and a sign above the bar reads \"Pinky's Tavern 24/7\"",
                 actions: [
                     .shop(.pinkyTavern),
+                    .work(4 * 3600, .fixed([
+                        .alert("You make X waiting tables")
+                    ]))
                 ]
             ),
             .init(
@@ -55,11 +58,13 @@ final class PlaceLibrary {
                                 .init(
                                     condition: { Player.Status.intoxication.v >= 4.c },
                                     outcomes: [
-                                        .alert("Yes")
+                                        .alert("Yes"),
+                                        .time(600),
                                     ])
                             ],
                             fallback: [
-                                .alert("Nobody seems interested in talking to you. They glance in your direction and return to their drunken conversations")
+                                .alert("Nobody seems interested in talking to you. They glance in your direction and return to their drunken conversations"),
+                                .time(120),
                             ]
                         )
                     )
