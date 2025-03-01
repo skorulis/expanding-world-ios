@@ -10,12 +10,14 @@ struct HexagonGrid: Layout {
         return .init(columns: columns, rows: rows)
     }
     
-    let hexSize: CGFloat
-    let hexHeight: CGFloat
+    let math: HexagonMath
+    
+    var hexSize: CGFloat
+    var hexHeight: CGFloat { math.hexHeight }
     
     init(hexSize: CGFloat) {
         self.hexSize = hexSize
-        hexHeight = sqrt(3) * hexSize
+        self.math = .init(width: hexSize * 2)
     }
     
     func sizeThatFits(
@@ -24,20 +26,10 @@ struct HexagonGrid: Layout {
         cache: inout Cache
     ) -> CGSize {
         if subviews.isEmpty { return .zero }
-        if let width = proposal.width, width > 0, width != .infinity {
-            cache.columns = max(min(Int(width / hexSize / 2), subviews.count), 1)
-            cache.rows = (subviews.count + cache.columns - 1) / cache.columns
-        }
-        let hexWidth = hexSize * 2
-        let spacingX = hexWidth * 0.75
-        let spacingY = hexHeight
-        let hasExtraBottom = subviews.count % cache.columns != 1 && subviews.count > 1
-        let bottomSpace = hasExtraBottom ? hexSize : hexSize / 2
-        
-        return CGSize(
-            width: CGFloat(cache.columns) * spacingX + hexSize / 2,
-            height: CGFloat(cache.rows) * spacingY + bottomSpace
-        )
+        let (cols, rows) = math.fit(width: proposal.width, cellCount: subviews.count)
+        cache.columns = cols
+        cache.rows = rows
+        return math.size(cols: cols, rows: rows, cellCount: subviews.count)
     }
     
     func placeSubviews(
@@ -65,6 +57,13 @@ struct HexagonGrid: Layout {
             )
         }
     }
+    
+    static func cellSize(width: CGFloat) -> CGSize {
+        .init(
+            width: width,
+            height: width * (2 / sqrt(3))
+        )
+    }
 }
 
 extension HexagonGrid {
@@ -76,7 +75,7 @@ extension HexagonGrid {
 
 #Preview {
     HexagonGrid(hexSize: 40) {
-        ForEach(0..<1, id: \.self) { index in
+        ForEach(0..<10, id: \.self) { index in
             ZStack {
                 Text("\(index)")
                 HexagonShape()
