@@ -5,14 +5,13 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var map = GameMap(width: 10, height: 10, tiles: nil)
-    @State private var selected: GameMap.Position?
+    @State var viewModel = ContentViewModel()
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             ScrollView([.horizontal, .vertical]) {
-                MapView(map: map) { pos in
-                    selected = pos
+                MapView(map: viewModel.map) { pos in
+                    viewModel.selected = pos
                 }
                 .gesture(gesture)
                 .simultaneousGesture(gesture)
@@ -29,8 +28,19 @@ struct ContentView: View {
     @ViewBuilder
     private var editingPane: some View {
         VStack {
+            HStack {
+                Button(action: viewModel.openFile) {
+                    Text("Load")
+                }
+                
+                Button(action: viewModel.saveMap) {
+                    Text("Save")
+                }
+            }
+            Stepper("Width: \(viewModel.map.width)", value: $viewModel.map.width, in: 1...100)
+            Stepper("Height: \(viewModel.map.height)", value: $viewModel.map.height, in: 1...100)
             
-            if let selected {
+            if let selected = viewModel.selected {
                 TileEditingPane(tile: tileBinding(selected))
             }
         }
@@ -38,9 +48,9 @@ struct ContentView: View {
     
     private func tileBinding(_ position: GameMap.Position) -> Binding<GameMap.Tile> {
         .init {
-            map[position]
+            viewModel.map[position]
         } set: { newValue in
-            map[position] = newValue
+            viewModel.map[position] = newValue
         }
 
     }

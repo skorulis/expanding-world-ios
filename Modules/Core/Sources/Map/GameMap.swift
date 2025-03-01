@@ -4,8 +4,17 @@ import Foundation
 import SwiftUI
 
 public struct GameMap: Codable {
-    public let width: Int
-    public let height: Int
+    public var width: Int {
+        didSet {
+            widthChanged()
+        }
+    }
+    
+    public var height: Int {
+        didSet {
+            heightChanged()
+        }
+    }
     public var tiles: [[Tile]]
     
     public init(width: Int, height: Int, tiles: [[Tile]]?) {
@@ -24,6 +33,24 @@ public struct GameMap: Codable {
         }
         set {
             tiles[position.y][position.x] = newValue
+        }
+    }
+    
+    private mutating func widthChanged() {
+        while width < tiles[0].count {
+            tiles = tiles.map { $0.dropLast() }
+        }
+        while width > tiles[0].count {
+            tiles = tiles.map { $0 + [Tile()] }
+        }
+    }
+    
+    private mutating func heightChanged() {
+        while height < tiles.count {
+            _ = tiles.removeLast()
+        }
+        while height > tiles.count {
+            _ = tiles.append(Array(repeating: Tile(), count: width))
         }
     }
 }
@@ -59,6 +86,8 @@ public extension GameMap {
         case dirt
         case grass
         case stone
+        case stoneFloor
+        case woodFloor
         
         public var image: Image {
             switch self {
@@ -68,6 +97,10 @@ public extension GameMap {
                 return Asset.Terrain.grass05.swiftUIImage
             case .stone:
                 return Asset.Terrain.stone02.swiftUIImage
+            case .stoneFloor:
+                return Asset.Terrain.stoneFloor.swiftUIImage
+            case .woodFloor:
+                return Asset.Terrain.woodTexture.swiftUIImage
             }
         }
         

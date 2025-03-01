@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "dirt_07.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "dirt_07.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

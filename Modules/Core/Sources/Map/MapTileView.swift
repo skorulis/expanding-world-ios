@@ -22,6 +22,7 @@ extension MapTileView: View {
             if let terrain = tile.terrain {
                 terrain.image
                     .resizable()
+                    .clipShape(HexagonShape())
             } else {
                 HexagonShape()
                     .stroke(Color.gray)
@@ -39,6 +40,10 @@ extension MapTileView: View {
 // MARK: - Previews
 
 #Preview {
-    MapTileView(tile: .init(terrain: .grass))
+    VStack {
+        MapTileView(tile: .init(terrain: .grass))
+        MapTileView(tile: .init(terrain: .stoneFloor))
+    }
+    
 }
 

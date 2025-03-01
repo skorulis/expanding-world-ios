@@ -30,7 +30,9 @@ internal enum Asset {
     internal static let dirt07 = ImageAsset(name: "dirt_07")
     internal static let grass05 = ImageAsset(name: "grass_05")
     internal static let mars02 = ImageAsset(name: "mars_02")
+    internal static let stoneFloor = ImageAsset(name: "stone-floor")
     internal static let stone02 = ImageAsset(name: "stone_02")
+    internal static let woodTexture = ImageAsset(name: "wood-texture")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
