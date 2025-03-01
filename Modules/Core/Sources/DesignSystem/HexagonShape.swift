@@ -3,11 +3,13 @@
 import Foundation
 import SwiftUI
 
-struct HexagonShape: Shape {
+public struct HexagonShape: Shape {
     
-    static let aspectRatio: CGFloat = 2 / sqrt(3)
+    public init() {}
     
-    func path(in rect: CGRect) -> Path {
+    public static let aspectRatio: CGFloat = 2 / sqrt(3)
+    
+    public func path(in rect: CGRect) -> Path {
         var path = Path()
 
         let center = CGPoint(x: rect.midX, y: rect.midY)

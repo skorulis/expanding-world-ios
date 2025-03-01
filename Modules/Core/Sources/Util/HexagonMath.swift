@@ -2,16 +2,16 @@
 
 import Foundation
 
-struct HexagonMath {
-    let width: CGFloat
-    let hexHeight: CGFloat
+public struct HexagonMath {
+    public let width: CGFloat
+    public let hexHeight: CGFloat
     
-    init(width: CGFloat) {
+    public init(width: CGFloat) {
         self.width = width
         self.hexHeight = width * sqrt(3) / 2
     }
     
-    func fit(width: CGFloat?, cellCount: Int) -> (Int, Int) {
+    public func fit(width: CGFloat?, cellCount: Int) -> (Int, Int) {
         if let width, width > 0, width != .infinity {
             let widElement = self.width * 0.75
             let cols = max(min(Int(width / widElement), cellCount), 1)
@@ -22,7 +22,7 @@ struct HexagonMath {
         }
     }
     
-    func size(cols: Int, rows: Int, cellCount: Int) -> CGSize {
+    public func size(cols: Int, rows: Int, cellCount: Int) -> CGSize {
         let spacingX = width * 0.75
         let spacingY = hexHeight
         let hasExtraBottom = cellCount % cols != 1 && cellCount > 1

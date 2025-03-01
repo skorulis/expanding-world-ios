@@ -1,2 +1,4 @@
 ExpandingWorld.xcodeproj/xcuserdata
 ExpandingWorld.xcodeproj/project.xcworkspace/xcuserdata
+Modules/Core/.swiftpm
+Modules/Core/.build

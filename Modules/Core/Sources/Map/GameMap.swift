@@ -3,12 +3,12 @@
 import Foundation
 import SwiftUI
 
-struct GameMap {
-    let width: Int
-    let height: Int
-    var tiles: [[Tile]]
+public struct GameMap {
+    public let width: Int
+    public let height: Int
+    public var tiles: [[Tile]]
     
-    init(width: Int, height: Int, tiles: [[Tile]]?) {
+    public init(width: Int, height: Int, tiles: [[Tile]]?) {
         self.width = width
         self.height = height
         self.tiles = tiles ?? Self.emptyTiles(width: width, height: height)
@@ -19,19 +19,19 @@ struct GameMap {
     }
 }
 
-extension GameMap {
+public extension GameMap {
     struct Tile {
-        var terrain: TerrainType?
-        var object: ObjectType?
+        public var terrain: TerrainType?
+        public var object: ObjectType?
     }
     
     enum ObjectType {
         case brickBuiliding
         
-        var image: ImageAsset {
+        public var image: Image {
             switch self {
             case .brickBuiliding:
-                return Asset.Objects.medivalPub
+                return Asset.Objects.medivalPub.swiftUIImage
             }
         }
     }
@@ -41,14 +41,14 @@ extension GameMap {
         case grass
         case stone
         
-        var image: ImageAsset {
+        public var image: Image {
             switch self {
             case .dirt:
-                return Asset.dirt07
+                return Asset.Terrain.dirt07.swiftUIImage
             case .grass:
-                return Asset.grass05
+                return Asset.Terrain.grass05.swiftUIImage
             case .stone:
-                return Asset.Terrain.stone02
+                return Asset.Terrain.stone02.swiftUIImage
             }
         }
         

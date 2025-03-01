@@ -1,10 +1,11 @@
 //Created by Alexander Skorulis on 15/2/2025.
 
+import Core
 import SwiftUI
 
-struct HexagonGrid: Layout {
+public struct HexagonGrid: Layout {
     
-    func makeCache(subviews: Subviews) -> Cache {
+    public func makeCache(subviews: Subviews) -> Cache {
         let columns = subviews.count
         let rows = 1
         return .init(columns: columns, rows: rows)
@@ -15,12 +16,12 @@ struct HexagonGrid: Layout {
     var hexSize: CGFloat
     var hexHeight: CGFloat { math.hexHeight }
     
-    init(hexSize: CGFloat) {
+    public init(hexSize: CGFloat) {
         self.hexSize = hexSize
         self.math = .init(width: hexSize * 2)
     }
     
-    func sizeThatFits(
+    public func sizeThatFits(
         proposal: ProposedViewSize,
         subviews: Subviews,
         cache: inout Cache
@@ -32,7 +33,7 @@ struct HexagonGrid: Layout {
         return math.size(cols: cols, rows: rows, cellCount: subviews.count)
     }
     
-    func placeSubviews(
+    public func placeSubviews(
         in bounds: CGRect,
         proposal: ProposedViewSize,
         subviews: Subviews,
@@ -67,7 +68,7 @@ struct HexagonGrid: Layout {
 }
 
 extension HexagonGrid {
-    struct Cache {
+    public struct Cache {
         var columns: Int
         var rows: Int
     }

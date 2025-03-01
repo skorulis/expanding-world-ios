@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA0AD9EA2D72931F002F1570 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = FA0AD9E92D72931F002F1570 /* Core */; };
 		FA6024192D5EC79A0003286A /* knitconfig.json in Resources */ = {isa = PBXBuildFile; fileRef = FA6024182D5EC79A0003286A /* knitconfig.json */; };
 		FA60246E2D5ED2840003286A /* Knit in Frameworks */ = {isa = PBXBuildFile; productRef = FA60246D2D5ED2840003286A /* Knit */; };
 		FA6024702D5ED2840003286A /* KnitMacros in Frameworks */ = {isa = PBXBuildFile; productRef = FA60246F2D5ED2840003286A /* KnitMacros */; };
@@ -51,6 +52,7 @@
 				FA6024862D5EE1D80003286A /* ASKCore in Frameworks */,
 				FA60246E2D5ED2840003286A /* Knit in Frameworks */,
 				FA6025A72D6057600003286A /* UIColorHexSwift in Frameworks */,
+				FA0AD9EA2D72931F002F1570 /* Core in Frameworks */,
 				FA6024702D5ED2840003286A /* KnitMacros in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,6 +111,7 @@
 				FA60246F2D5ED2840003286A /* KnitMacros */,
 				FA6024852D5EE1D80003286A /* ASKCore */,
 				FA6025A62D6057600003286A /* UIColorHexSwift */,
+				FA0AD9E92D72931F002F1570 /* Core */,
 			);
 			productName = ExpandingWorld;
 			productReference = FA6023D72D5EC5410003286A /* ExpandingWorld.app */;
@@ -169,6 +172,7 @@
 				FA60246C2D5ED2840003286A /* XCRemoteSwiftPackageReference "knit" */,
 				FA6024842D5EE1D80003286A /* XCRemoteSwiftPackageReference "ASKCore" */,
 				FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */,
+				FA0AD9E82D72931F002F1570 /* XCLocalSwiftPackageReference "Modules/Core" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA6023D82D5EC5410003286A /* Products */;
@@ -476,6 +480,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		FA0AD9E82D72931F002F1570 /* XCLocalSwiftPackageReference "Modules/Core" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules/Core;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		FA60246C2D5ED2840003286A /* XCRemoteSwiftPackageReference "knit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -504,6 +515,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FA0AD9E92D72931F002F1570 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
 		FA60246D2D5ED2840003286A /* Knit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA60246C2D5ED2840003286A /* XCRemoteSwiftPackageReference "knit" */;

@@ -1,5 +1,6 @@
 //Created by Alexander Skorulis on 27/2/2025.
 
+import Core
 import Foundation
 import SwiftUI
 
@@ -38,14 +39,14 @@ extension MapView: View {
         let tile = map.tiles[y][x]
         ZStack {
             if let terrain = tile.terrain {
-                terrain.image.swiftUIImage
+                terrain.image
                     .resizable()
             } else {
                 HexagonShape()
                     .stroke(Color.gray)
             }
             if let object = tile.object {
-                object.image.swiftUIImage
+                object.image
                     .resizable()
                     .frame(width: 60, height: 60)
             }
