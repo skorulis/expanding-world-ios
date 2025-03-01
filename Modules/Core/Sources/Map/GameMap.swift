@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-public struct GameMap {
+public struct GameMap: Codable {
     public let width: Int
     public let height: Int
     public var tiles: [[Tile]]
@@ -17,15 +17,34 @@ public struct GameMap {
     private static func emptyTiles(width: Int, height: Int) -> [[Tile]] {
         Array(repeating: Array(repeating: Tile(), count: width), count: height)
     }
+    
+    public subscript(position: Position) -> Tile {
+        get {
+            tiles[position.y][position.x]
+        }
+        set {
+            tiles[position.y][position.x] = newValue
+        }
+    }
 }
 
 public extension GameMap {
-    struct Tile {
-        public var terrain: TerrainType?
-        public var object: ObjectType?
+    struct Position {
+        public let x: Int
+        public let y: Int
     }
     
-    enum ObjectType {
+    struct Tile: Codable {
+        public var terrain: TerrainType?
+        public var object: ObjectType?
+        
+        public init(terrain: TerrainType? = nil, object: ObjectType? = nil) {
+            self.terrain = terrain
+            self.object = object
+        }
+    }
+    
+    enum ObjectType: CaseIterable, Hashable, Codable {
         case brickBuiliding
         
         public var image: Image {
@@ -36,7 +55,7 @@ public extension GameMap {
         }
     }
     
-    enum TerrainType {
+    enum TerrainType: CaseIterable, Hashable, Codable {
         case dirt
         case grass
         case stone

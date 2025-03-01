@@ -13,6 +13,7 @@
 		FA6024702D5ED2840003286A /* KnitMacros in Frameworks */ = {isa = PBXBuildFile; productRef = FA60246F2D5ED2840003286A /* KnitMacros */; };
 		FA6024862D5EE1D80003286A /* ASKCore in Frameworks */ = {isa = PBXBuildFile; productRef = FA6024852D5EE1D80003286A /* ASKCore */; };
 		FA6025A72D6057600003286A /* UIColorHexSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA6025A62D6057600003286A /* UIColorHexSwift */; };
+		FA6D99F52D72B15400242A2D /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = FA6D99F42D72B15400242A2D /* Core */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +24,21 @@
 			remoteGlobalIDString = FA6023D62D5EC5410003286A;
 			remoteInfo = ExpandingWorld;
 		};
+		FA6D99052D72AF5200242A2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA6023CF2D5EC5410003286A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA6D98F32D72AF5000242A2D;
+			remoteInfo = LevelEditor;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		FA6023D72D5EC5410003286A /* ExpandingWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpandingWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6023E72D5EC5420003286A /* ExpandingWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpandingWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6024182D5EC79A0003286A /* knitconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = knitconfig.json; sourceTree = "<group>"; };
+		FA6D98F42D72AF5000242A2D /* LevelEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LevelEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA6D99042D72AF5200242A2D /* LevelEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LevelEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,6 +50,16 @@
 		FA6023EA2D5EC5420003286A /* ExpandingWorldTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ExpandingWorldTests;
+			sourceTree = "<group>";
+		};
+		FA6D98F52D72AF5000242A2D /* LevelEditor */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LevelEditor;
+			sourceTree = "<group>";
+		};
+		FA6D99072D72AF5200242A2D /* LevelEditorTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LevelEditorTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -64,6 +84,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA6D98F12D72AF5000242A2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA6D99F52D72B15400242A2D /* Core in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA6D99012D72AF5200242A2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -73,6 +108,9 @@
 				FA6024182D5EC79A0003286A /* knitconfig.json */,
 				FA6023D92D5EC5410003286A /* ExpandingWorld */,
 				FA6023EA2D5EC5420003286A /* ExpandingWorldTests */,
+				FA6D98F52D72AF5000242A2D /* LevelEditor */,
+				FA6D99072D72AF5200242A2D /* LevelEditorTests */,
+				FA6D99F32D72B15400242A2D /* Frameworks */,
 				FA6023D82D5EC5410003286A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,8 +120,17 @@
 			children = (
 				FA6023D72D5EC5410003286A /* ExpandingWorld.app */,
 				FA6023E72D5EC5420003286A /* ExpandingWorldTests.xctest */,
+				FA6D98F42D72AF5000242A2D /* LevelEditor.app */,
+				FA6D99042D72AF5200242A2D /* LevelEditorTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FA6D99F32D72B15400242A2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +187,52 @@
 			productReference = FA6023E72D5EC5420003286A /* ExpandingWorldTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FA6D98F32D72AF5000242A2D /* LevelEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA6D99162D72AF5200242A2D /* Build configuration list for PBXNativeTarget "LevelEditor" */;
+			buildPhases = (
+				FA6D98F02D72AF5000242A2D /* Sources */,
+				FA6D98F12D72AF5000242A2D /* Frameworks */,
+				FA6D98F22D72AF5000242A2D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FA6D98F52D72AF5000242A2D /* LevelEditor */,
+			);
+			name = LevelEditor;
+			packageProductDependencies = (
+				FA6D99F42D72B15400242A2D /* Core */,
+			);
+			productName = LevelEditor;
+			productReference = FA6D98F42D72AF5000242A2D /* LevelEditor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FA6D99032D72AF5200242A2D /* LevelEditorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA6D99192D72AF5200242A2D /* Build configuration list for PBXNativeTarget "LevelEditorTests" */;
+			buildPhases = (
+				FA6D99002D72AF5200242A2D /* Sources */,
+				FA6D99012D72AF5200242A2D /* Frameworks */,
+				FA6D99022D72AF5200242A2D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA6D99062D72AF5200242A2D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FA6D99072D72AF5200242A2D /* LevelEditorTests */,
+			);
+			name = LevelEditorTests;
+			packageProductDependencies = (
+			);
+			productName = LevelEditorTests;
+			productReference = FA6D99042D72AF5200242A2D /* LevelEditorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -156,6 +249,13 @@
 					FA6023E62D5EC5420003286A = {
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = FA6023D62D5EC5410003286A;
+					};
+					FA6D98F32D72AF5000242A2D = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					FA6D99032D72AF5200242A2D = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = FA6D98F32D72AF5000242A2D;
 					};
 				};
 			};
@@ -181,6 +281,8 @@
 			targets = (
 				FA6023D62D5EC5410003286A /* ExpandingWorld */,
 				FA6023E62D5EC5420003286A /* ExpandingWorldTests */,
+				FA6D98F32D72AF5000242A2D /* LevelEditor */,
+				FA6D99032D72AF5200242A2D /* LevelEditorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -195,6 +297,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FA6023E52D5EC5420003286A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA6D98F22D72AF5000242A2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA6D99022D72AF5200242A2D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -218,6 +334,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA6D98F02D72AF5000242A2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA6D99002D72AF5200242A2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -229,6 +359,11 @@
 		FA6024792D5EDDD80003286A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = FA6024782D5EDDD80003286A /* KnitBuildPlugin */;
+		};
+		FA6D99062D72AF5200242A2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA6D98F32D72AF5000242A2D /* LevelEditor */;
+			targetProxy = FA6D99052D72AF5200242A2D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -372,6 +507,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skorulis.ExpandingWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -401,6 +537,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skorulis.ExpandingWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -448,6 +585,102 @@
 			};
 			name = Release;
 		};
+		FA6D99172D72AF5200242A2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LevelEditor/Resource/LevelEditor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LevelEditor/Resource/Preview Content\"";
+				DEVELOPMENT_TEAM = X4S6MUZL2D;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skorulis.LevelEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FA6D99182D72AF5200242A2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LevelEditor/Resource/LevelEditor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LevelEditor/Resource/Preview Content\"";
+				DEVELOPMENT_TEAM = X4S6MUZL2D;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skorulis.LevelEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FA6D991A2D72AF5200242A2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X4S6MUZL2D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skorulis.LevelEditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LevelEditor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LevelEditor";
+			};
+			name = Debug;
+		};
+		FA6D991B2D72AF5200242A2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X4S6MUZL2D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skorulis.LevelEditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LevelEditor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LevelEditor";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -474,6 +707,24 @@
 			buildConfigurations = (
 				FA6023FF2D5EC5430003286A /* Debug */,
 				FA6024002D5EC5430003286A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA6D99162D72AF5200242A2D /* Build configuration list for PBXNativeTarget "LevelEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA6D99172D72AF5200242A2D /* Debug */,
+				FA6D99182D72AF5200242A2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA6D99192D72AF5200242A2D /* Build configuration list for PBXNativeTarget "LevelEditorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA6D991A2D72AF5200242A2D /* Debug */,
+				FA6D991B2D72AF5200242A2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -543,6 +794,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */;
 			productName = UIColorHexSwift;
+		};
+		FA6D99F42D72B15400242A2D /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA0AD9E82D72931F002F1570 /* XCLocalSwiftPackageReference "Modules/Core" */;
+			productName = Core;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
