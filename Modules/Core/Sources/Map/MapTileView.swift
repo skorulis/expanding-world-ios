@@ -1,6 +1,7 @@
 //  Created by Alexander Skorulis on 1/3/2025.
 
 import Foundation
+import Hex
 import SwiftUI
 
 // MARK: - Memory footprint

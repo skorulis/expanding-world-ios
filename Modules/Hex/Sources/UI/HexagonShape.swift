@@ -1,6 +1,5 @@
 //Created by Alexander Skorulis on 15/2/2025.
 
-import Foundation
 import SwiftUI
 
 public struct HexagonShape: Shape {
@@ -11,18 +10,15 @@ public struct HexagonShape: Shape {
     
     public func path(in rect: CGRect) -> Path {
         var path = Path()
-
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let width = min(rect.width, rect.height * Self.aspectRatio)
-        let size = width / 2
-        let corners = (0..<6)
-            .map {
-                let angle = -CGFloat.pi / 3 * CGFloat($0)
-                let dx = size * cos(angle)
-                let dy = size * sin(angle)
-
-                return CGPoint(x: center.x + dx, y: center.y + dy)
-            }
+        let math = Hexagon(width: rect.width)
+        let size = math.width / 2
+        let corners = HexagonVertex.allCases.map { vertex in
+            let offset = vertex.relativePosition
+            return CGPoint(
+                x: offset.x * size + rect.midX,
+                y: offset.y * size + rect.midY
+            )
+        }
 
         path.move(to: corners[0])
         corners[1..<6].forEach { point in

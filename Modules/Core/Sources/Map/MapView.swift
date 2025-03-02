@@ -1,6 +1,6 @@
 //Created by Alexander Skorulis on 27/2/2025.
 
-import Core
+import Hex
 import Foundation
 import SwiftUI
 
@@ -8,7 +8,7 @@ import SwiftUI
 
 public struct MapView {
     private let map: GameMap
-    private let math: HexagonMath
+    private let grid: HexagonGrid
     private let onCellTap: (GameMap.Position) -> Void
     
     public init(
@@ -16,7 +16,7 @@ public struct MapView {
         onCellTap: @escaping (GameMap.Position) -> Void
     ) {
         self.map = map
-        self.math = HexagonMath(width: 80)
+        self.grid = HexagonGrid(hexagon: .init(width: 80), columns: map.width, rows: map.height)
         self.onCellTap = onCellTap
     }
 }
@@ -26,7 +26,7 @@ public struct MapView {
 extension MapView: View {
     
     public var body: some View {
-        HexagonGrid(hexSize: 40) {
+        HexagonGridLayout(hexagon: grid.hexagon) {
             ForEach(0..<map.height, id: \.self) { y in
                 ForEach(0..<map.width, id: \.self) { x in
                     tileView(x: x, y: y)
@@ -47,7 +47,7 @@ extension MapView: View {
     }
     
     private var visualSize: CGSize {
-        math.size(cols: map.width, rows: map.height, cellCount: map.width * map.height)
+        grid.size(cellCount: map.width * map.height)
     }
 }
 
