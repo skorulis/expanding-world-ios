@@ -15,7 +15,7 @@ public struct Hexagon {
         self.height = width / Self.aspectRatio
     }
     
-    public var centre: CGPoint {
+    public var center: CGPoint {
         .init(x: width / 2, y: height / 2)
     }
     
@@ -28,12 +28,12 @@ public struct Hexagon {
         let w2 = width / 2
         let r = vertex.relativePosition
         return .init(
-            x: r.x * w2 + centre.x,
-            y: r.y * w2 + centre.y
+            x: r.x * w2 + center.x,
+            y: r.y * w2 + center.y
         )
     }
     
-    public func centrePosition(edge: HexagonEdge) -> CGPoint {
+    public func centerPosition(edge: HexagonEdge) -> CGPoint {
         let p1 = position(vertex: edge.vertices.0)
         let p2 = position(vertex: edge.vertices.1)
         return .init(x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2)
@@ -46,6 +46,25 @@ public struct Hexagon {
         return .init(width: v1.x - v2.x, height: v2.y - v1.y)
     }
     
+    public var sideLength: CGFloat {
+        let p1 = position(vertex: .bottomLeft)
+        let p2 = position(vertex: .bottomRight)
+        return p2.x - p1.x
+    }
+    
+    func contains(point: CGPoint) -> Bool {
+        // Convert the point to local hexagonal coordinates
+        let dx = abs(point.x - center.x)
+        let dy = abs(point.y - center.y)
+        
+        // Basic bounding box check
+        if dx > sideLength * 1.5 || dy > sideLength * sqrt(3) / 2 {
+            return false
+        }
+        
+        // Check against the sloped edges
+        return dy <= sqrt(3) * (sideLength - dx)
+    }
 }
 
 

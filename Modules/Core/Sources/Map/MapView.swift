@@ -16,7 +16,7 @@ public struct MapView {
         onCellTap: @escaping (GameMap.Position) -> Void
     ) {
         self.map = map
-        self.grid = HexagonGrid(hexagon: .init(width: 80), columns: map.width, rows: map.height)
+        self.grid = map.grid
         self.onCellTap = onCellTap
     }
 }

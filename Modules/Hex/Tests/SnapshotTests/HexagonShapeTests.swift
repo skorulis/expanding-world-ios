@@ -52,12 +52,12 @@ struct HexagonShapeTests {
                 .stroke(style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round))
                 .foregroundColor(.black)
             
-            pointView(.red, math.centrePosition(edge: .top))
-            pointView(.blue, math.centrePosition(edge: .rightTop))
-            pointView(.green, math.centrePosition(edge: .rightBottom))
-            pointView(.orange, math.centrePosition(edge: .bottom))
-            pointView(.purple, math.centrePosition(edge: .leftBottom))
-            pointView(.yellow, math.centrePosition(edge: .leftTop))
+            pointView(.red, math.centerPosition(edge: .top))
+            pointView(.blue, math.centerPosition(edge: .rightTop))
+            pointView(.green, math.centerPosition(edge: .rightBottom))
+            pointView(.orange, math.centerPosition(edge: .bottom))
+            pointView(.purple, math.centerPosition(edge: .leftBottom))
+            pointView(.yellow, math.centerPosition(edge: .leftTop))
         }
         .hexFrame(math: math)
         .padding(10)

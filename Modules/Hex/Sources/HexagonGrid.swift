@@ -38,8 +38,8 @@ public struct HexagonGrid {
         )
     }
     
-    public func center(row: Int, column: Int) -> CGPoint {
-        let corner = topCorner(row: row, column: column)
+    public func center(coord: Coord) -> CGPoint {
+        let corner = topCorner(coord: coord)
         
         return .init(
             x: corner.x + hexagon.size.width / 2,
@@ -47,33 +47,53 @@ public struct HexagonGrid {
         )
     }
     
-    public func topCorner(row: Int, column: Int) -> CGPoint {
-        let xOffset = CGFloat(column) * spacingX
-        let yOffset = CGFloat(row) * hexagon.height + (column % 2 == 1 ? hexagon.height / 2 : 0)
+    public func topCorner(coord: Coord) -> CGPoint {
+        let xOffset = CGFloat(coord.x) * spacingX
+        let yOffset = CGFloat(coord.y) * hexagon.height + (coord.x % 2 == 1 ? hexagon.height / 2 : 0)
         
         return .init(x: xOffset, y: yOffset)
     }
     
-    func frame(row: Int, column: Int) -> CGRect {
-        let origin = topCorner(row: row, column: column)
+    func frame(coord: Coord) -> CGRect {
+        let origin = topCorner(coord: coord)
         return .init(origin: origin, size: hexagon.size)
     }
     
-    func location(index: Int) -> (Int, Int) {
+    func coordinate(index: Int) -> Coord {
         let row = index / columns
         let col = index - row * columns
-        return  (row, col)
+        return  .init(x: col, y: row)
+    }
+    
+    func index(x: Int, y: Int) -> Int {
+        return x + y * columns
     }
     
     func topCorner(index: Int) -> CGPoint {
-        let loc = location(index: index)
-        return topCorner(row: loc.0, column: loc.1)
+        let loc = coordinate(index: index)
+        return topCorner(coord: loc)
     }
     
     func center(index: Int) -> CGPoint {
         let tc = topCorner(index: index)
         return .init(x: tc.x + hexagon.width / 2, y: tc.y + hexagon.height / 2)
     }
+    
+    public func coordinate(point: CGPoint) -> Coord? {
+        for y in 0..<rows {
+            for x in 0..<columns {
+                let i = index(x: x, y: y)
+                let c = topCorner(index: i)
+                let n = CGPoint(x: point.x - c.x, y: point.y - c.y)
+                if hexagon.contains(point: n) {
+                    return Coord(x: x, y: y)
+                }
+            }
+        }
+        return nil
+    }
+    
+    
 }
 
 public extension Hexagon {
@@ -93,6 +113,18 @@ public extension Hexagon {
             return .init(hexagon: self, columns: cols, rows: rows)
         } else {
             return .init(hexagon: self, columns: cellCount, rows: 1)
+        }
+    }
+}
+
+public extension HexagonGrid {
+    struct Coord: Equatable {
+        public let x: Int
+        public let y: Int
+        
+        public init(x: Int, y: Int) {
+            self.x = x
+            self.y = y
         }
     }
 }

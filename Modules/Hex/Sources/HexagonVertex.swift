@@ -11,13 +11,13 @@ public enum HexagonVertex: Int, CaseIterable {
     case topLeft
     case topRight
     
-    /// Angle from the centre of the hexagon
+    /// Angle from the center of the hexagon
     var angle: Angle {
         let angle = CGFloat.pi / 3 * CGFloat(rawValue)
         return .radians(angle)
     }
     
-    /// The position relative to the centre of the hexagon in a (-1, 1) coordinate space
+    /// The position relative to the center of the hexagon in a (-1, 1) coordinate space
     var relativePosition: CGPoint {
         return CGPoint(x: cos(angle.radians), y: sin(angle.radians))
     }

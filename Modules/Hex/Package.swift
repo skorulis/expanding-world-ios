@@ -17,6 +17,7 @@ let package = Package(
         url: "https://github.com/pointfreeco/swift-snapshot-testing",
         from: "1.18.1"
       ),
+      .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -28,6 +29,7 @@ let package = Package(
             dependencies: [
                 "Hex",
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                .product(name: "Numerics", package: "swift-numerics"),
             ]
         ),
     ]

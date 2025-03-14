@@ -2,6 +2,7 @@
 
 import Core
 import Foundation
+import Hex
 import SwiftUI
 
 @Observable final class ContentViewModel {
@@ -14,6 +15,10 @@ import SwiftUI
 }
 
 extension ContentViewModel {
+    
+    var grid: HexagonGrid {
+        map.grid
+    }
     
     func saveMap() {
         let panel = NSSavePanel()

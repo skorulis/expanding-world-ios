@@ -1,9 +1,13 @@
 //Created by Alexander Skorulis on 28/2/2025.
 
+import Hex
 import Foundation
 import SwiftUI
 
 public struct GameMap: Codable {
+    
+    public static let hexWidth: CGFloat = 80
+    
     public var width: Int {
         didSet {
             widthChanged()
@@ -104,5 +108,11 @@ public extension GameMap {
             }
         }
         
+    }
+}
+
+extension GameMap {
+    public var grid: HexagonGrid {
+        HexagonGrid(hexagon: .init(width: Self.hexWidth), columns: width, rows: height)
     }
 }

@@ -20,10 +20,14 @@ struct ContentView: View {
         }
     }
     
-    private let gesture = DragGesture()
-        .onChanged { x in
-            print("Drag: \(x)")
-        }
+    private var gesture: some Gesture {
+        DragGesture()
+            .onChanged { state in
+                if let coord = viewModel.grid.coordinate(point: state.location) {
+                    print("C = \(coord.x), \(coord.y)")
+                }
+            }
+    }
     
     @ViewBuilder
     private var editingPane: some View {

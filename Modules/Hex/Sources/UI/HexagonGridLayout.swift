@@ -40,7 +40,7 @@ public struct HexagonGridLayout: Layout {
         for (index, subview) in subviews.enumerated() {
             let row = index / cache.columns
             let col = index % cache.columns
-            let offset = cache.topCorner(row: row, column: col)
+            let offset = cache.topCorner(coord: .init(x: col, y: row))
             
             subview.place(
                 at: CGPoint(

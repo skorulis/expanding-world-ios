@@ -2,6 +2,7 @@
 
 import Core
 import Foundation
+import Hex
 import SwiftUI
 
 // MARK: - Memory footprint
@@ -45,7 +46,7 @@ extension PlaceView: View {
     }
     
     private var actions: some View {
-        HexagonGrid(hexSize: ActionButton.size / 2) {
+        HexagonGridLayout(hexSize: ActionButton.size / 2) {
             ForEach(viewModel.actions) { action in
                 ActionButton(placeAction: action) {
                     viewModel.perform(action: action)
