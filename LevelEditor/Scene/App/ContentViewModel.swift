@@ -10,6 +10,9 @@ import SwiftUI
     
     var selected: GameMap.Position?
     private var fileName: URL?
+    var mode: EditMode = .paint
+    
+    var paintTexture: GameMap.TerrainType? = nil
     
     init() {}
 }
@@ -18,6 +21,15 @@ extension ContentViewModel {
     
     var grid: HexagonGrid {
         map.grid
+    }
+    
+    func maybePaint(coord: HexagonGrid.Coord) {
+        guard mode == .paint else { return }
+        var tile = map.tiles[coord.y][coord.x]
+        if tile.terrain != paintTexture {
+            tile.terrain = paintTexture
+            map.tiles[coord.y][coord.x] = tile
+        }
     }
     
     func saveMap() {
@@ -54,5 +66,13 @@ extension ContentViewModel {
                 print("Failed to load JSON, \(error)")
             }
         }
+    }
+}
+
+extension ContentViewModel {
+    enum EditMode: Hashable, Identifiable, CaseIterable {
+        case paint, single
+        
+        var id: Self { self }
     }
 }
