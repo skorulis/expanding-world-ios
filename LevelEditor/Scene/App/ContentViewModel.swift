@@ -8,7 +8,7 @@ import SwiftUI
 @Observable final class ContentViewModel {
     var map = GameMap(width: 10, height: 10, tiles: nil)
     
-    var selected: GameMap.Position?
+    var selected: HexagonGrid.Coord?
     private var fileName: URL?
     var mode: EditMode = .paint
     
@@ -61,6 +61,7 @@ extension ContentViewModel {
             do {
                 let data = try Data(contentsOf: url)
                 self.map = try JSONDecoder().decode(GameMap.self, from: data)
+                self.map.updateFeatureConnections()
                 self.fileName = url
             } catch {
                 print("Failed to load JSON, \(error)")

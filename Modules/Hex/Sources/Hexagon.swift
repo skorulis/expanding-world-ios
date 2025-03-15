@@ -15,6 +15,11 @@ public struct Hexagon {
         self.height = width / Self.aspectRatio
     }
     
+    public init(sideLength: CGFloat) {
+        self.width = sideLength * 2
+        self.height = width / Self.aspectRatio
+    }
+    
     public var center: CGPoint {
         .init(x: width / 2, y: height / 2)
     }

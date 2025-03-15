@@ -1,5 +1,6 @@
 //Created by Alexander Skorulis on 15/2/2025.
 
+import Hex
 import Core
 import SwiftUI
 

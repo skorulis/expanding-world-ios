@@ -39,7 +39,19 @@ struct HexagonGridTests {
     
     @Test func coordinate() {
         let grid = HexagonGrid(hexagon: .init(width: 60), columns: 3, rows: 5)
-        print(grid.coordinate(point: .init(x: 30, y: 25.98)))
         #expect(grid.coordinate(point: .init(x: 30, y: 25.98)) == .init(x: 0, y: 0))
+    }
+    
+    @Test func coordinateMovement() {
+        let coord = HexagonGrid.Coord(x: 2, y: 3)
+        #expect(coord.move(dir: .top) == .init(x: 2, y: 2))
+        #expect(coord.move(dir: .bottom) == .init(x: 2, y: 4))
+        
+        #expect(coord.move(dir: .leftTop) == .init(x: 1, y: 2))
+        #expect(coord.move(dir: .leftBottom) == .init(x: 1, y: 3))
+        
+        #expect(coord.move(dir: .rightTop) == .init(x: 3, y: 2))
+        #expect(coord.move(dir: .rightBottom) == .init(x: 3, y: 3))
+        
     }
 }

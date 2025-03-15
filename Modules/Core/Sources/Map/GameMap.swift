@@ -25,13 +25,14 @@ public struct GameMap: Codable {
         self.width = width
         self.height = height
         self.tiles = tiles ?? Self.emptyTiles(width: width, height: height)
+        updateFeatureConnections()
     }
     
     private static func emptyTiles(width: Int, height: Int) -> [[Tile]] {
         Array(repeating: Array(repeating: Tile(), count: width), count: height)
     }
     
-    public subscript(position: Position) -> Tile {
+    public subscript(position: HexagonGrid.Coord) -> Tile {
         get {
             tiles[position.y][position.x]
         }
@@ -57,22 +58,62 @@ public struct GameMap: Codable {
             _ = tiles.append(Array(repeating: Tile(), count: width))
         }
     }
+    
+    public mutating func updateFeatureConnections() {
+        for y in 0..<height {
+            for x in 0..<width {
+                updateFeatureConnections(coord: .init(x: x, y: y))
+            }
+        }
+    }
+    
+    public mutating func updateFeatureConnections(coord: HexagonGrid.Coord) {
+        var tile = tiles[coord.y][coord.x]
+        guard let feature = tile.feature else {
+            tile.wallEdges = []
+            tiles[coord.y][coord.x] = tile
+            return
+        }
+        tile.wallEdges = HexagonEdge.allCases.filter { edge in
+            let pos = coord.move(dir: edge)
+            guard contains(coord: pos) else { return false }
+            return self[pos].feature == feature
+        }
+        tiles[coord.y][coord.x] = tile
+    }
+    
+    public func contains(coord: HexagonGrid.Coord) -> Bool {
+        return coord.x >= 0 && coord.x < width && coord.y >= 0 && coord.y < height
+    }
 }
 
 public extension GameMap {
-    struct Position {
-        public let x: Int
-        public let y: Int
-    }
     
     struct Tile: Codable {
         public var terrain: TerrainType?
         public var object: ObjectType?
+        public var feature: Feature?
         
-        public init(terrain: TerrainType? = nil, object: ObjectType? = nil) {
+        public init(
+            terrain: TerrainType? = nil,
+            object: ObjectType? = nil,
+            feature: Feature? = nil
+        ) {
             self.terrain = terrain
             self.object = object
+            self.feature = feature
         }
+        
+        private enum CodingKeys: String, CodingKey {
+            case terrain, object, feature
+        }
+        
+        /// Cache for the positions of the wall
+        public var wallEdges: [HexagonEdge] = []
+    }
+    
+    enum Feature: CaseIterable, Hashable, Codable {
+        case wall
     }
     
     enum ObjectType: CaseIterable, Hashable, Codable {

@@ -82,18 +82,18 @@ struct ContentView: View {
     @ViewBuilder
     private var editingPane: some View {
         VStack {
-            
             if let selected = viewModel.selected {
                 TileEditingPane(tile: tileBinding(selected))
             }
         }
     }
     
-    private func tileBinding(_ position: GameMap.Position) -> Binding<GameMap.Tile> {
+    private func tileBinding(_ position: HexagonGrid.Coord) -> Binding<GameMap.Tile> {
         .init {
             viewModel.map[position]
         } set: { newValue in
             viewModel.map[position] = newValue
+            viewModel.map.updateFeatureConnections()
         }
 
     }

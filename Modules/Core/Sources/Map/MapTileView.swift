@@ -33,6 +33,10 @@ extension MapTileView: View {
                     .resizable()
                     .frame(width: 60, height: 60)
             }
+            if !tile.wallEdges.isEmpty {
+                WallShape(edges: tile.wallEdges)
+                    .fill(Color.gray)
+            }
         }
         .contentShape(HexagonShape())
     }
@@ -44,7 +48,9 @@ extension MapTileView: View {
     VStack {
         MapTileView(tile: .init(terrain: .grass))
         MapTileView(tile: .init(terrain: .stoneFloor))
+        MapTileView(tile: .init(terrain: .stoneFloor, feature: .wall))
     }
+    .frame(width: 80)
     
 }
 

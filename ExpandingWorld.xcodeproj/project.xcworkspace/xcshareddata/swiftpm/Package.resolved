@@ -1,5 +1,5 @@
 {
-  "originHash" : "0e0edbb1bc383bc203307022afe66fe128a6b01332bad2d24fca9ec41da6221a",
+  "originHash" : "c1b0c60be45151890117fb0df4f704ab041ecd415f7d1d20466b3765118994a3",
   "pins" : [
     {
       "identity" : "askcore",
@@ -7,6 +7,15 @@
       "location" : "https://github.com/skorulis/ASKCore",
       "state" : {
         "revision" : "1b09b5f3d311f0a95aa9015793e71b92f620f6f7"
+      }
+    },
+    {
+      "identity" : "cgpointvector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/koher/CGPointVector",
+      "state" : {
+        "revision" : "f6bed1d89d200cd639bf1284bf762fbb41835855",
+        "version" : "0.4.1"
       }
     },
     {

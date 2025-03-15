@@ -126,5 +126,27 @@ public extension HexagonGrid {
             self.x = x
             self.y = y
         }
+        
+        public func move(dir: HexagonEdge) -> Coord {
+            let isOddColumn = !x.isMultiple(of: 2)
+            switch dir {
+            case .top:
+                return .init(x: x, y: y - 1)
+            case .rightTop:
+                let y = isOddColumn ? y : y - 1
+                return .init(x: x + 1, y: y)
+            case .rightBottom:
+                let y = isOddColumn ? y + 1 : y
+                return .init(x: x + 1, y: y)
+            case .bottom:
+                return .init(x: x, y: y + 1)
+            case .leftBottom:
+                let y = isOddColumn ? y + 1 : y
+                return .init(x: x - 1, y: y)
+            case .leftTop:
+                let y = isOddColumn ? y : y - 1
+                return .init(x: x - 1, y: y)
+            }
+        }
     }
 }

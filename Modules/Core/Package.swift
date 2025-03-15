@@ -13,19 +13,31 @@ let package = Package(
             targets: ["Core"]),
     ],
     dependencies: [
-        .package(path: "../Hex")
+        .package(path: "../Hex"),
+        .package(
+            url: "https://github.com/pointfreeco/swift-snapshot-testing",
+            from: "1.18.1"
+        ),
+        .package(
+            url: "https://github.com/koher/CGPointVector",
+            from: "0.4.1"
+        )
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "Core",
-            dependencies: ["Hex"],
+            dependencies: [
+                "Hex",
+                .product(name: "CGPointVector", package: "CGPointVector")
+            ],
             resources: [.process("Resource/Assets.xcassets")]
         ),
         .testTarget(
             name: "CoreTests",
-            dependencies: ["Core"]
+            dependencies: [
+                "Core",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
         ),
     ]
 )

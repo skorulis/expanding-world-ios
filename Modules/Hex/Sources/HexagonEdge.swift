@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum HexagonEdge: Int, CaseIterable {
+public enum HexagonEdge: Int, CaseIterable, Codable, Sendable {
     /// Flat top edge
     case top
     
@@ -22,7 +22,7 @@ public enum HexagonEdge: Int, CaseIterable {
     case leftTop
     
     /// The vertices at the end of the edge
-    var vertices: (HexagonVertex, HexagonVertex) {
+    public var vertices: (HexagonVertex, HexagonVertex) {
         switch self {
         case .top:
             return (.topLeft, .topRight)
