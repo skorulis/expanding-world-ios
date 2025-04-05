@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 14/2/2025.
 
+import Core
 import Foundation
 
 /// A place that you can visit
@@ -43,14 +44,3 @@ extension Place {
     }
 }
 
-enum PlaceFeatureID: Codable {
-    // pinkyTavern
-    case pinkyTavernBar
-    case pinkyTavernTables
-}
-
-enum PlaceID: Codable {
-    case pinkyTavern
-    case wharfRoad
-    case docks
-}

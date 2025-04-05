@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
 import Combine
+import Core
 import Foundation
 import Knit
 import KnitMacros
@@ -8,6 +9,7 @@ import KnitMacros
 @MainActor @Observable final class PlaceViewModel {
     
     let place: Place
+    var currentMap: GameMap
     private let knowledgeStore: KnowledgeStore
     private let actionService: ActionService
     private let playerStore: PlayerStore
@@ -22,6 +24,7 @@ import KnitMacros
         self.actionService = actionService
         self.knowledgeStore = knowledgeStore
         self.playerStore = playerStore
+        self.currentMap = MapLibrary.map(for: place.spec.id)
         
         knowledgeStore.$knowledge.sink { knowledge in
             self.visibleFeatures = place.spec.features.filter { knowledge.placeFeatures.contains($0.id) }
@@ -48,8 +51,10 @@ import KnitMacros
         actionService.perform(action: action, place: place, feature: feature)
     }
     
-    func changeLocation(id: PlaceID) {
-        playerStore.player.location = id
+    func changeLocation(id: PlaceID, featureID: PlaceFeatureID) {
+        self.currentMap = MapLibrary.map(for: place.spec.id)
+        let coord = currentMap.coordinate(feature: featureID)!
+        playerStore.player.location = .init(place: id, coord: coord)
         switch id {
         case .wharfRoad:
             knowledgeStore.learn(game: .time)

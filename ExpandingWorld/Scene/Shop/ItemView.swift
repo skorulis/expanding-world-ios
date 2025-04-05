@@ -2,6 +2,7 @@
 
 import Core
 import Foundation
+import Hex
 import SwiftUI
 
 // MARK: - Memory footprint

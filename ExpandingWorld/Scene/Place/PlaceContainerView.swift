@@ -18,11 +18,11 @@ extension PlaceContainerView: View {
     
     var body: some View {
         PlaceView(viewModel: resolver.placeViewModel(place: currentPlace))
-            .id(viewModel.playerStore.player.location)
+            .id(viewModel.playerStore.player.location.place)
     }
     
     var currentPlace: Place {
-        let spec = PlaceLibrary.spec(for: viewModel.playerStore.player.location)
+        let spec = PlaceLibrary.spec(for: viewModel.playerStore.player.location.place)
         return Place(spec: spec)
     }
 }

@@ -58,8 +58,19 @@ struct ContentView: View {
                     Text("Save")
                 }
             }
-            Stepper("Width: \(viewModel.map.width)", value: $viewModel.map.width, in: 1...100)
-            Stepper("Height: \(viewModel.map.height)", value: $viewModel.map.height, in: 1...100)
+            HStack {
+                Stepper("Width: \(viewModel.map.width)", value: $viewModel.map.width, in: 1...100)
+                Stepper("Height: \(viewModel.map.height)", value: $viewModel.map.height, in: 1...100)
+            }
+            
+            Picker(selection: $viewModel.map.mapID) {
+                ForEach(PlaceID.allCases) { t in
+                    Text("\(String(describing: t))")
+                        .tag(t)
+                }
+            } label: {
+                Text("Map ID")
+            }
             
             Picker(selection: $viewModel.mode) {
                 ForEach(ContentViewModel.EditMode.allCases) { t in
@@ -83,7 +94,11 @@ struct ContentView: View {
     private var editingPane: some View {
         VStack {
             if let selected = viewModel.selected {
-                TileEditingPane(tile: tileBinding(selected))
+                Text("(\(selected.x),\(selected.y))")
+                TileEditingPane(
+                    placeID: viewModel.map.mapID,
+                    tile: tileBinding(selected)
+                )
             }
         }
     }

@@ -1,5 +1,6 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
+import Core
 import Foundation
 
 // The library of places that exist
@@ -14,10 +15,15 @@ final class PlaceLibrary {
         ],
         transit: [
             .init(
-                to: .pinkyTavern,
+                from: .wharfRoadTavernEntrance,
+                to: (.pinkyTavern, .pinkyTavernExit),
                 text: "Pinky's"
             ),
-            .init(to: .docks, text: "Docks")
+            .init(
+                from: .wharfRoadDockEntrance,
+                to: (.docks, .docksWharfRoad),
+                text: "Docks"
+            )
         ],
         features: []
     )
@@ -31,9 +37,10 @@ final class PlaceLibrary {
         ],
         transit: [
             .init(
-                to: .wharfRoad,
+                from: .pinkyTavernExit,
+                to: (.wharfRoad, .wharfRoadTavernEntrance),
                 text: "Exit"
-            )
+            ),
         ],
         features: [
             .init(
@@ -80,7 +87,13 @@ final class PlaceLibrary {
         actions: [
             .look,
         ],
-        transit: [.init(to: .wharfRoad, text: "Wharf Road")],
+        transit: [
+            .init(
+                from: .docksWharfRoad,
+                to: (.wharfRoad, .wharfRoadDockEntrance),
+                text: "Wharf Road"
+            )
+        ],
         features: []
     )
     

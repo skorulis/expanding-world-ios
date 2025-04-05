@@ -2,6 +2,7 @@
 
 import Core
 import Foundation
+import Hex
 import SwiftUI
 
 // MARK: - Memory footprint
@@ -34,7 +35,7 @@ extension PlayerInventoryView: View {
     }
     
     private var items: some View {
-        HexagonGrid(hexSize: ItemView.size / 2) {
+        HexagonGridLayout(hexSize: ItemView.size / 2) {
             ForEach(viewModel.playerStore.player.inventory.all) { item in
                 Button(action: { viewModel.selectedItem = item }) {
                     ItemView(

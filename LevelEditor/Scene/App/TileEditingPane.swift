@@ -7,6 +7,7 @@ import SwiftUI
 // MARK: - Memory footprint
 
 struct TileEditingPane {
+    let placeID: PlaceID?
     @Binding var tile: GameMap.Tile
 }
 
@@ -21,7 +22,8 @@ extension TileEditingPane: View {
             
             terrain
             object
-            feature
+            overlay
+            maybeFeature
         }
         .frame(width: 220)
         .padding(.vertical, 20)
@@ -55,16 +57,34 @@ extension TileEditingPane: View {
         .pickerStyle(.menu)
     }
     
-    private var feature: some View {
-        Picker(selection: $tile.feature) {
+    @ViewBuilder
+    private var maybeFeature: some View {
+        if let placeID, !placeID.featureIDs.isEmpty {
+            Picker(selection: $tile.featureID) {
+                Text("None")
+                    .tag(nil as PlaceFeatureID?)
+                ForEach(placeID.featureIDs, id: \.self) { o in
+                    Text("\(o)".capitalized)
+                        .tag(o)
+                }
+            } label: {
+                Text("featureID")
+            }
+            .pickerStyle(.menu)
+        }
+        
+    }
+    
+    private var overlay: some View {
+        Picker(selection: $tile.overlay) {
             Text("None")
-                .tag(nil as GameMap.Feature?)
-            ForEach(GameMap.Feature.allCases, id: \.self) { o in
+                .tag(nil as GameMap.Overlay?)
+            ForEach(GameMap.Overlay.allCases, id: \.self) { o in
                 Text("\(o)".capitalized)
                     .tag(o)
             }
         } label: {
-            Text("Feature")
+            Text("Overlay")
         }
         .pickerStyle(.menu)
     }
@@ -74,6 +94,6 @@ extension TileEditingPane: View {
 
 #Preview {
     @Previewable @State var tile = GameMap.Tile(terrain: .dirt)
-    TileEditingPane(tile: $tile)
+    TileEditingPane(placeID: nil, tile: $tile)
 }
 

@@ -37,6 +37,11 @@ extension MapTileView: View {
                 WallShape(edges: tile.wallEdges)
                     .fill(Color.gray)
             }
+            if tile.featureID != nil {
+                Image(systemName: "door.left.hand.closed")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+            }
         }
         .contentShape(HexagonShape())
     }
@@ -48,7 +53,7 @@ extension MapTileView: View {
     VStack {
         MapTileView(tile: .init(terrain: .grass))
         MapTileView(tile: .init(terrain: .stoneFloor))
-        MapTileView(tile: .init(terrain: .stoneFloor, feature: .wall))
+        MapTileView(tile: .init(terrain: .stoneFloor, overlay: .wall))
     }
     .frame(width: 80)
     

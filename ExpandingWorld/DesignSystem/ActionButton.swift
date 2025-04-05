@@ -39,7 +39,7 @@ struct ActionButtonRow: View {
 
 extension ActionButtonRow {
     var body: some View {
-        HexagonGrid(hexSize: ActionButton.size / 2) {
+        HexagonGridLayout(hexSize: ActionButton.size / 2) {
             ForEach(actions) { action in
                 ActionButton(placeAction: action) {
                     onPress(action)

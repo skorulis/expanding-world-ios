@@ -1,12 +1,14 @@
 //Created by Alexander Skorulis on 16/2/2025.
 
+import Core
+import Hex
 import Foundation
 
 struct Player: Codable {
     var money: Int64
     var inventory: Inventory
     var statuses: Statuses
-    var location: PlaceID
+    var location: Location
     var deaths: Int
     
     static var defaultValue: Player {
@@ -14,7 +16,7 @@ struct Player: Codable {
             money: 100,
             inventory: .init(),
             statuses: .default,
-            location: .pinkyTavern,
+            location: startingLocation,
             deaths: 0
         )
     }
@@ -23,8 +25,13 @@ struct Player: Codable {
         money = 100
         inventory = .init()
         statuses = .default
-        location = .pinkyTavern
+        location = Self.startingLocation
         deaths += 1
+    }
+    
+    private static var startingLocation: Player.Location {
+        let coord = MapLibrary.pinkyTavern.coordinate(feature: .pinkyTavernExit)!
+        return .init(place: .pinkyTavern, coord: coord)
     }
 }
 
@@ -33,6 +40,11 @@ extension Player: DataStorable {
 }
 
 extension Player {
+    
+    struct Location: Codable {
+        let place: PlaceID
+        let coord: HexagonGrid.Coord
+    }
     
     // TODO: Change name
     enum Status: CaseIterable, Identifiable, Codable {

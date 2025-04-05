@@ -20,6 +20,7 @@ public struct GameMap: Codable {
         }
     }
     public var tiles: [[Tile]]
+    public var mapID: PlaceID?
     
     public init(width: Int, height: Int, tiles: [[Tile]]?) {
         self.width = width
@@ -69,7 +70,7 @@ public struct GameMap: Codable {
     
     public mutating func updateFeatureConnections(coord: HexagonGrid.Coord) {
         var tile = tiles[coord.y][coord.x]
-        guard let feature = tile.feature else {
+        guard let feature = tile.overlay else {
             tile.wallEdges = []
             tiles[coord.y][coord.x] = tile
             return
@@ -77,13 +78,24 @@ public struct GameMap: Codable {
         tile.wallEdges = HexagonEdge.allCases.filter { edge in
             let pos = coord.move(dir: edge)
             guard contains(coord: pos) else { return false }
-            return self[pos].feature == feature
+            return self[pos].overlay == feature
         }
         tiles[coord.y][coord.x] = tile
     }
     
     public func contains(coord: HexagonGrid.Coord) -> Bool {
         return coord.x >= 0 && coord.x < width && coord.y >= 0 && coord.y < height
+    }
+    
+    public func coordinate(feature: PlaceFeatureID) -> HexagonGrid.Coord? {
+        for y in 0..<height {
+            for x in 0..<width {
+                if tiles[y][x].featureID == feature {
+                    return .init(x: x, y: y)
+                }
+            }
+        }
+        return nil
     }
 }
 
@@ -92,27 +104,30 @@ public extension GameMap {
     struct Tile: Codable {
         public var terrain: TerrainType?
         public var object: ObjectType?
-        public var feature: Feature?
+        public var overlay: Overlay?
+        public var featureID: PlaceFeatureID?
         
         public init(
             terrain: TerrainType? = nil,
             object: ObjectType? = nil,
-            feature: Feature? = nil
+            overlay: Overlay? = nil,
+            featureID: PlaceFeatureID? = nil
         ) {
             self.terrain = terrain
             self.object = object
-            self.feature = feature
+            self.overlay = overlay
+            self.featureID = featureID
         }
         
         private enum CodingKeys: String, CodingKey {
-            case terrain, object, feature
+            case terrain, object, overlay, featureID
         }
         
         /// Cache for the positions of the wall
         public var wallEdges: [HexagonEdge] = []
     }
     
-    enum Feature: CaseIterable, Hashable, Codable {
+    enum Overlay: CaseIterable, Hashable, Codable {
         case wall
     }
     

@@ -118,7 +118,7 @@ public extension Hexagon {
 }
 
 public extension HexagonGrid {
-    struct Coord: Equatable {
+    struct Coord: Equatable, Codable {
         public let x: Int
         public let y: Int
         
@@ -126,6 +126,8 @@ public extension HexagonGrid {
             self.x = x
             self.y = y
         }
+        
+        public static var zero: Coord { .init(x: 0, y: 0) }
         
         public func move(dir: HexagonEdge) -> Coord {
             let isOddColumn = !x.isMultiple(of: 2)

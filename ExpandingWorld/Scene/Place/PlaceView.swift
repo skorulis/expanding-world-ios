@@ -53,7 +53,7 @@ extension PlaceView: View {
                 }
             }
             ForEach(viewModel.transit) { transit in
-                Button(action: { viewModel.changeLocation(id: transit.to) }) {
+                Button(action: { viewModel.changeLocation(id: transit.to.0, featureID: transit.to.1) }) {
                     VStack {
                         Image(systemName: "door.left.hand.closed")
                         Text("\(transit.text)")
