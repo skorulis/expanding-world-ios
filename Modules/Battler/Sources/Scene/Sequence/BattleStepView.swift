@@ -14,7 +14,7 @@ struct BattleStepView {
 extension BattleStepView: View {
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: SequenceUIConstants.stepRowSpacing) {
             ForEach(Array(step.options.indices), id: \.self) { index in
                 optionView(step.options[index])
             }
@@ -25,9 +25,12 @@ extension BattleStepView: View {
         image(option)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 44, height: 44)
+            .frame(
+                width: SequenceUIConstants.avatarImageSize,
+                height: SequenceUIConstants.avatarImageSize
+            )
             .foregroundStyle(Color.white)
-            .padding(8)
+            .padding(SequenceUIConstants.avatarPadding)
             .background(
                 Circle()
                     .fill(Color.black)

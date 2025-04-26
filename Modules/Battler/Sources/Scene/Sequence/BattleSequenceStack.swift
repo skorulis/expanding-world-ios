@@ -14,11 +14,16 @@ struct BattleSequenceStack {
 extension BattleSequenceStack: View {
     
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: SequenceUIConstants.stepColumnSpacing) {
             ForEach(sequence.steps) { step in
                 BattleStepView(step: step)
             }
         }
+        .background(
+            BattlerPathShape(sequence: sequence)
+                .stroke(Color.red, lineWidth: 4)
+        )
+        .border(Color.black)
     }
 }
 
