@@ -16,7 +16,7 @@ final class BattleStepGenerator {
     private func generateOption(stepType: BattleStepType) -> BattleOption {
         switch stepType {
         case .fight:
-            return .fight
+            return .fight(BattlerFight(monsters: [.rat]))
         case .intermission:
             return .shop
         }

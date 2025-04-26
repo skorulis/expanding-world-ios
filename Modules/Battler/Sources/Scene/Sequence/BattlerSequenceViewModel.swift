@@ -7,6 +7,8 @@ import Foundation
     private let generator: BattleStepGenerator
     var sequence: BattlerSequence
     
+    var selection: BattleSequenceIndex?
+    
     init(generator: BattleStepGenerator) {
         self.generator = generator
         let step1 = generator.generateStep(index: 0)

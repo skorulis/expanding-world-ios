@@ -15,7 +15,26 @@ struct BattlerSequenceView {
 extension BattlerSequenceView: View {
     
     var body: some View {
-        BattleSequenceStack(sequence: viewModel.sequence)
+        VStack {
+            Text("Battler")
+            ScrollView {
+                VStack {
+                    BattleSequenceStack(
+                        sequence: viewModel.sequence,
+                        selection: $viewModel.selection
+                    )
+                    maybeDetails
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var maybeDetails: some View {
+        if let selection = viewModel.selection {
+            let option = viewModel.sequence.option(index: selection)
+            BattleOptionsDetailView(option: option)
+        }
     }
 }
 

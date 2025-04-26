@@ -7,6 +7,7 @@ import SwiftUI
 
 struct BattleSequenceStack {
     let sequence: BattlerSequence
+    @Binding var selection: BattleSequenceIndex?
 }
 
 // MARK: - Rendering
@@ -15,31 +16,49 @@ extension BattleSequenceStack: View {
     
     var body: some View {
         HStack(spacing: SequenceUIConstants.stepColumnSpacing) {
-            ForEach(sequence.steps) { step in
-                BattleStepView(step: step)
+            ForEach(Array(sequence.steps.indices), id: \.self) { index in
+                BattleStepView(
+                    step: sequence.steps[index],
+                    selection: stepSelection(index: index)
+                )
             }
         }
         .background(
             BattlerPathShape(sequence: sequence)
                 .stroke(Color.red, lineWidth: 4)
         )
-        .border(Color.black)
+    }
+    
+    private func stepSelection(index: Int) -> Binding<Int?> {
+        return .init {
+            guard selection?.stepIndex == index else {
+                return nil
+            }
+            return selection?.optionIndex
+        } set: { optionIndex in
+            if let optionIndex {
+                self.selection = .init(stepIndex: index, optionIndex: optionIndex)
+            }
+        }
+
     }
 }
 
 // MARK: - Previews
 
 #Preview {
+    @Previewable @State var selection: BattleSequenceIndex?
     VStack {
         BattleSequenceStack(
             sequence: .init(
                 steps: [
-                    .init(stepType: .fight, options: [.fight]),
+                    .init(stepType: .fight, options: [.testFight()]),
                     .init(stepType: .intermission, options: [.shop, .shop]),
-                    .init(stepType: .fight, options: [.fight, .fight, .fight]),
+                    .init(stepType: .fight, options: [.testFight(), .testFight(), .testFight()]),
                 ],
                 path: [0, 1]
-            )
+            ),
+            selection: $selection
         )
     }
     

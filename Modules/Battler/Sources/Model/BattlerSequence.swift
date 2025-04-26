@@ -8,6 +8,15 @@ struct BattlerSequence {
     
     /// The path of steps that the user has chosen
     var path: [Int]
+    
+    func option(index: BattleSequenceIndex) -> BattleOption {
+        steps[index.stepIndex].options[index.optionIndex]
+    }
+}
+
+struct BattleSequenceIndex {
+    let stepIndex: Int
+    let optionIndex: Int
 }
 
 /// A single step in a battle sequence
@@ -29,6 +38,10 @@ enum BattleStepType: CaseIterable {
 
 /// A single option that can be chosen in a battle step
 enum BattleOption {
-    case fight
+    case fight(BattlerFight)
     case shop
+    
+    static func testFight() -> BattleOption {
+        .fight(BattlerFight(monsters: [.rat]))
+    }
 }

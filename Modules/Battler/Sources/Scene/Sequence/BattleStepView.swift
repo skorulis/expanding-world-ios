@@ -7,6 +7,7 @@ import SwiftUI
 
 struct BattleStepView {
     let step: BattleStep
+    @Binding var selection: Int?
 }
 
 // MARK: - Rendering
@@ -16,12 +17,18 @@ extension BattleStepView: View {
     var body: some View {
         VStack(spacing: SequenceUIConstants.stepRowSpacing) {
             ForEach(Array(step.options.indices), id: \.self) { index in
-                optionView(step.options[index])
+                Button(action: { selection = index}) {
+                    optionView(
+                        selected: selection == index,
+                        step.options[index]
+                    )
+                }
+                .buttonStyle(SequenceButtonStyle())
             }
         }
     }
     
-    private func optionView(_ option: BattleOption) -> some View {
+    private func optionView(selected: Bool, _ option: BattleOption) -> some View {
         image(option)
             .resizable()
             .aspectRatio(contentMode: .fit)
@@ -29,7 +36,7 @@ extension BattleStepView: View {
                 width: SequenceUIConstants.avatarImageSize,
                 height: SequenceUIConstants.avatarImageSize
             )
-            .foregroundStyle(Color.white)
+            .foregroundStyle(selected ? Color.green : Color.white)
             .padding(SequenceUIConstants.avatarPadding)
             .background(
                 Circle()
@@ -50,9 +57,11 @@ extension BattleStepView: View {
 // MARK: - Previews
 
 #Preview {
+    @Previewable @State var selection: Int?
     HStack {
         BattleStepView(
-            step: .init(stepType: .fight, options: [.fight, .fight])
+            step: .init(stepType: .fight, options: [.testFight(), .testFight()]),
+            selection: $selection
         )
     }
     
