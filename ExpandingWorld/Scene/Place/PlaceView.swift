@@ -18,6 +18,21 @@ struct PlaceView {
 extension PlaceView: View {
     
     var body: some View {
+        ScrollView([.horizontal, .vertical]) {
+            ZStack(alignment: .topLeading) {
+                MapView(map: viewModel.currentMap) { coor in
+                    print("Tap")
+                }
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 60, height: 60)
+            }
+            
+        }
+    }
+    
+    private var old: some View {
         VStack {
             Text(viewModel.place.spec.name)
                 .font(.title)

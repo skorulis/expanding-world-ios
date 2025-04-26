@@ -37,13 +37,33 @@ extension MapTileView: View {
                 WallShape(edges: tile.wallEdges)
                     .fill(Color.gray)
             }
-            if tile.featureID != nil {
-                Image(systemName: "door.left.hand.closed")
+            if let featureID = tile.featureID {
+                featureID.image
                     .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 40, height: 40)
             }
         }
         .contentShape(HexagonShape())
+    }
+}
+
+extension PlaceFeatureID {
+    var image: Image {
+        switch self {
+        case .pinkyTavernExit:
+            Image(systemName: "door.left.hand.closed")
+        case .pinkyTavernBar:
+            Image(systemName: "wineglass.fill")
+        case .pinkyTavernTables:
+            Image(systemName: "table.furniture.fill")
+        case .wharfRoadTavernEntrance:
+            Image(systemName: "door.left.hand.closed")
+        case .wharfRoadDockEntrance:
+            Image(systemName: "door.left.hand.closed")
+        case .docksWharfRoad:
+            Image(systemName: "road.lanes.curved.left")
+        }
     }
 }
 
