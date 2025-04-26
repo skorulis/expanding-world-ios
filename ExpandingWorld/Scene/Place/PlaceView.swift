@@ -45,7 +45,7 @@ extension PlaceView: View {
             }
         }
         .sheet(item: $viewModel.shopID) { shopID in
-            ShopView(viewModel: resolver.shopViewModel(shopID: shopID))
+            ShopView(viewModel: resolver!.shopViewModel(shopID: shopID))
         }
     }
     

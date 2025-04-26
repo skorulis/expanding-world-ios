@@ -1,0 +1,30 @@
+//  Created by Alexander Skorulis on 26/4/2025.
+
+import Core
+import Foundation
+import Knit
+
+public final class BattlerAssembly: AutoInitModuleAssembly {
+    public typealias TargetResolver = AppResolver
+    
+    public init() {}
+    
+    public func assemble(container: Container<TargetResolver>) {
+        container.register(BattleStepGenerator.self) { _ in
+            BattleStepGenerator()
+        }
+        
+        container.register(BattlerSequenceViewModel.self) { resolver in
+            BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
+        }
+    }
+    
+    public static var dependencies: [any Knit.ModuleAssembly.Type] { [] }
+    
+}
+
+public extension BattlerAssembly {
+    @MainActor static func testing() -> ScopedModuleAssembler<AppResolver> {
+        return ScopedModuleAssembler<AppResolver>([BattlerAssembly()])
+    }
+}

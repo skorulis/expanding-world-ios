@@ -17,13 +17,18 @@ let package = Package(
         .package(
             url: "https://github.com/pointfreeco/swift-snapshot-testing",
             from: "1.18.1"
-        )
+        ),
+        .package(path: "/Users/alex/dev/ios/knit")
     ],
     targets: [
         .target(
             name: "Battler",
             dependencies: [
-                "Core"
+                "Core",
+                .product(name: "Knit", package: "knit"),
+            ],
+            plugins: [
+                .plugin(name: "KnitBuildPlugin", package: "knit")
             ]
         ),
         .testTarget(

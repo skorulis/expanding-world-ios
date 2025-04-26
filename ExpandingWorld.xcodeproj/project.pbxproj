@@ -751,8 +751,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cashapp/knit";
 			requirement = {
-				branch = skorulis/macros;
-				kind = branch;
+				kind = exactVersion;
+				version = 2.0.1;
 			};
 		};
 		FA6024842D5EE1D80003286A /* XCRemoteSwiftPackageReference "ASKCore" */ = {
@@ -760,7 +760,7 @@
 			repositoryURL = "https://github.com/skorulis/ASKCore";
 			requirement = {
 				kind = revision;
-				revision = 1b09b5f3d311f0a95aa9015793e71b92f620f6f7;
+				revision = f454c08cc2c684555a7fe3aee885657114dd0a8a;
 			};
 		};
 		FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */ = {

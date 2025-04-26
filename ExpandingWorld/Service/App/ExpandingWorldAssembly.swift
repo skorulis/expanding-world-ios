@@ -10,15 +10,15 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     
     init() {}
     
-    @MainActor func assemble(container: Container) {        
-        registerBehaviors(container: container)
+    @MainActor func assemble(container: Container<Resolver>) {
+        // registerBehaviors(container: container)
         registerServices(container: container)
         registerStores(container: container)
         registerViewModels(container: container)
     }
     
     @MainActor
-    private func registerServices(container: Container) {
+    private func registerServices(container: Container<Resolver>) {
         container.register(ActionService.self) { r in
             ActionService.make(resolver: r)
         }
@@ -34,7 +34,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     }
     
     @MainActor
-    private func registerStores(container: Container) {
+    private func registerStores(container: Container<Resolver>) {
         container.register(TimeStore.self) { TimeStore.make(resolver: $0) }
             .inObjectScope(.container)
         
@@ -49,7 +49,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     }
     
     @MainActor
-    private func registerViewModels(container: Container) {
+    private func registerViewModels(container: Container<Resolver>) {
         container.register(PlaceViewModel.self) { (resolver: Resolver, place: Place) in
             PlaceViewModel.make(resolver: resolver, place: place)
         }
@@ -66,20 +66,20 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         }
     }
     
-    private func registerBehaviors(container: Container) {
-        container.register(InstanceAggregation<ResettableService>.self, name: "resettableService") { _ in
-            .init(isChild: { $0 is ResettableService.Type })
-        }
-        .inObjectScope(.container)
-        
-        container.addBehavior(container.instanceAggregation(name: .resettableService))
-        
-        container.register(ResettableServiceProvider.self) { resolver in
-            return {
-                resolver.instanceAggregation(name: .resettableService).factories.compactMap { $0(resolver) }
-            }
-        }
-    }
+//    private func registerBehaviors(container: Container) {
+//        container.register(InstanceAggregation<ResettableService>.self, name: "resettableService") { _ in
+//            .init(isChild: { $0 is ResettableService.Type })
+//        }
+//        .inObjectScope(.container)
+//        
+//        container.addBehavior(container.instanceAggregation(name: .resettableService))
+//
+//        container.register(ResettableServiceProvider.self) { resolver in
+//            return {
+//                resolver.instanceAggregation(name: .resettableService).factories.compactMap { $0(resolver) }
+//            }
+//        }
+//    }
 }
 
 extension ExpandingWorldAssembly {

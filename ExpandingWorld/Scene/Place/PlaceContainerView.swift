@@ -17,7 +17,7 @@ struct PlaceContainerView {
 extension PlaceContainerView: View {
     
     var body: some View {
-        PlaceView(viewModel: resolver.placeViewModel(place: currentPlace))
+        PlaceView(viewModel: resolver!.placeViewModel(place: currentPlace))
             .id(viewModel.playerStore.player.location.place)
     }
     

@@ -21,14 +21,16 @@ let package = Package(
         .package(
             url: "https://github.com/koher/CGPointVector",
             from: "0.4.1"
-        )
+        ),
+        .package(path: "/Users/alex/dev/ios/knit")
     ],
     targets: [
         .target(
             name: "Core",
             dependencies: [
                 "Hex",
-                .product(name: "CGPointVector", package: "CGPointVector")
+                .product(name: "CGPointVector", package: "CGPointVector"),
+                .product(name: "Knit", package: "knit"),
             ],
             resources: [.process("Resource/Assets.xcassets")]
         ),

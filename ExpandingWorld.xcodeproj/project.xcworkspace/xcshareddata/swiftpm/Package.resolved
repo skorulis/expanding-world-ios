@@ -1,12 +1,12 @@
 {
-  "originHash" : "c1b0c60be45151890117fb0df4f704ab041ecd415f7d1d20466b3765118994a3",
+  "originHash" : "a1c1aa14304cb430625ccb2ac75f55aea6da24e72f3a2459c447e5309929679a",
   "pins" : [
     {
       "identity" : "askcore",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/skorulis/ASKCore",
       "state" : {
-        "revision" : "1b09b5f3d311f0a95aa9015793e71b92f620f6f7"
+        "revision" : "f454c08cc2c684555a7fe3aee885657114dd0a8a"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cashapp/knit",
       "state" : {
-        "branch" : "skorulis/macros",
-        "revision" : "3e8ee2558ac84dd21de7dd6e7454b890754ec13d"
+        "revision" : "aa98631653deeba227f6010ccb75046846a8ed62",
+        "version" : "2.0.1"
       }
     },
     {
