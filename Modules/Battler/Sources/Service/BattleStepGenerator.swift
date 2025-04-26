@@ -9,7 +9,7 @@ final class BattleStepGenerator {
         let optionCount = Int.random(in: 1...3)
         let stepType: BattleStepType = index % 2 == 0 ? .fight : .intermission
         let options = (0..<optionCount).map { _ in generateOption(stepType: stepType) }
-        return BattleStep(stepType: stepType, options: options, chosenOptionIndex: nil)
+        return BattleStep(stepType: stepType, options: options)
     }
     
     /// Generate a random battle option

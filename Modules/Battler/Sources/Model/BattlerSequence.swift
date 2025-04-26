@@ -5,18 +5,21 @@ import Foundation
 struct BattlerSequence {
     /// The sequence of steps in this battle
     var steps: [BattleStep]
+    
+    /// The path of steps that the user has chosen
+    var path: [Int]
 }
 
 /// A single step in a battle sequence
-struct BattleStep {
+struct BattleStep: Identifiable {
+    
+    let id = UUID()
     
     /// The type of step this is
     let stepType: BattleStepType
     
     /// The available options for this step
     let options: [BattleOption]
-    /// The index of the chosen option, nil if not yet chosen
-    var chosenOptionIndex: Int?
 }
 
 enum BattleStepType: CaseIterable {

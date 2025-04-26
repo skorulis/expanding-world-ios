@@ -10,6 +10,6 @@ import Foundation
     init(generator: BattleStepGenerator) {
         self.generator = generator
         let step1 = generator.generateStep(index: 0)
-        self.sequence = .init(steps: [step1])
+        self.sequence = .init(steps: [step1], path: [])
     }
 }

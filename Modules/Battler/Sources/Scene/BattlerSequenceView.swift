@@ -15,7 +15,7 @@ struct BattlerSequenceView {
 extension BattlerSequenceView: View {
     
     var body: some View {
-        Text("Step X  3212")
+        BattleSequenceStack(sequence: viewModel.sequence)
     }
 }
 
