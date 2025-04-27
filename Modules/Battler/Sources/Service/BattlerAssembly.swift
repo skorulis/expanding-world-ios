@@ -26,6 +26,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattlerPathRenderer.self) { resolver in
             BattlerPathRenderer(resolver: resolver)
         }
+        
+        container.register(BattleService.self) { resolver in
+            BattleService()
+        }
     }
     
     public static var dependencies: [any Knit.ModuleAssembly.Type] { [] }

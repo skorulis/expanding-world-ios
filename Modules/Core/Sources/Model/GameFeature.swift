@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum GameFeature: Identifiable, Codable {
+public enum GameFeature: Identifiable, Codable {
     case money
     case time
     case inventory
@@ -10,11 +10,11 @@ enum GameFeature: Identifiable, Codable {
     case intoxication
     case health
     
-    static var playerStatuses: [GameFeature] {
+    public static var playerStatuses: [GameFeature] {
         return Player.Status.allCases.map { $0.gameFeature }
     }
     
-    var discoveryText: String {
+    public var discoveryText: String {
         switch self {
         case .money:
             return "You reach into your pocket to see what money you have to pay with"
@@ -31,5 +31,5 @@ enum GameFeature: Identifiable, Codable {
         }
     }
     
-    var id: Self { self }
+    public var id: Self { self }
 }

@@ -1,5 +1,6 @@
 //Created by Alexander Skorulis on 16/2/2025.
 
+import Core
 import Knit
 import Foundation
 import SwiftUI

@@ -4,14 +4,14 @@ import Core
 import Hex
 import Foundation
 
-struct Player: Codable {
-    var money: Int64
-    var inventory: Inventory
-    var statuses: Statuses
-    var location: Location
-    var deaths: Int
+public struct Player: Codable {
+    public var money: Int64
+    public var inventory: Inventory
+    public var statuses: Statuses
+    public var location: Location
+    public var deaths: Int
     
-    static var defaultValue: Player {
+    public static var defaultValue: Player {
         .init(
             money: 100,
             inventory: .init(),
@@ -21,7 +21,7 @@ struct Player: Codable {
         )
     }
     
-    mutating func playerDied() {
+    public mutating func playerDied() {
         money = 100
         inventory = .init()
         statuses = .default
@@ -30,31 +30,32 @@ struct Player: Codable {
     }
     
     private static var startingLocation: Player.Location {
-        let coord = MapLibrary.pinkyTavern.coordinate(feature: .pinkyTavernExit)!
-        return .init(place: .pinkyTavern, coord: coord)
+        return .init(place: .pinkyTavern, coord: .zero)
     }
 }
 
-extension Player: DataStorable {
-    static var storageKey: DataStoreKey { .player }
-}
 
 extension Player {
     
-    struct Location: Codable {
-        let place: PlaceID
-        let coord: HexagonGrid.Coord
+    public struct Location: Codable {
+        public let place: PlaceID
+        public let coord: HexagonGrid.Coord
+        
+        public init(place: PlaceID, coord: HexagonGrid.Coord) {
+            self.place = place
+            self.coord = coord
+        }
     }
     
     // TODO: Change name
-    enum Status: CaseIterable, Identifiable, Codable {
+    public enum Status: CaseIterable, Identifiable, Codable {
         case intoxication
         case satiation
         case health
         
-        var id: Self { self }
+        public var id: Self { self }
         
-        var normalisationRate: Float {
+        public var normalisationRate: Float {
             switch self {
             case .health:
                 return 0
@@ -65,7 +66,7 @@ extension Player {
             }
         }
         
-        var text: String {
+        public var text: String {
             switch self {
             case .intoxication:
                 return "Intoxication"
@@ -76,7 +77,7 @@ extension Player {
             }
         }
         
-        var gameFeature: GameFeature {
+        public var gameFeature: GameFeature {
             switch self {
             case .intoxication: return .intoxication
             case .satiation: return .satiation
@@ -85,14 +86,14 @@ extension Player {
         }
     }
     
-    struct Statuses: Codable {
-        var values: [Status: Float] = [:]
+    public struct Statuses: Codable {
+        public var values: [Status: Float] = [:]
         
-        mutating func add(status: Status, amount: Int) {
+        public mutating func add(status: Status, amount: Int) {
             values[status] = (values[status] ?? 0) + Float(amount)
         }
         
-        func value(_ status: Status) -> Float {
+        public func value(_ status: Status) -> Float {
             values[status] ?? 0
         }
         

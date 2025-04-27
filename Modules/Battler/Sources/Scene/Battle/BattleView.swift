@@ -15,7 +15,7 @@ struct BattleView {
 extension BattleView: View {
     
     var body: some View {
-        EmptyView()
+        Text("Battle")
     }
 }
 

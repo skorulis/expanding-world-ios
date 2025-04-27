@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 17/2/2025.
 
 import ASKCore
+import Core
 import Foundation
 
 extension PKeyValueStore {
@@ -30,4 +31,13 @@ enum DataStoreKey: String, CaseIterable {
     case knowledge
     case shops
     case time
+}
+
+extension Knowledge: DataStorable {
+    static var storageKey: DataStoreKey { .knowledge }
+    static var defaultValue: Knowledge { .init() }
+}
+
+extension Player: DataStorable {
+    static var storageKey: DataStoreKey { .player }
 }

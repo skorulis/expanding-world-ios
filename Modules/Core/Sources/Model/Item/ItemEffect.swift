@@ -2,6 +2,6 @@
 
 import Foundation
 
-enum ItemEffect {
+public enum ItemEffect {
     case addStatus(Player.Status, Int)
 }

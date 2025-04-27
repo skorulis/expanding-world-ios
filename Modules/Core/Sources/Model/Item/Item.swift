@@ -3,21 +3,21 @@
 import Foundation
 import SwiftUI
 
-enum Item: Codable {
+public enum Item: Codable {
     case grog
     case stew
 }
 
 extension Item {
     
-    enum Action {
+    public enum Action {
         case consume
     }
     
-    enum Category {
+    public enum Category {
         case food
         
-        var color: Color {
+        public var color: Color {
             switch self {
             case .food:
                 return .brown
@@ -25,7 +25,7 @@ extension Item {
         }
     }
     
-    enum Rarity {
+    public enum Rarity {
         case poor
         case common
         case uncommon
@@ -34,7 +34,7 @@ extension Item {
         case legendary
         case heirloom
         
-        var color: Color {
+        public var color: Color {
             switch self {
             case .poor:
                 return .gray
@@ -54,20 +54,25 @@ extension Item {
         }
     }
     
-    struct Instance: Identifiable, Codable {
-        let type: Item
-        var amount: Int
+    public struct Instance: Identifiable, Codable {
+        public let type: Item
+        public var amount: Int
         
-        var id: Item { type }
+        public init(type: Item, amount: Int) {
+            self.type = type
+            self.amount = amount
+        }
         
-        var baseCost: Int64 {
+        public var id: Item { type }
+        
+        public var baseCost: Int64 {
             return type.basePrice * Int64(amount)
         }
     }
 }
 
 extension Item {
-    var name: String {
+    public var name: String {
         switch self {
         case .grog:
             return "Grog"
@@ -76,7 +81,7 @@ extension Item {
         }
     }
     
-    var description: String {
+    public var description: String {
         switch self {
         case .grog:
             return "Alcohol with a dubious composition"
@@ -85,7 +90,7 @@ extension Item {
         }
     }
     
-    var icon: Image {
+    public var icon: Image {
         switch self {
         case .grog:
             return Image(systemName: "mug.fill")
@@ -94,21 +99,21 @@ extension Item {
         }
     }
     
-    var rarity: Item.Rarity {
+    public var rarity: Item.Rarity {
         switch self {
         case .grog, .stew:
             return .poor
         }
     }
     
-    var category: Item.Category {
+    public var category: Item.Category {
         switch self {
         case .grog, .stew:
             return .food
         }
     }
     
-    var basePrice: Int64 {
+    public var basePrice: Int64 {
         switch self {
         case .grog:
             return 2
@@ -123,7 +128,7 @@ extension Item {
 // MARK: - Consumption
 
 extension Item {
-    var consumableString: String? {
+    public var consumableString: String? {
         switch self {
         case .grog:
             return "Drink"
@@ -132,7 +137,7 @@ extension Item {
         }
     }
     
-    var consumptionEffects: [ItemEffect] {
+    public var consumptionEffects: [ItemEffect] {
         switch self {
         case .grog:
             [ItemEffect.addStatus(.intoxication, 1)]
@@ -141,7 +146,7 @@ extension Item {
         }
     }
     
-    var consumptionTime: Int64 {
+    public var consumptionTime: Int64 {
         switch self {
         case .grog: return 90
         case .stew: return 120

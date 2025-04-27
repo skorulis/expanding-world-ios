@@ -1,5 +1,6 @@
 //Created by Alexander Skorulis on 22/2/2025.
 
+import Core
 import Foundation
 
 extension NumericExpression {
