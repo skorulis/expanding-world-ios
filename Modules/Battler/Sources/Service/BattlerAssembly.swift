@@ -5,7 +5,7 @@ import Foundation
 import Knit
 
 public final class BattlerAssembly: AutoInitModuleAssembly {
-    public typealias TargetResolver = AppResolver
+    public typealias TargetResolver = Resolver
     
     public init() {}
     
@@ -18,7 +18,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
         }
         
-        container.register(BattleViewModel.self) { (resovler: AppResolver, fight: BattlerFight) in
+        container.register(BattleViewModel.self) { (resovler: Resolver, fight: BattlerFight) in
             BattleViewModel(fight: fight)
         }
     }
@@ -28,7 +28,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
 }
 
 public extension BattlerAssembly {
-    @MainActor static func testing() -> ScopedModuleAssembler<AppResolver> {
-        return ScopedModuleAssembler<AppResolver>([BattlerAssembly()])
+    @MainActor static func testing() -> ScopedModuleAssembler<Resolver> {
+        return ScopedModuleAssembler<Resolver>([BattlerAssembly()])
     }
 }

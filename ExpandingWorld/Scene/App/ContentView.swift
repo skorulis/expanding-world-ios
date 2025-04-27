@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 14/2/2025.
 
+import Knit
 import SwiftUI
 
 struct ContentView: View {
@@ -9,8 +10,8 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            GameStatusBar(viewModel: resolver.gameStatusBarViewModel())
-            MainTabsView(knowledgeStore: resolver.knowledgeStore())
+            GameStatusBar(viewModel: resolver!.gameStatusBarViewModel())
+            MainTabsView(knowledgeStore: resolver!.knowledgeStore())
         }
         .ignoresSafeArea(edges: .top)
     }

@@ -22,7 +22,7 @@ let package = Package(
             url: "https://github.com/skorulis/ASKCoordinator",
             branch: "main"
         ),
-        .package(path: "/Users/alex/dev/ios/knit")
+        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/spm-plugin")
     ],
     targets: [
         .target(

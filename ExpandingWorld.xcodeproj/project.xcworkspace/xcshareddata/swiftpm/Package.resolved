@@ -2,11 +2,21 @@
   "originHash" : "a1c1aa14304cb430625ccb2ac75f55aea6da24e72f3a2459c447e5309929679a",
   "pins" : [
     {
+      "identity" : "askcoordinator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/skorulis/ASKCoordinator",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1221b40d7158478bda097900df24fce64fb08377"
+      }
+    },
+    {
       "identity" : "askcore",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/skorulis/ASKCore",
       "state" : {
-        "revision" : "f454c08cc2c684555a7fe3aee885657114dd0a8a"
+        "branch" : "main",
+        "revision" : "861e090263cd19eb7e4da49c98eaf0ec56e494eb"
       }
     },
     {
@@ -32,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "2bc86522d115234d1f588efe2bcb4ce4be8f8b82",
-        "version" : "510.0.3"
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
       }
     },
     {

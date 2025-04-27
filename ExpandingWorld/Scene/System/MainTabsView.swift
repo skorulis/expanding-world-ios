@@ -26,7 +26,7 @@ extension MainTabsView: View {
     }
     
     var placeTab: some View {
-        PlaceContainerView(viewModel: resolver.placeContainerViewModel())
+        PlaceContainerView(viewModel: resolver!.placeContainerViewModel())
             .tabItem {
                 Image(systemName: "map.fill")
             }
@@ -36,7 +36,7 @@ extension MainTabsView: View {
     var maybeInventory: some View {
         if knowledgeStore.knowledge.gameFeatures.contains(.inventory) {
             PlayerInventoryView(
-                viewModel: resolver.playerInventoryViewModel()
+                viewModel: resolver!.playerInventoryViewModel()
             )
             .tabItem {
                 Image(systemName: "backpack.fill")
@@ -48,7 +48,7 @@ extension MainTabsView: View {
     private var maybePlayerStatus: some View {
         if knowledgeStore.contains(any: GameFeature.playerStatuses) {
             PlayerStatusView(
-                viewModel: resolver.playerStatusViewModel()
+                viewModel: resolver!.playerStatusViewModel()
             )
             .tabItem {
                 Image(systemName: "level.fill")
@@ -58,7 +58,7 @@ extension MainTabsView: View {
     
     @ViewBuilder
     private var settings: some View {
-        SettingsView(viewModel: resolver.settingsViewModel())
+        SettingsView(viewModel: resolver!.settingsViewModel())
             .tabItem {
                 Image(systemName: "gearshape.fill")
             }

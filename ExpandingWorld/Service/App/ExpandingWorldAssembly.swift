@@ -1,17 +1,21 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
 import ASKCore
+import Battler
 import Foundation
 import Knit
 
 final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     typealias TargetResolver = Resolver
-    static var dependencies: [any Knit.ModuleAssembly.Type] = [ASKCoreAssembly.self]
+    static var dependencies: [any Knit.ModuleAssembly.Type] = [
+        ASKCoreAssembly.self,
+        BattlerAssembly.self,
+    ]
     
     init() {}
     
     @MainActor func assemble(container: Container<Resolver>) {
-        // registerBehaviors(container: container)
+        registerBehaviors(container: container)
         registerServices(container: container)
         registerStores(container: container)
         registerViewModels(container: container)
@@ -66,24 +70,22 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         }
     }
     
-//    private func registerBehaviors(container: Container) {
+    private func registerBehaviors(container: Container<Resolver>) {
 //        container.register(InstanceAggregation<ResettableService>.self, name: "resettableService") { _ in
 //            .init(isChild: { $0 is ResettableService.Type })
 //        }
 //        .inObjectScope(.container)
 //        
 //        container.addBehavior(container.instanceAggregation(name: .resettableService))
-//
-//        container.register(ResettableServiceProvider.self) { resolver in
-//            return {
-//                resolver.instanceAggregation(name: .resettableService).factories.compactMap { $0(resolver) }
-//            }
-//        }
-//    }
+
+        container.register(ResettableServiceProvider.self) { resolver in
+            return { [] }
+        }
+    }
 }
 
 extension ExpandingWorldAssembly {
-    @MainActor static func testing() -> ModuleAssembler {
-        ModuleAssembler([ExpandingWorldAssembly(), ASKCoreAssembly(purpose: .testing)])
+    @MainActor static func testing() -> ScopedModuleAssembler<Resolver> {
+        ScopedModuleAssembler<Resolver>([ExpandingWorldAssembly(), ASKCoreAssembly(purpose: .testing)])
     }
 }

@@ -1,6 +1,5 @@
 {
     "assemblyInputPaths": [
-        "ExpandingWorld/Service/App/ExpandingWorldAssembly.swift",
-        "ExpandingWorld/Service/App/ASKCoreAssembly.swift"
+        "ExpandingWorld/Service/App/ExpandingWorldAssembly.swift"
     ]
 }

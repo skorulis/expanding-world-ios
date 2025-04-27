@@ -759,8 +759,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/skorulis/ASKCore";
 			requirement = {
-				kind = revision;
-				revision = f454c08cc2c684555a7fe3aee885657114dd0a8a;
+				branch = main;
+				kind = branch;
 			};
 		};
 		FA6025A52D6057600003286A /* XCRemoteSwiftPackageReference "UIColor-Hex-Swift" */ = {

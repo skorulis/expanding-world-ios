@@ -1,6 +1,6 @@
 //  Created by Alexander Skorulis on 27/4/2025.
 
-import Core
+import Knit
 import ASKCoordinator
 import Foundation
 import SwiftUI
@@ -21,7 +21,7 @@ enum BattlerPath: CoordinatorPath {
 
 struct BattlerPathRenderer: CoordinatorPathRenderer {
     
-    private let resolver: AppResolver
+    private let resolver: Resolver
     
     @ViewBuilder
     func render(path: BattlerPath, in coordinator: Coordinator) -> some View {
