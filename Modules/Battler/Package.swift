@@ -18,6 +18,10 @@ let package = Package(
             url: "https://github.com/pointfreeco/swift-snapshot-testing",
             from: "1.18.1"
         ),
+        .package(
+            url: "https://github.com/skorulis/ASKCoordinator",
+            branch: "main"
+        ),
         .package(path: "/Users/alex/dev/ios/knit")
     ],
     targets: [
@@ -26,6 +30,7 @@ let package = Package(
             dependencies: [
                 "Core",
                 .product(name: "Knit", package: "knit"),
+                .product(name: "ASKCoordinator", package: "ASKCoordinator"),
             ],
             plugins: [
                 .plugin(name: "KnitBuildPlugin", package: "knit")

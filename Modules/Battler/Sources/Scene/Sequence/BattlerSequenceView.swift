@@ -33,7 +33,10 @@ extension BattlerSequenceView: View {
     private var maybeDetails: some View {
         if let selection = viewModel.selection {
             let option = viewModel.sequence.option(index: selection)
-            BattleOptionsDetailView(option: option)
+            BattleOptionsDetailView(
+                option: option,
+                onSelect: viewModel.detailsSelected
+            )
         }
     }
 }

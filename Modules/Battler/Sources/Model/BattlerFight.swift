@@ -3,5 +3,8 @@
 import Foundation
 
 struct BattlerFight {
+    
+    let id = UUID()
+    
     let monsters: [Monster]
 }

@@ -7,6 +7,7 @@ import SwiftUI
 
 struct BattleOptionsDetailView {
     let option: BattleOption
+    let onSelect: () -> Void
 }
 
 // MARK: - Rendering
@@ -21,7 +22,7 @@ extension BattleOptionsDetailView: View {
             case .shop:
                 shopDetails
             }
-            Button(action: {}) {
+            Button(action: onSelect) {
                 Text("Select")
             }
         }
@@ -44,7 +45,8 @@ extension BattleOptionsDetailView: View {
 
 #Preview {
     BattleOptionsDetailView(
-        option: .testFight()
+        option: .testFight(),
+        onSelect: {}
     )
 }
 

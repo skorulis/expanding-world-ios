@@ -19,15 +19,6 @@
       }
     },
     {
-      "identity" : "knit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/cashapp/knit",
-      "state" : {
-        "revision" : "aa98631653deeba227f6010ccb75046846a8ed62",
-        "version" : "2.0.1"
-      }
-    },
-    {
       "identity" : "swift-argument-parser",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser",

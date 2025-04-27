@@ -17,6 +17,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattlerSequenceViewModel.self) { resolver in
             BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
         }
+        
+        container.register(BattleViewModel.self) { (resovler: AppResolver, fight: BattlerFight) in
+            BattleViewModel(fight: fight)
+        }
     }
     
     public static var dependencies: [any Knit.ModuleAssembly.Type] { [] }
