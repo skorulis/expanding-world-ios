@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct BattlerFight {
+public struct BattlerFight: Sendable {
     
     let id = UUID()
     

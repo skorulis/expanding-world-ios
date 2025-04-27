@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct BattlerSequence {
+struct BattlerSequence: Sendable {
     /// The sequence of steps in this battle
     var steps: [BattleStep]
     
@@ -20,7 +20,7 @@ struct BattleSequenceIndex {
 }
 
 /// A single step in a battle sequence
-struct BattleStep: Identifiable {
+struct BattleStep: Identifiable, Sendable {
     
     let id = UUID()
     
@@ -37,7 +37,7 @@ enum BattleStepType: CaseIterable {
 }
 
 /// A single option that can be chosen in a battle step
-enum BattleOption {
+enum BattleOption: Sendable {
     case fight(BattlerFight)
     case shop
     

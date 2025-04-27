@@ -5,11 +5,11 @@ import ASKCoordinator
 import Foundation
 import SwiftUI
 
-enum BattlerPath: CoordinatorPath {
+public enum BattlerPath: CoordinatorPath {
     case sequence
     case battle(BattlerFight)
     
-    var id: String {
+    public var id: String {
         switch self {
         case .sequence:
             return "battler.sequence"
@@ -19,12 +19,12 @@ enum BattlerPath: CoordinatorPath {
     }
 }
 
-struct BattlerPathRenderer: CoordinatorPathRenderer {
+public struct BattlerPathRenderer: CoordinatorPathRenderer {
     
-    private let resolver: Resolver
+    let resolver: Resolver
     
     @ViewBuilder
-    func render(path: BattlerPath, in coordinator: Coordinator) -> some View {
+    public func render(path: BattlerPath, in coordinator: Coordinator) -> some View {
         switch path {
         case .sequence:
             BattlerSequenceView(viewModel: Self.apply(resolver.battlerSequenceViewModel(), coordinator))
