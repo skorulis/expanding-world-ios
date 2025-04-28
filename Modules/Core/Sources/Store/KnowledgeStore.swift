@@ -1,14 +1,14 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
 import ASKCore
-import Core
 import Foundation
+import GameSystem
 import KnitMacros
 import Knit
 
-final class KnowledgeStore: ObservableObject {
+public final class KnowledgeStore: ObservableObject {
     
-    @Published var knowledge: Knowledge {
+    @Published public var knowledge: Knowledge {
         didSet {
             try? keyValueStore.set(knowledge)
         }
@@ -24,25 +24,30 @@ final class KnowledgeStore: ObservableObject {
         self.keyValueStore = keyValueStore
     }
     
-    func learn(placeFeature: PlaceFeatureID) {
+    public func learn(placeFeature: PlaceFeatureID) {
         knowledge.placeFeatures.insert(placeFeature)
     }
     
-    func learn(game: GameFeature) {
+    @MainActor public func learn(game: GameFeature) {
         if !knowledge.gameFeatures.contains(game) {
             knowledge.gameFeatures.insert(game)
             alertService.post(message: game.discoveryText)
         }
     }
     
-    func contains(any: [GameFeature]) -> Bool {
+    public func contains(any: [GameFeature]) -> Bool {
         return any.contains(where: { knowledge.gameFeatures.contains($0) })
     }
     
 }
 
-extension KnowledgeStore: ResettableService {
-    func resetData() {
-        knowledge = .defaultValue
-    }
+//extension KnowledgeStore: ResettableService {
+//    func resetData() {
+//        knowledge = .defaultValue
+//    }
+//}
+
+extension Knowledge: DataStorable {
+    public static var storageKey: DataStoreKey { .knowledge }
+    public static var defaultValue: Knowledge { .init() }
 }

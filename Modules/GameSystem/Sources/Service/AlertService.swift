@@ -2,11 +2,12 @@
 
 import ASKCore
 import Foundation
+import UIKit
 
 /// Service for managing alerts from other services
-final class AlertService: ObservableObject {
+public final class AlertService: ObservableObject {
     
-    @Published private(set) var currentAlert: Alert? {
+    @MainActor @Published private(set) var currentAlert: Alert? {
         didSet {
             if let currentAlert {
                 show(alert: currentAlert)
@@ -15,7 +16,7 @@ final class AlertService: ObservableObject {
     }
     private var waitingMessages: [Alert] = []
     
-    var window: OverlayWindow? {
+    @MainActor public var window: OverlayWindow? {
         didSet {
             if let currentAlert {
                 show(alert: currentAlert)
@@ -26,7 +27,7 @@ final class AlertService: ObservableObject {
     init() {
     }
     
-    private func show(alert: Alert) {
+    @MainActor private func show(alert: Alert) {
         guard let window else {
             return
         }
@@ -41,7 +42,7 @@ final class AlertService: ObservableObject {
         })
     }
  
-    func post(message: String) {
+    @MainActor public func post(message: String) {
         let alert = Alert(message: message)
         if currentAlert == nil {
             currentAlert = alert
@@ -50,7 +51,7 @@ final class AlertService: ObservableObject {
         }
     }
     
-    func close() {
+    @MainActor public func close() {
         self.window?.dismiss()
         currentAlert = nil
         if waitingMessages.count > 0 {
@@ -60,8 +61,8 @@ final class AlertService: ObservableObject {
 }
 
 extension AlertService {
-    struct Alert: Equatable, Identifiable {
-        let id: UUID = UUID()
+    public struct Alert: Equatable, Identifiable {
+        public let id: UUID = UUID()
         let message: String
     }
 }

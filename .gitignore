@@ -3,3 +3,5 @@ ExpandingWorld.xcodeproj/project.xcworkspace/xcuserdata
 Modules/Core/.swiftpm
 Modules/Core/.build
 Modules/Battler/.swiftpm/xcode/package.xcworkspace/xcuserdata
+Modules/GameSystem/.build
+Modules/GameSystem/.swiftpm

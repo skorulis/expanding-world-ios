@@ -1,5 +1,7 @@
 //Created by Alexander Skorulis on 14/2/2025.
 
+import Core
+import GameSystem
 import Foundation
 import Knit
 import KnitMacros
@@ -23,7 +25,7 @@ final class ActionService {
         return place.spec.actions
     }
     
-    func perform(action: PlaceAction, place: Place) {
+    @MainActor func perform(action: PlaceAction, place: Place) {
         timeStore.advance(seconds: action.time)
         switch action {
         case .look:
@@ -40,7 +42,7 @@ final class ActionService {
         }
     }
     
-    func perform(action: PlaceAction, place: Place, feature: Place.Feature) {
+    @MainActor func perform(action: PlaceAction, place: Place, feature: Place.Feature) {
         timeStore.advance(seconds: action.time)
         switch action {
         case .look:
@@ -54,7 +56,7 @@ final class ActionService {
         }
     }
     
-    func complete(possibilities: ActionPossibilities) {
+    @MainActor func complete(possibilities: ActionPossibilities) {
         let result = resolve(possibilities: possibilities)
         enact(outcomes: result)
     }
@@ -69,11 +71,11 @@ final class ActionService {
         return possibilities.fallback
     }
     
-    func enact(outcomes: [ActionOutcome]) {
+    @MainActor func enact(outcomes: [ActionOutcome]) {
         outcomes.forEach { enact(outcome: $0) }
     }
     
-    func enact(outcome: ActionOutcome) {
+    @MainActor func enact(outcome: ActionOutcome) {
         switch outcome {
         case let .alert(message):
             alertService.post(message: message)

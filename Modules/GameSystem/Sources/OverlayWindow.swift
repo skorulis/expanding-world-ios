@@ -2,8 +2,10 @@
 
 import SwiftUI
 
-class OverlayWindow {
+@MainActor public class OverlayWindow {
     private var window: UIWindow?
+    
+    public init() {}
     
     var isReady: Bool {
         UIApplication.shared.connectedScenes.count > 0

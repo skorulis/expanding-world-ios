@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 23/2/2025.
 
 import Combine
+import Core
 import Foundation
 import Knit
 import KnitMacros

@@ -8,7 +8,7 @@ import SwiftUI
 struct ShopBuyPane {
     let item: Item
     let maxQuantity: Int
-    let onResult: (Result) -> Void
+    let onResult: @MainActor (Result) -> Void
     @State private var quantity: Int = 1
     
     enum Result {

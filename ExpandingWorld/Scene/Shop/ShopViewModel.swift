@@ -28,7 +28,7 @@ import Knit
 }
 
 extension ShopViewModel {
-    func buy(item: Item.Instance) {
+    @MainActor func buy(item: Item.Instance) {
         self.selectedItem = nil
         shop.inventory.subtract(item)
         shopStore.update(shop: shop)

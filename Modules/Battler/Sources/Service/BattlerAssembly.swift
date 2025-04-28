@@ -32,7 +32,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         }
     }
     
-    public static var dependencies: [any Knit.ModuleAssembly.Type] { [] }
+    public static var dependencies: [any Knit.ModuleAssembly.Type] { [CoreAssembly.self] }
     
 }
 

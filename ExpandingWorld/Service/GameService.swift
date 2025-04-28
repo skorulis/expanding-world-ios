@@ -1,7 +1,9 @@
 //Created by Alexander Skorulis on 15/2/2025.
 
 import Combine
+import Core
 import Foundation
+import GameSystem
 import Knit
 import KnitMacros
 
@@ -21,23 +23,23 @@ final class GameService {
         
         playerStore.playerSubject.sink { [unowned self] player in
             if player.statuses.value(.health) <= 0 {
-                self.playerDied()
+                // self.playerDied()
             }
         }
         .store(in: &cancellables)
     }
     
-    func setup() {
+    @MainActor func setup() {
         if knowledgeStore.knowledge.gameFeatures.count == 0 {
             startNewGame()
         }
     }
     
-    func startNewGame() {
+    @MainActor func startNewGame() {
         alertService.post(message: "You wake up in a dimly lit room sitting at a table. It is not a place you recognise.")
     }
     
-    func playerDied() {
+    @MainActor func playerDied() {
         playerStore.player.playerDied()
         if playerStore.player.deaths == 1 {
             alertService.post(message: "What just happened? How did I end up here again.")

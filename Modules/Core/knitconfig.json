@@ -1,0 +1,5 @@
+{
+    "assemblyInputPaths": [
+        "Sources/Service/CoreAssembly.swift"
+    ]
+}

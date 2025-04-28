@@ -28,8 +28,6 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         }
         
         container.register(Evaluator.self) { Evaluator.make(resolver: $0) }
-        container.register(AlertService.self) { _ in AlertService() }
-            .inObjectScope(.container)
         
         container.register(GameService.self) { r in GameService.make(resolver: r) }
         
@@ -42,13 +40,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         container.register(TimeStore.self) { TimeStore.make(resolver: $0) }
             .inObjectScope(.container)
         
-        container.register(KnowledgeStore.self) { KnowledgeStore.make(resolver: $0) }
-            .inObjectScope(.container)
-        
         container.register(ShopStore.self) { ShopStore.make(resolver: $0) }
-            .inObjectScope(.container)
-        
-        container.register(PlayerStore.self) { PlayerStore.make(resolver: $0) }
             .inObjectScope(.container)
     }
     
