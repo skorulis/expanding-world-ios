@@ -37,16 +37,25 @@ extension BattleView: View {
     }
     
     private var winView: some View {
-        Button(action: viewModel.complete) {
-            Text("You Win")
-                .font(.title)
-                .foregroundColor(.red)
+        VStack {
+            Asset.fireworks.swiftUIImage
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxHeight: 200)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding()
+            Button(action: viewModel.complete) {
+                Text("You Win")
+                    .font(.title)
+                    .foregroundColor(.red)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.red.opacity(0.2))
+            )
         }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.red.opacity(0.2))
-        )
+        
     }
     
     private var lossView: some View {
