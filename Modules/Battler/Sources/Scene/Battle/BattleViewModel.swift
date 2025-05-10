@@ -1,18 +1,22 @@
 //  Created by Alexander Skorulis on 27/4/2025.
 
 import Core
+import ASKCoordinator
 import Foundation
 import SwiftUI
 
-@Observable final class BattleViewModel {
+@Observable final class BattleViewModel: CoordinatorViewModel {
     
     var fight: BattlerFight
     var player: BattlerPlayer
+    var coordinator: Coordinator?
+    private let resultHandler: BattlerFight.ResultHandler
     private let executor = AttackExecutor()
     
-    init(player: BattlerPlayer, fight: BattlerFight) {
+    init(player: BattlerPlayer, fight: BattlerFight, resultHandler: @escaping BattlerFight.ResultHandler) {
         self.player = player
         self.fight = fight
+        self.resultHandler = resultHandler
     }
     
     var currentMonster: Monster? {
@@ -46,6 +50,15 @@ import SwiftUI
         let result = executor.execute(attacker: &player, defender: &monster)
         self.fight.monsters[0] = monster
         self.onAttackComplete(result: result)
+    }
+    
+    func complete() {
+        if player.health.current <= 0 {
+            resultHandler(.loss)
+        } else {
+            resultHandler(.win)
+        }
+        coordinator?.dismiss()
     }
     
     private func onAttackComplete(result: AttackResult) {

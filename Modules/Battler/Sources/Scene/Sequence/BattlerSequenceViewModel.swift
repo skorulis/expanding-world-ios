@@ -35,10 +35,16 @@ extension BattlerSequenceViewModel {
         let option = sequence.option(index: selection)
         switch option {
         case let .fight(fight):
-            coordinator?.present(BattlerPath.battle(sequence.player, fight), style: .fullScreen)
+            let path = BattlerPath.battle(sequence.player, fight) { [weak self] result in
+                self?.handleFightResult(result: result)
+            }
+            coordinator?.present(path, style: .fullScreen)
         case .shop:
             break // TODO
         }
-        
+    }
+    
+    private func handleFightResult(result: BattlerFight.Result) {
+        print("Finish")
     }
 }

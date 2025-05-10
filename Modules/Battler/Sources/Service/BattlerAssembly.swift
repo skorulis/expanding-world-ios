@@ -18,8 +18,13 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
         }
         
-        container.register(BattleViewModel.self) { (resovler: Resolver, player: BattlerPlayer, fight: BattlerFight) in
-            BattleViewModel(player: player, fight: fight)
+        container.register(BattleViewModel.self) { (
+            resovler: Resolver,
+            player: BattlerPlayer,
+            fight: BattlerFight,
+            resultHandler: @escaping BattlerFight.ResultHandler
+        ) in
+            BattleViewModel(player: player, fight: fight, resultHandler: resultHandler)
         }
         
         // @knit public

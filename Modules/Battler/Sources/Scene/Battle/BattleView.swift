@@ -16,8 +16,7 @@ extension BattleView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            // Enemy display area
-            monster
+            topSection
             
             Spacer()
             stats
@@ -27,21 +26,54 @@ extension BattleView: View {
     }
     
     @ViewBuilder
-    private var monster: some View {
-        if let monster = viewModel.currentMonster {
-            ZStack {
-                monster.spec.image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: 200)
-                    .padding()
-            }
-            .frame(maxWidth: .infinity)
-            .overlay(alignment: .topTrailing) {
-                ValueCircle(value: monster.health, color: .red)
-            }
+    private var topSection: some View {
+        if viewModel.player.health.current <= 0 {
+            lossView
+        } else if let monster = viewModel.currentMonster {
+            monsterView(monster)
         } else {
-            Spacer()
+            winView
+        }
+    }
+    
+    private var winView: some View {
+        Button(action: viewModel.complete) {
+            Text("You Win")
+                .font(.title)
+                .foregroundColor(.red)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.red.opacity(0.2))
+        )
+    }
+    
+    private var lossView: some View {
+        Button(action: viewModel.complete) {
+            Text("You Lose")
+                .font(.title)
+                .foregroundColor(.red)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.red.opacity(0.2))
+        )
+    }
+    
+    @ViewBuilder
+    private func monsterView(_ monster: Monster) -> some View {
+        ZStack {
+            monster.spec.image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxHeight: 200)
+                .padding()
+        }
+        .frame(maxWidth: .infinity)
+        .overlay(alignment: .topTrailing) {
+            ValueCircle(value: monster.health, color: .red)
         }
     }
     
@@ -79,12 +111,32 @@ extension BattleView: View {
 
 // MARK: - Previews
 
-#Preview {
+#Preview("Fight") {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
     let fight = BattlerFight.testFight()
     BattleView(
-        viewModel: resolver.battleViewModel(player: .testPlayer(), fight: fight)
+        viewModel: resolver.battleViewModel(player: .testPlayer(), fight: fight, resultHandler: { _ in})
+    )
+}
+
+#Preview("Win") {
+    let assembler = BattlerAssembly.testing()
+    let resolver = assembler.resolver
+    let fight = BattlerFight(monsters: [])
+    BattleView(
+        viewModel: resolver.battleViewModel(player: .testPlayer(), fight: fight, resultHandler: { _ in})
+    )
+}
+
+#Preview("Loss") {
+    let assembler = BattlerAssembly.testing()
+    let resolver = assembler.resolver
+    let fight = BattlerFight(monsters: [])
+    var player = BattlerPlayer.testPlayer()
+    player.health.current = 0
+    return BattleView(
+        viewModel: resolver.battleViewModel(player: player, fight: fight, resultHandler: { _ in})
     )
 }
 
