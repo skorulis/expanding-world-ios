@@ -15,26 +15,39 @@ import SwiftUI
 extension BattleView: View {
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             // Enemy display area
             monster
             
             Spacer()
-            
+            stats
             grid
         }
+        .padding(.horizontal, 16)
     }
     
     @ViewBuilder
     private var monster: some View {
         if let monster = viewModel.currentMonster {
-            monster.spec.image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxHeight: 200)
-                .padding()
+            ZStack {
+                monster.spec.image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 200)
+                    .padding()
+            }
+            .frame(maxWidth: .infinity)
+            .overlay(alignment: .topTrailing) {
+                ValueCircle(value: monster.health, color: .red)
+            }
         } else {
             Spacer()
+        }
+    }
+    
+    private var stats: some View {
+        VStack(spacing: 8) {
+            ValueBar(value: viewModel.player.health, color: .green)
         }
     }
     
@@ -44,7 +57,6 @@ extension BattleView: View {
                 icon(action: action)
             }
         }
-        .padding()
     }
     
     private func icon(action: BattleViewModel.Action) -> some View {

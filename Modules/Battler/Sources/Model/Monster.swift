@@ -5,7 +5,7 @@ import Foundation
 struct Monster: Combatant {
     let id: UUID
     let spec: MonsterSpec
-    var health: Int = 10
+    var health: CombatantValue = .init(10)
     var ability: AttackAbility { .physical(1) }
     
     init(spec: MonsterSpec) {

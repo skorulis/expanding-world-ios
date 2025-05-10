@@ -11,7 +11,7 @@ final class AttackExecutor {
         let ability = attacker.ability
         execute(ability: ability, attacker: &attacker, defender: &defender)
         let both: [any Combatant] = [attacker, defender]
-        let eliminated = both.filter { $0.health <= 0 }.map { $0.id }
+        let eliminated = both.filter { $0.health.current <= 0 }.map { $0.id }
         return .init(eliminatedIDs: Set(eliminated))
     }
     

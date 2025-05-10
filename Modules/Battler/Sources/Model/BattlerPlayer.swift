@@ -4,8 +4,8 @@ import Foundation
 
 public struct BattlerPlayer: Combatant, Sendable {
     let id: UUID
-    var health: Int = 10
-    var ability: AttackAbility = .physical(5)
+    var health: CombatantValue = .init(10)
+    var ability: AttackAbility = .physical(2)
     
     init() {
         self.id = UUID()
