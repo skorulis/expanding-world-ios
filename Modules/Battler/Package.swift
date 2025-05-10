@@ -32,6 +32,7 @@ let package = Package(
                 .product(name: "Knit", package: "knit"),
                 .product(name: "ASKCoordinator", package: "ASKCoordinator"),
             ],
+            resources: [.process("Resource/Assets.xcassets")],
             plugins: [
                 .plugin(name: "KnitBuildPlugin", package: "knit")
             ]

@@ -17,7 +17,7 @@ extension BattleView: View {
     var body: some View {
         VStack {
             // Enemy display area
-            Image(systemName: "progress.indicator")
+            Asset.Monsters.monsterRat.swiftUIImage
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxHeight: 200)
