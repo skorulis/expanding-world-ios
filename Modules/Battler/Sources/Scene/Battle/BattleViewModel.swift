@@ -1,14 +1,22 @@
 //  Created by Alexander Skorulis on 27/4/2025.
 
+import Core
 import Foundation
 import SwiftUI
 
 @Observable final class BattleViewModel {
     
-    let fight: BattlerFight
+    var fight: BattlerFight
+    var player: BattlerPlayer
+    private let executor = AttackExecutor()
     
-    init(fight: BattlerFight) {
+    init(player: BattlerPlayer, fight: BattlerFight) {
+        self.player = player
         self.fight = fight
+    }
+    
+    var currentMonster: Monster? {
+        return fight.monsters.first
     }
     
     var availableActions: [Action] {
@@ -32,7 +40,16 @@ import SwiftUI
     }
     
     func perform(action: Action) {
-        
+        guard fight.monsters.count > 0 else { return }
+        var monster = fight.monsters[0]
+        var player: any Combatant = player
+        let result = executor.execute(attacker: &player, defender: &monster)
+        self.fight.monsters[0] = monster
+        self.onAttackComplete(result: result)
+    }
+    
+    private func onAttackComplete(result: AttackResult) {
+        fight.monsters = fight.monsters.filter { !result.eliminatedIDs.contains($0.id) }
     }
 }
 

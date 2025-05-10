@@ -7,13 +7,13 @@ import SwiftUI
 
 public enum BattlerPath: CoordinatorPath {
     case sequence
-    case battle(BattlerFight)
+    case battle(BattlerPlayer, BattlerFight)
     
     public var id: String {
         switch self {
         case .sequence:
             return "battler.sequence"
-        case let .battle(fight):
+        case let .battle(_, fight):
             return "battle-\(fight.id)"
         }
     }
@@ -28,8 +28,11 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
         switch path {
         case .sequence:
             BattlerSequenceView(viewModel: Self.apply(resolver.battlerSequenceViewModel(), coordinator))
-        case let .battle(fight):
-            BattleView(viewModel: resolver.battleViewModel(fight: fight))
+        case let .battle(player, fight):
+            BattleView(
+                // TODO: Pull player from the correct place
+                viewModel: resolver.battleViewModel(player: player, fight: fight)
+            )
         }
     }
     

@@ -5,6 +5,9 @@ import Foundation
 public struct BattlerFight: Sendable {
     
     let id = UUID()
+    var monsters: [Monster]
     
-    let monsters: [Monster]
+    init(monsters: [MonsterSpec]) {
+        self.monsters = monsters.map { Monster(spec: $0) }
+    }
 }

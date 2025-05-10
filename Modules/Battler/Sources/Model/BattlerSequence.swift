@@ -6,6 +6,9 @@ struct BattlerSequence: Sendable {
     /// The sequence of steps in this battle
     var steps: [BattleStep]
     
+    /// The player competing
+    var player: BattlerPlayer
+    
     /// The path of steps that the user has chosen
     var path: [Int]
     
@@ -42,6 +45,18 @@ enum BattleOption: Sendable {
     case shop
     
     static func testFight() -> BattleOption {
-        .fight(BattlerFight(monsters: [.rat]))
+        .fight(.testFight())
+    }
+}
+
+extension BattlerPlayer {
+    static func testPlayer() -> BattlerPlayer {
+        .init()
+    }
+}
+
+extension BattlerFight {
+    static func testFight() -> BattlerFight {
+        .init(monsters: [.rat])
     }
 }

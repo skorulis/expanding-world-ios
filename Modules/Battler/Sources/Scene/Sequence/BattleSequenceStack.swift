@@ -56,6 +56,7 @@ extension BattleSequenceStack: View {
                     .init(stepType: .intermission, options: [.shop, .shop]),
                     .init(stepType: .fight, options: [.testFight(), .testFight(), .testFight()]),
                 ],
+                player: .testPlayer(),
                 path: [0, 1]
             ),
             selection: $selection

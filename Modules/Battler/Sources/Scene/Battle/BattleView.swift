@@ -17,15 +17,24 @@ extension BattleView: View {
     var body: some View {
         VStack {
             // Enemy display area
-            Asset.Monsters.monsterRat.swiftUIImage
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxHeight: 200)
-                .padding()
+            monster
             
             Spacer()
             
             grid
+        }
+    }
+    
+    @ViewBuilder
+    private var monster: some View {
+        if let monster = viewModel.currentMonster {
+            monster.spec.image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxHeight: 200)
+                .padding()
+        } else {
+            Spacer()
         }
     }
     
@@ -61,7 +70,9 @@ extension BattleView: View {
 #Preview {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
-    let fight = BattlerFight(monsters: [.rat])
-    BattleView(viewModel: resolver.battleViewModel(fight: fight))
+    let fight = BattlerFight.testFight()
+    BattleView(
+        viewModel: resolver.battleViewModel(player: .testPlayer(), fight: fight)
+    )
 }
 

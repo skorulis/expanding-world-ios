@@ -14,7 +14,7 @@ import Foundation
     init(generator: BattleStepGenerator) {
         self.generator = generator
         let step1 = generator.generateStep(index: 0)
-        self.sequence = .init(steps: [step1], path: [])
+        self.sequence = .init(steps: [step1], player: .testPlayer(), path: [])
     }
 }
 
@@ -35,7 +35,7 @@ extension BattlerSequenceViewModel {
         let option = sequence.option(index: selection)
         switch option {
         case let .fight(fight):
-            coordinator?.present(BattlerPath.battle(fight), style: .fullScreen)
+            coordinator?.present(BattlerPath.battle(sequence.player, fight), style: .fullScreen)
         case .shop:
             break // TODO
         }

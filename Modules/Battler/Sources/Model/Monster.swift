@@ -1,15 +1,15 @@
 //  Created by Alexander Skorulis on 26/4/2025.
 
 import Foundation
-import SwiftUI
 
-enum Monster {
-    case rat
+struct Monster: Combatant {
+    let id: UUID
+    let spec: MonsterSpec
+    var health: Int = 10
+    var ability: AttackAbility { .physical(1) }
     
-    var image: Image {
-        switch self {
-        case .rat:
-            return Asset.Monsters.monsterRat.swiftUIImage
-        }
+    init(spec: MonsterSpec) {
+        self.spec = spec
+        self.id = UUID()
     }
 }
