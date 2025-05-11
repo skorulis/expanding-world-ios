@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Monster: Combatant {
+struct Monster: Combatant, Identifiable {
     let id: UUID
     let spec: MonsterSpec
     var health: CombatantValue = .init(10)

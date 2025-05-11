@@ -29,8 +29,8 @@ extension BattleView: View {
     private var topSection: some View {
         if viewModel.player.health.current <= 0 {
             lossView
-        } else if let monster = viewModel.currentMonster {
-            monsterView(monster)
+        } else if viewModel.currentMonster != nil {
+            MonsterView(monsters: viewModel.fight.monsters)
         } else {
             winView
         }
