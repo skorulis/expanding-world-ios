@@ -23,33 +23,30 @@ import SwiftUI
         return fight.monsters.first
     }
     
-    var availableActions: [Action] {
-        [
-            .init(
-                id: "1",
-                image: Image(systemName: "button.programmable"),
-                name: "Attack"
-            ),
-            .init(
-                id: "2",
-                image: Image(systemName: "button.programmable"),
-                name: "Block"
-            ),
-            .init(
-                id: "3",
-                image: Image(systemName: "button.programmable"),
-                name: "Magic"
-            ),
-        ]
-    }
+    var playerActions: [AttackAbility] { player.abilities }
     
-    func perform(action: Action) {
+    func perform(action: AttackAbility) {
         guard fight.monsters.count > 0 else { return }
         var monster = fight.monsters[0]
-        var player: any Combatant = player
-        let result = executor.execute(attacker: &player, defender: &monster)
+        let result = executor.execute(attacker: &player, defender: &monster, ability: action)
         self.fight.monsters[0] = monster
         self.onAttackComplete(result: result)
+        if !isFinished {
+            monsterAttack()
+        }
+    }
+    
+    private func monsterAttack() {
+        for i in 0..<fight.monsters.count {
+            var monster = fight.monsters[i]
+            let result = executor.execute(attacker: &monster, defender: &player)
+            self.fight.monsters[0] = monster
+            self.onAttackComplete(result: result)
+        }
+    }
+    
+    private var isFinished: Bool {
+        return fight.monsters.isEmpty || player.health.current <= 0
     }
     
     func complete() {
@@ -63,15 +60,5 @@ import SwiftUI
     
     private func onAttackComplete(result: AttackResult) {
         fight.monsters = fight.monsters.filter { !result.eliminatedIDs.contains($0.id) }
-    }
-}
-
-// MARK: - Inner Types
-
-extension BattleViewModel {
-    struct Action: Identifiable {
-        let id: String
-        let image: Image
-        let name: String
     }
 }

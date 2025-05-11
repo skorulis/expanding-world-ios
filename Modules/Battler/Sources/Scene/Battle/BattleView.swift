@@ -94,13 +94,13 @@ extension BattleView: View {
     
     private var grid: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 16) {
-            ForEach(viewModel.availableActions) { action in
-                icon(action: action)
+            ForEach(Array(viewModel.playerActions.indices), id: \.self) { index in
+                icon(action: viewModel.playerActions[index])
             }
         }
     }
     
-    private func icon(action: BattleViewModel.Action) -> some View {
+    private func icon(action: AttackAbility) -> some View {
         Button(action: {
             viewModel.perform(action: action)
         }) {

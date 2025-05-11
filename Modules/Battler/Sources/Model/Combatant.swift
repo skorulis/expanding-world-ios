@@ -5,7 +5,7 @@ import Foundation
 protocol Combatant {
     var id: UUID { get }
     var health: CombatantValue { get set }
-    var ability: AttackAbility { get }
+    var abilities: [AttackAbility] { get }
 }
 
 // Used for Health or Mana
