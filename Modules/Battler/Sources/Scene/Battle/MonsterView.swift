@@ -14,9 +14,15 @@ struct MonsterView {
 extension MonsterView: View {
     
     var body: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 16) {
-            ForEach(monsters) { monster in
-                singleMonsterView(monster)
+        VStack(spacing: 16) {
+            ForEach(0..<Int((Double(monsters.count) + 2) / 3), id: \.self) { row in
+                let startIndex = row * 3
+                let endIndex = min(startIndex + 3, monsters.count)
+                HStack {
+                    ForEach(monsters[startIndex..<endIndex]) { monster in
+                        singleMonsterView(monster)
+                    }
+                }
             }
         }
     }
@@ -30,7 +36,6 @@ extension MonsterView: View {
                 .frame(maxHeight: 120)
                 .padding()
         }
-        .frame(maxWidth: .infinity)
         .overlay(alignment: .topTrailing) {
             ValueCircle(value: monster.health, color: .red)
         }
@@ -51,6 +56,7 @@ extension MonsterView: View {
             .frame(height: 2)
         MonsterView(
             monsters: [
+                .init(spec: .rat),
                 .init(spec: .rat),
                 .init(spec: .rat),
                 .init(spec: .rat),

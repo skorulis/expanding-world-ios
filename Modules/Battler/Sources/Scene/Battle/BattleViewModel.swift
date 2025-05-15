@@ -40,7 +40,7 @@ import SwiftUI
         for i in 0..<fight.monsters.count {
             var monster = fight.monsters[i]
             let result = executor.execute(attacker: &monster, defender: &player)
-            self.fight.monsters[0] = monster
+            self.fight.monsters[i] = monster
             self.onAttackComplete(result: result)
         }
     }

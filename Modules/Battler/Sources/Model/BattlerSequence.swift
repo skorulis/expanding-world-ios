@@ -57,6 +57,6 @@ extension BattlerPlayer {
 
 extension BattlerFight {
     static func testFight() -> BattlerFight {
-        .init(monsters: [.rat])
+        .init(monsters: [.rat, .rat])
     }
 }
