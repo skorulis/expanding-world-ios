@@ -2,7 +2,10 @@
 
 import Foundation
 
-final class BattleStepGenerator {
+struct BattleStepGenerator {
+    
+    let fightFactory: BattleFightFactory
+    let shopFactory: BattleShopFactory
     
     /// Generate a random battle step with 1-3 options
     func generateStep(index: Int) -> BattleStep {
@@ -16,9 +19,11 @@ final class BattleStepGenerator {
     private func generateOption(stepType: BattleStepType) -> BattleOption {
         switch stepType {
         case .fight:
-            return .fight(BattlerFight(monsters: [.rat]))
+            let fight = fightFactory.makeFight(difficulty: 1)
+            return .fight(fight)
         case .intermission:
-            return .shop
+            let shop = shopFactory.makeShop()
+            return .shop(shop)
         }
     }
     

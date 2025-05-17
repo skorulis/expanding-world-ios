@@ -10,12 +10,14 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
     public init() {}
     
     public func assemble(container: Container<TargetResolver>) {
-        container.register(BattleStepGenerator.self) { _ in
-            BattleStepGenerator()
-        }
+        registerServices(container: container)
         
         container.register(BattlerSequenceViewModel.self) { resolver in
             BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
+        }
+        
+        container.register(BattlerShopViewModel.self) { (resolver: Resolver, shop: BattlerShop) in
+            BattlerShopViewModel(shop: shop)
         }
         
         container.register(BattleViewModel.self) { (
@@ -34,6 +36,23 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         
         container.register(BattleService.self) { resolver in
             BattleService()
+        }
+    }
+    
+    private func registerServices(container: Container<TargetResolver>) {
+        container.register(BattleFightFactory.self) { _ in
+            BattleFightFactory()
+        }
+        
+        container.register(BattleShopFactory.self) { _ in
+            BattleShopFactory()
+        }
+        
+        container.register(BattleStepGenerator.self) { resolver in
+            BattleStepGenerator(
+                fightFactory: resolver.battleFightFactory(),
+                shopFactory: resolver.battleShopFactory()
+            )
         }
     }
     

@@ -33,6 +33,7 @@ extension BattlerSequenceViewModel {
     func detailsSelected() {
         guard let selection else { return }
         let option = sequence.option(index: selection)
+        sequence.path.append(selection.optionIndex)
         switch option {
         case let .fight(fight):
             let path = BattlerPath.battle(sequence.player, fight) { [weak self] result in
@@ -45,6 +46,8 @@ extension BattlerSequenceViewModel {
     }
     
     private func handleFightResult(result: BattlerFight.Result) {
+        let next = generator.generateStep(index: sequence.steps.count)
+        sequence.steps.append(next)
         print("Finish")
     }
 }

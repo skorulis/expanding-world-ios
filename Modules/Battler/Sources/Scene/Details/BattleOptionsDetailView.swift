@@ -32,7 +32,7 @@ extension BattleOptionsDetailView: View {
     
     private func fightDetails(_ fight: BattlerFight) -> some View {
         VStack {
-            Text("Fight \(fight.monsters.count) monsters")
+            Text("Fight \(fight.monsterDescriptions)")
         }
     }
     

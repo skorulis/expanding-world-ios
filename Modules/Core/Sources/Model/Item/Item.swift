@@ -3,9 +3,10 @@
 import Foundation
 import SwiftUI
 
-public enum Item: Codable {
+public enum Item: Codable, Sendable {
     case grog
     case stew
+    case leatherArmor
 }
 
 extension Item {
@@ -16,10 +17,13 @@ extension Item {
     
     public enum Category {
         case food
+        case armor
         
         public var color: Color {
             switch self {
             case .food:
+                return .brown
+            case .armor:
                 return .brown
             }
         }
@@ -54,7 +58,7 @@ extension Item {
         }
     }
     
-    public struct Instance: Identifiable, Codable {
+    public struct Instance: Identifiable, Codable, Sendable {
         public let type: Item
         public var amount: Int
         
@@ -78,6 +82,8 @@ extension Item {
             return "Grog"
         case .stew:
             return "Stew"
+        case .leatherArmor:
+            return "Leather Armor"
         }
     }
     
@@ -87,6 +93,8 @@ extension Item {
             return "Alcohol with a dubious composition"
         case .stew:
             return ""
+        case .leatherArmor:
+            return "Armor made from leather"
         }
     }
     
@@ -96,6 +104,8 @@ extension Item {
             return Image(systemName: "mug.fill")
         case .stew:
             return Image(systemName: "carrot.fill")
+        default:
+            return Image(systemName: "progress.indicator")
         }
     }
     
@@ -103,6 +113,8 @@ extension Item {
         switch self {
         case .grog, .stew:
             return .poor
+        case .leatherArmor:
+            return .common
         }
     }
     
@@ -110,6 +122,8 @@ extension Item {
         switch self {
         case .grog, .stew:
             return .food
+        case .leatherArmor:
+            return .armor
         }
     }
     
@@ -119,6 +133,8 @@ extension Item {
             return 2
         case .stew:
             return 3
+        case .leatherArmor:
+            return 50
         }
     }
     
@@ -127,29 +143,35 @@ extension Item {
 
 // MARK: - Consumption
 
+public struct Consumption {
+    public let action: String
+    public let effects: [ItemEffect]
+    public let time: Int64
+
+    public init(action: String, effects: [ItemEffect], time: Int64) {
+        self.action = action
+        self.effects = effects
+        self.time = time
+    }
+}
+
 extension Item {
-    public var consumableString: String? {
+    public var consumption: Consumption? {
         switch self {
         case .grog:
-            return "Drink"
+            return Consumption(
+                action: "Drink",
+                effects: [ItemEffect.addStatus(.intoxication, 1)],
+                time: 90
+            )
         case .stew:
-            return "Eat"
-        }
-    }
-    
-    public var consumptionEffects: [ItemEffect] {
-        switch self {
-        case .grog:
-            [ItemEffect.addStatus(.intoxication, 1)]
-        case .stew:
-            [ItemEffect.addStatus(.satiation, 2)]
-        }
-    }
-    
-    public var consumptionTime: Int64 {
-        switch self {
-        case .grog: return 90
-        case .stew: return 120
+            return Consumption(
+                action: "Eat",
+                effects: [ItemEffect.addStatus(.satiation, 2)],
+                time: 120
+            )
+        default:
+            return nil
         }
     }
 }

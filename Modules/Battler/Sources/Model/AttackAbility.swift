@@ -27,6 +27,7 @@ extension AttackAbility {
         case punch
         case kick
         case bite
+        case slap
         
         var image: Image {
             switch self {
@@ -36,6 +37,8 @@ extension AttackAbility {
                 return Image(systemName: "figure.kickboxing")
             case .bite:
                 return Image(systemName: "mouth.fill")
+            case .slap:
+                return Image(systemName: "tropicalstorm.circle.fill")
             }
         }
         
@@ -47,6 +50,8 @@ extension AttackAbility {
                 return "Kick"
             case .bite:
                 return "Bite"
+            case .slap:
+                return "Slap"
             }
         }
     }

@@ -6,10 +6,11 @@ struct Monster: Combatant, Identifiable {
     let id: UUID
     let spec: MonsterSpec
     var health: CombatantValue = .init(10)
-    var abilities: [AttackAbility] { [.unarmed(.punch, 1)] }
+    let abilities: [AttackAbility]
     
     init(spec: MonsterSpec) {
         self.spec = spec
+        self.abilities = spec.abilities
         self.id = UUID()
     }
 }

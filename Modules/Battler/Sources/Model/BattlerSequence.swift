@@ -42,7 +42,7 @@ enum BattleStepType: CaseIterable {
 /// A single option that can be chosen in a battle step
 enum BattleOption: Sendable {
     case fight(BattlerFight)
-    case shop
+    case shop(BattlerShop)
     
     static func testFight() -> BattleOption {
         .fight(.testFight())
@@ -58,5 +58,11 @@ extension BattlerPlayer {
 extension BattlerFight {
     static func testFight() -> BattlerFight {
         .init(monsters: [.rat, .rat])
+    }
+}
+
+extension BattlerShop {
+    static func testShop() -> BattlerShop {
+        .init(items: [.init(type: .leatherArmor, amount: 1)])
     }
 }

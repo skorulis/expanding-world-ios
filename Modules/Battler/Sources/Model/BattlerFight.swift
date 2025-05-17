@@ -17,4 +17,14 @@ public struct BattlerFight: Sendable {
     }
     
     public typealias ResultHandler = (Result) -> Void
+    
+    var monsterDescriptions: String {
+        let group = Dictionary(grouping: monsters, by: { $0.spec })
+        return group.map { key, value in
+            let plural = value.count != 1 ? "s" : ""
+            return "\(value.count) \(key.name)\(plural)"
+        }
+        .joined(separator: ", ")
+        
+    }
 }

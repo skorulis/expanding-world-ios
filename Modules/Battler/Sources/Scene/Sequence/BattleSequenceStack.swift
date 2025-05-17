@@ -53,7 +53,7 @@ extension BattleSequenceStack: View {
             sequence: .init(
                 steps: [
                     .init(stepType: .fight, options: [.testFight()]),
-                    .init(stepType: .intermission, options: [.shop, .shop]),
+                    .init(stepType: .intermission, options: [.shop(.testShop()), .shop(.testShop())]),
                     .init(stepType: .fight, options: [.testFight(), .testFight(), .testFight()]),
                 ],
                 player: .testPlayer(),

@@ -19,12 +19,13 @@ import KnitMacros
     }
     
     func onAction(item: Item.Instance, action: Item.Action) {
+        guard let consumption = item.type.consumption else { return }
         playerStore.player.inventory.subtract(.init(type: item.type, amount: 1))
-        timeStore.advance(seconds: item.type.consumptionTime)
+        timeStore.advance(seconds: consumption.time)
         if playerStore.player.inventory.count(item.type) == 0 {
             selectedItem = nil
         }
-        for effect in item.type.consumptionEffects {
+        for effect in consumption.effects {
             switch effect {
             case let .addStatus(status, amount):
                 playerStore.player.statuses.add(status: status, amount: amount)

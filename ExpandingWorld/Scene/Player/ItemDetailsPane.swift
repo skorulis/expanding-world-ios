@@ -34,7 +34,7 @@ extension ItemDetailsPane: View {
     
     private var buttons: some View {
         HStack {
-            if let actionText = item.type.consumableString {
+            if let actionText = item.type.consumption?.action {
                 Button(action: { action(.consume) }) {
                     Text(actionText)
                 }

@@ -25,6 +25,7 @@ internal enum Asset {
   internal static let fireworks = ImageAsset(name: "fireworks")
   internal enum Monsters {
     internal static let monsterRat = ImageAsset(name: "monster-rat")
+    internal static let monsterSlime = ImageAsset(name: "monster-slime")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
