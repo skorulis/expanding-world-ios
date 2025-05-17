@@ -14,3 +14,11 @@ import SwiftUI
     }
     
 }
+
+// MARK: - Logic
+
+extension BattlerShopViewModel {
+    func buy() {
+        guard let selectedIndex else { return }
+    }
+}

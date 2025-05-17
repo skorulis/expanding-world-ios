@@ -2,6 +2,7 @@
 
 import Foundation
 import SwiftUI
+import Core
 
 // MARK: - Memory footprint
 
@@ -15,18 +16,42 @@ struct ShopView {
 extension ShopView: View {
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
-                ForEach(Array(viewModel.shop.items.indices), id: \.self) { index in
-                    let item = viewModel.shop.items[index]
-                    ShopItemCard(
-                        item: item,
-                        isSelected: binding(index)
-                    )
+        VStack(spacing: 16) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(Array(viewModel.shop.items.indices), id: \.self) { index in
+                        let item = viewModel.shop.items[index]
+                        ShopItemCard(
+                            item: item,
+                            isSelected: binding(index)
+                        )
+                    }
                 }
+                .padding()
             }
-            .padding()
+            
+            buyButton
         }
+    }
+    
+    @ViewBuilder
+    private var buyButton: some View {
+        Button(action: {
+            viewModel.buy()
+        }) {
+            Text(buyButtonTitle)
+        }
+        .buttonStyle(RectangleButtonStyle())
+        .padding(.horizontal)
+        .disabled(viewModel.selectedIndex == nil)
+    }
+    
+    private var buyButtonTitle: String {
+        guard let selectedIndex = viewModel.selectedIndex else {
+            return "Buy"
+        }
+        let item = viewModel.shop.items[selectedIndex]
+        return "Buy \(item.type.name) for \(item.type.basePrice) coins"
     }
     
     private func binding(_ index: Int) -> Binding<Bool> {
@@ -48,7 +73,7 @@ extension ShopView: View {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
     let shop = BattlerShop(items: [
-        .init(type: .stew, amount: 1),
+        .init(type: .leatherArmor, amount: 1),
         .init(type: .stew, amount: 1),
     ])
     ShopView(viewModel: resolver.battlerShopViewModel(shop: shop))
