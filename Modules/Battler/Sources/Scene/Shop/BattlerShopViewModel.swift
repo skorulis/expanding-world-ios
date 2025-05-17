@@ -7,7 +7,10 @@ import SwiftUI
     
     var shop: BattlerShop
     
+    var selectedIndex: Int?
+    
     init(shop: BattlerShop) {
         self.shop = shop
     }
+    
 }

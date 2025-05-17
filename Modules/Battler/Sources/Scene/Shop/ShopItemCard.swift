@@ -7,6 +7,7 @@ import SwiftUI
 
 struct ShopItemCard {
     let item: Item.Instance
+    @Binding var isSelected: Bool
 }
 
 // MARK: - Rendering
@@ -39,7 +40,7 @@ extension ShopItemCard: View {
             
             // Price
             
-            Text("100 coins") // Replace with actual price
+            Text("\(item.type.basePrice) coins") // Replace with actual price
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -47,11 +48,22 @@ extension ShopItemCard: View {
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(radius: 2)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+        )
+        .onTapGesture {
+            isSelected.toggle()
+        }
     }
 }
 
 // MARK: - Previews
 
 #Preview {
-    ShopItemCard(item: .init(type: .stew, amount: 1))
+    @Previewable @State var selected: Bool = false
+    ShopItemCard(
+        item: .init(type: .stew, amount: 1),
+        isSelected: $selected
+    )
 }

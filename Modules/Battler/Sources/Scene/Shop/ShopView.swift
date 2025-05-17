@@ -5,6 +5,7 @@ import SwiftUI
 
 // MARK: - Memory footprint
 
+@MainActor
 struct ShopView {
     @State var viewModel: BattlerShopViewModel
 }
@@ -16,11 +17,27 @@ extension ShopView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
-                ForEach(viewModel.shop.items) { item in
-                    ShopItemCard(item: item)
+                ForEach(Array(viewModel.shop.items.indices), id: \.self) { index in
+                    let item = viewModel.shop.items[index]
+                    ShopItemCard(
+                        item: item,
+                        isSelected: binding(index)
+                    )
                 }
             }
             .padding()
+        }
+    }
+    
+    private func binding(_ index: Int) -> Binding<Bool> {
+        return .init {
+            viewModel.selectedIndex == index
+        } set: { value in
+            if value {
+                viewModel.selectedIndex = index
+            } else if viewModel.selectedIndex == index {
+                viewModel.selectedIndex = nil
+            }
         }
     }
 }
