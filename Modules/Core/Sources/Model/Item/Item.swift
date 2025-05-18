@@ -105,7 +105,7 @@ extension Item {
         case .stew:
             return Image(systemName: "carrot.fill")
         default:
-            return Image(systemName: "progress.indicator")
+            return Asset.Item.leatherArmor.swiftUIImage
         }
     }
     

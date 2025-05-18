@@ -17,6 +17,9 @@ extension ShopView: View {
     
     var body: some View {
         VStack(spacing: 16) {
+            Text("Shop")
+            Spacer()
+            Text("\(viewModel.player.money) coins")
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(Array(viewModel.shop.items.indices), id: \.self) { index in
@@ -31,10 +34,11 @@ extension ShopView: View {
             }
             
             buyButton
+            
+            finishButton
         }
     }
     
-    @ViewBuilder
     private var buyButton: some View {
         Button(action: {
             viewModel.buy()
@@ -43,7 +47,15 @@ extension ShopView: View {
         }
         .buttonStyle(RectangleButtonStyle())
         .padding(.horizontal)
-        .disabled(viewModel.selectedIndex == nil)
+        .disabled(!viewModel.canBuy)
+    }
+    
+    private var finishButton: some View {
+        Button(action: viewModel.finish) {
+            Text("Finish")
+        }
+        .buttonStyle(RectangleButtonStyle())
+        .padding(.horizontal)
     }
     
     private var buyButtonTitle: String {
@@ -76,6 +88,12 @@ extension ShopView: View {
         .init(type: .leatherArmor, amount: 1),
         .init(type: .stew, amount: 1),
     ])
-    ShopView(viewModel: resolver.battlerShopViewModel(shop: shop))
+    ShopView(
+        viewModel: resolver.battlerShopViewModel(
+            shop: shop,
+            player: .testPlayer(),
+            onFinish: { _ in }
+        )
+    )
 }
 

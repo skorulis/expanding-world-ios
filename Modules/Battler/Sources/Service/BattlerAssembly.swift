@@ -16,8 +16,13 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
         }
         
-        container.register(BattlerShopViewModel.self) { (resolver: Resolver, shop: BattlerShop) in
-            BattlerShopViewModel(shop: shop)
+        container.register(BattlerShopViewModel.self) { (
+            resolver: Resolver,
+            shop: BattlerShop,
+            player: BattlerPlayer,
+            onFinish: @escaping (BattlerPlayer) -> Void
+        ) in
+            BattlerShopViewModel(shop: shop, player: player, onFinish: onFinish)
         }
         
         container.register(BattleViewModel.self) { (
