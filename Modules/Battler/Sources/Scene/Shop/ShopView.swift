@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 15/5/2025.
 
+import DesignSystem
 import Foundation
 import SwiftUI
 import Core
@@ -17,7 +18,12 @@ extension ShopView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            Text("Shop")
+            HStack {
+                Text("Shop")
+                Spacer()
+                invButton
+            }
+            .padding(.horizontal, 16)
             Spacer()
             Text("\(viewModel.player.money) coins")
             ScrollView(.horizontal, showsIndicators: false) {
@@ -37,6 +43,16 @@ extension ShopView: View {
             
             finishButton
         }
+    }
+    
+    private var invButton: some View {
+        Button(action: viewModel.showInventory) {
+            Asset.chest.swiftUIImage
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 44, height: 44)
+        }
+        
     }
     
     private var buyButton: some View {

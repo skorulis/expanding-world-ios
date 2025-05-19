@@ -38,6 +38,10 @@ extension BattlerShopViewModel {
         player.money -= item.baseCost
     }
     
+    func showInventory() {
+        
+    }
+    
     func finish() {
         coordinator?.dismiss()
     }

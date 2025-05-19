@@ -3,12 +3,11 @@
 import Foundation
 import SwiftUI
 
-
-struct ValueBar {
-    let value: CombatantValue
+public struct ValueBar {
+    let value: CurrentValueType
     let color: Color
     
-    init(value: CombatantValue, color: Color) {
+    public init(value: CurrentValueType, color: Color) {
         self.value = value
         self.color = color
     }
@@ -16,7 +15,7 @@ struct ValueBar {
 
 extension ValueBar: View {
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 // Background bar
@@ -42,12 +41,17 @@ extension ValueBar: View {
     }
 }
 
+private struct ExampleValue: CurrentValueType {
+    let current: Int
+    let limit: Int
+}
+
 #Preview {
     VStack(spacing: 8) {
-        ValueBar(value: CombatantValue(current: 0, limit: 100), color: .red)
-        ValueBar(value: CombatantValue(current: 75, limit: 100), color: .red)
-        ValueBar(value: CombatantValue(current: 30, limit: 100), color: .blue)
-        ValueBar(value: CombatantValue(current: 100, limit: 100), color: .green)
+        ValueBar(value: ExampleValue(current: 0, limit: 100), color: .red)
+        ValueBar(value: ExampleValue(current: 75, limit: 100), color: .red)
+        ValueBar(value: ExampleValue(current: 30, limit: 100), color: .blue)
+        ValueBar(value: ExampleValue(current: 100, limit: 100), color: .green)
     }
     .padding()
 }

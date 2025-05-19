@@ -1,15 +1,29 @@
 //  Created by Alexander Skorulis on 10/5/2025.
 
 import Foundation
-
 import SwiftUI
 
-struct ValueCircle {
-    let value: CombatantValue
+public protocol CurrentValueType {
+    var current: Int { get }
+    var limit: Int { get }
+}
+
+public extension CurrentValueType {
+    var string: String {
+        return "\(current)/\(limit)"
+    }
+    
+    var fraction: CGFloat {
+        CGFloat(current) / CGFloat(limit)
+    }
+}
+
+public struct ValueCircle {
+    let value: CurrentValueType
     let color: Color
     let size: CGFloat
     
-    init(value: CombatantValue, color: Color, size: CGFloat = 60) {
+    public init(value: CurrentValueType, color: Color, size: CGFloat = 60) {
         self.value = value
         self.color = color
         self.size = size
@@ -18,7 +32,7 @@ struct ValueCircle {
 
 extension ValueCircle: View {
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             // Background circle
             Circle()
@@ -39,12 +53,17 @@ extension ValueCircle: View {
     }
 }
 
+private struct ExampleValue: CurrentValueType {
+    let current: Int
+    let limit: Int
+}
+
 #Preview {
     VStack(spacing: 16) {
-        ValueCircle(value: CombatantValue(current: 0, limit: 100), color: .red)
-        ValueCircle(value: CombatantValue(current: 75, limit: 100), color: .red)
-        ValueCircle(value: CombatantValue(current: 30, limit: 100), color: .blue)
-        ValueCircle(value: CombatantValue(current: 100, limit: 100), color: .green)
+        ValueCircle(value: ExampleValue(current: 0, limit: 100), color: .red)
+        ValueCircle(value: ExampleValue(current: 75, limit: 100), color: .red)
+        ValueCircle(value: ExampleValue(current: 30, limit: 100), color: .blue)
+        ValueCircle(value: ExampleValue(current: 100, limit: 100), color: .green)
     }
     .padding()
 }

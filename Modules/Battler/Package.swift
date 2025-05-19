@@ -14,6 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Core"),
+        .package(path: "../DesignSystem"),
         .package(
             url: "https://github.com/pointfreeco/swift-snapshot-testing",
             from: "1.18.1"
@@ -29,6 +30,7 @@ let package = Package(
             name: "Battler",
             dependencies: [
                 "Core",
+                "DesignSystem",
                 .product(name: "Knit", package: "knit"),
                 .product(name: "ASKCoordinator", package: "ASKCoordinator"),
             ],

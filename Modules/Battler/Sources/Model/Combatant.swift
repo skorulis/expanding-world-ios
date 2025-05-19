@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 4/5/2025.
 
+import DesignSystem
 import Foundation
 
 protocol Combatant {
@@ -9,7 +10,7 @@ protocol Combatant {
 }
 
 // Used for Health or Mana
-struct CombatantValue {
+struct CombatantValue: CurrentValueType {
     var current: Int
     let limit: Int
     
@@ -25,14 +26,6 @@ struct CombatantValue {
 
     static func -= (lhs: inout CombatantValue, rhs: Int) {
         lhs.current = max(0, lhs.current - rhs)
-    }
-    
-    var string: String {
-        return "\(current)/\(limit)"
-    }
-    
-    var fraction: CGFloat {
-        CGFloat(current) / CGFloat(limit)
     }
     
 }
