@@ -15,4 +15,6 @@ public struct BattlerPlayer: Combatant, Sendable {
         self.money = money
     }
     
+    public typealias ChangeHandler = (BattlerPlayer) -> Void
+    
 }

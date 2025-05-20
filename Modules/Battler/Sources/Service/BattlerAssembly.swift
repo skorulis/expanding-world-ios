@@ -11,16 +11,33 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
     
     public func assemble(container: Container<TargetResolver>) {
         registerServices(container: container)
+        registerViewModels(container: container)
         
+        // @knit public
+        container.register(BattlerPathRenderer.self) { resolver in
+            BattlerPathRenderer(resolver: resolver)
+        }
+        
+        container.register(PlayerStore.self) { _ in
+            PlayerStore(player: .testPlayer())
+        }
+        .inObjectScope(.container)
+    }
+    
+    private func registerViewModels(container: Container<TargetResolver>) {
         container.register(BattlerSequenceViewModel.self) { resolver in
             BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
+        }
+        
+        container.register(PlayerEquipmentViewModel.self) { resolver in
+            PlayerEquipmentViewModel(playerStore: resolver.playerStore())
         }
         
         container.register(BattlerShopViewModel.self) { (
             resolver: Resolver,
             shop: BattlerShop,
             player: BattlerPlayer,
-            onFinish: @escaping (BattlerPlayer) -> Void
+            onFinish: @escaping BattlerPlayer.ChangeHandler
         ) in
             BattlerShopViewModel(shop: shop, player: player, onFinish: onFinish)
         }
@@ -32,15 +49,6 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             resultHandler: @escaping BattlerFight.ResultHandler
         ) in
             BattleViewModel(player: player, fight: fight, resultHandler: resultHandler)
-        }
-        
-        // @knit public
-        container.register(BattlerPathRenderer.self) { resolver in
-            BattlerPathRenderer(resolver: resolver)
-        }
-        
-        container.register(BattleService.self) { resolver in
-            BattleService()
         }
     }
     
@@ -58,6 +66,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
                 fightFactory: resolver.battleFightFactory(),
                 shopFactory: resolver.battleShopFactory()
             )
+        }
+        
+        container.register(BattleService.self) { resolver in
+            BattleService()
         }
     }
     

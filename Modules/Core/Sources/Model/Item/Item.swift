@@ -7,6 +7,7 @@ public enum Item: Codable, Sendable {
     case grog
     case stew
     case leatherArmor
+    case robe
 }
 
 extension Item {
@@ -84,6 +85,8 @@ extension Item {
             return "Stew"
         case .leatherArmor:
             return "Leather Armor"
+        case .robe:
+            return "Robe"
         }
     }
     
@@ -95,6 +98,8 @@ extension Item {
             return ""
         case .leatherArmor:
             return "Armor made from leather"
+        case .robe:
+            return "A simple robe"
         }
     }
     
@@ -104,7 +109,9 @@ extension Item {
             return Image(systemName: "mug.fill")
         case .stew:
             return Image(systemName: "carrot.fill")
-        default:
+        case .robe:
+            return Asset.Item.robe.swiftUIImage
+        case .leatherArmor:
             return Asset.Item.leatherArmor.swiftUIImage
         }
     }
@@ -113,7 +120,7 @@ extension Item {
         switch self {
         case .grog, .stew:
             return .poor
-        case .leatherArmor:
+        case .leatherArmor, .robe:
             return .common
         }
     }
@@ -122,7 +129,7 @@ extension Item {
         switch self {
         case .grog, .stew:
             return .food
-        case .leatherArmor:
+        case .leatherArmor, .robe:
             return .armor
         }
     }
@@ -133,6 +140,8 @@ extension Item {
             return 2
         case .stew:
             return 3
+        case .robe:
+            return 20
         case .leatherArmor:
             return 50
         }

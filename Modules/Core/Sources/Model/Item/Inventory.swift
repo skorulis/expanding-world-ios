@@ -4,6 +4,7 @@ import Foundation
 
 public struct Inventory: Codable, Sendable {
     private var items: [Item: Int]
+    private var slots: [EquipmentSlot: Item.Instance] = [:]
     
     public init(items: [Item.Instance]) {
         self.items = [:]
@@ -18,6 +19,10 @@ public struct Inventory: Codable, Sendable {
     
     public func count(_ item: Item) -> Int {
         return (items[item] ?? 0)
+    }
+    
+    public func has(_ item: Item.Instance) -> Bool {
+        return count(item.type) >= item.amount
     }
     
     public var all: [Item.Instance] {
@@ -42,4 +47,27 @@ public struct Inventory: Codable, Sendable {
             items[item.type] = count - item.amount
         }
     }
+    
+    public func equipped(_ slot: EquipmentSlot) -> Item.Instance? {
+        return slots[slot]
+    }
+    
+    public mutating func equip(_ item: Item, _ slot: EquipmentSlot) {
+        unequip(slot)
+        subtract(.init(type: item, amount: 1))
+        slots[slot] = .init(type: item, amount: 1)
+    }
+    
+    public mutating func unequip(_ slot: EquipmentSlot) {
+        if let item = slots[slot] {
+            add(item)
+            slots.removeValue(forKey: slot)
+        }
+    }
+}
+
+public enum EquipmentSlot: String, Codable, CaseIterable, Sendable {
+    case head
+    case feet
+    case body
 }
