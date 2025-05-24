@@ -9,7 +9,7 @@ struct BattleStepGenerator {
     
     /// Generate a random battle step with 1-3 options
     func generateStep(index: Int) -> BattleStep {
-        let optionCount = Int.random(in: 1...3)
+        let optionCount = Int.random(in: 2...3)
         let stepType: BattleStepType = index % 2 == 0 ? .fight : .intermission
         let options = (0..<optionCount).map { _ in generateOption(stepType: stepType) }
         return BattleStep(stepType: stepType, options: options)

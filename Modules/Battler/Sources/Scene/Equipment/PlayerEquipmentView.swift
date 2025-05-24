@@ -42,7 +42,7 @@ extension PlayerEquipmentView: View {
     
     private var inventorySection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Inventory")
+            Text("Inventory \(viewModel.player.money)")
                 .font(.headline)
             
             LazyVGrid(columns: [.init(.adaptive(minimum: 100))], spacing: 12) {

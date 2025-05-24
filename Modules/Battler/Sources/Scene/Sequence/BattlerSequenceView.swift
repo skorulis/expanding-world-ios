@@ -27,9 +27,12 @@ extension BattlerSequenceView: View {
                         sequence: viewModel.sequence,
                         selection: $viewModel.selection
                     )
+                    .padding(.horizontal, 16)
                     
                 }
+                
                 maybeDetails
+                Spacer()
             }
         }
     }

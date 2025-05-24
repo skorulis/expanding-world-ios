@@ -17,7 +17,7 @@ import Foundation
     init(generator: BattleStepGenerator, eventPublisher: AnyPublisher<BattlerEvent, Never>) {
         self.generator = generator
         let step1 = generator.generateStep(index: 0)
-        self.sequence = .init(steps: [step1], player: .testPlayer(), path: [])
+        self.sequence = .init(steps: [step1], path: [])
         eventPublisher.sink { [unowned self] event in
             self.handleStepResult()
         }

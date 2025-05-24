@@ -6,9 +6,6 @@ struct BattlerSequence: Sendable {
     /// The sequence of steps in this battle
     var steps: [BattleStep]
     
-    /// The player competing
-    var player: BattlerPlayer
-    
     /// The path of steps that the user has chosen
     var path: [Int]
     
