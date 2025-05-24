@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-enum MonsterSpec {
+enum MonsterSpec: CaseIterable {
     case rat
     case slime
     
@@ -21,7 +21,7 @@ enum MonsterSpec {
         case .rat:
             return [.unarmed(.bite, 1)]
         case .slime:
-            return [.unarmed(.slap, 1)]
+            return [.unarmed(.slap, 2)]
         }
     }
     
@@ -29,6 +29,15 @@ enum MonsterSpec {
         switch self {
         case .rat: return "Rat"
         case .slime: return "Slime"
+        }
+    }
+    
+    var difficultyValue: Int {
+        switch self {
+        case .rat:
+            return 1
+        case .slime:
+            return 2
         }
     }
 }

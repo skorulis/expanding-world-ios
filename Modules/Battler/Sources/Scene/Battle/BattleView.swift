@@ -133,7 +133,7 @@ extension BattleView: View {
 #Preview("Win") {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
-    let fight = BattlerFight(monsters: [])
+    let fight = BattlerFight(monsters: [], difficulty: 0)
     BattleView(
         viewModel: resolver.battleViewModel(fight: fight)
     )
@@ -142,7 +142,7 @@ extension BattleView: View {
 #Preview("Loss") {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
-    let fight = BattlerFight(monsters: [])
+    let fight = BattlerFight(monsters: [], difficulty: 0)
     var player = BattlerPlayer.testPlayer()
     player.health.current = 0
     return BattleView(

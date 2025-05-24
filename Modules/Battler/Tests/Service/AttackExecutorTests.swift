@@ -1,8 +1,7 @@
 //  Created by Alexander Skorulis on 4/5/2025.
 
-import Foundation
-
 @testable import Battler
+import Foundation
 import Testing
 
 @MainActor

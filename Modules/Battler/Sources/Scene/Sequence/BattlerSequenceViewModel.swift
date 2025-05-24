@@ -8,18 +8,30 @@ import Foundation
     
     private let generator: BattleStepGenerator
     var sequence: BattlerSequence
+    var playerStore: BattlerPlayerStore
+    var player: BattlerPlayer
     
     var selection: BattleSequenceIndex?
     var coordinator: Coordinator?
     
     private var subscribers: Set<AnyCancellable> = []
     
-    init(generator: BattleStepGenerator, eventPublisher: AnyPublisher<BattlerEvent, Never>) {
+    init(
+        generator: BattleStepGenerator,
+        playerStore: BattlerPlayerStore,
+        eventPublisher: AnyPublisher<BattlerEvent, Never>
+    ) {
         self.generator = generator
+        self.playerStore = playerStore
+        self.player = playerStore.player
         let step1 = generator.generateStep(index: 0)
         self.sequence = .init(steps: [step1], path: [])
         eventPublisher.sink { [unowned self] event in
             self.handleStepResult()
+        }
+        .store(in: &subscribers)
+        playerStore.$player.sink { [unowned self] value in
+            self.player = value
         }
         .store(in: &subscribers)
     }
@@ -37,6 +49,8 @@ extension BattlerSequenceViewModel {
 
 extension BattlerSequenceViewModel {
     
+    var isPlayerDead: Bool { player.health.current <= 0}
+    
     func detailsSelected() {
         guard let selection else { return }
         let option = sequence.option(index: selection)
@@ -53,9 +67,14 @@ extension BattlerSequenceViewModel {
     }
     
     private func handleStepResult() {
-        let next = generator.generateStep(index: sequence.steps.count)
-        sequence.steps.append(next)
-        print("Finish")
+        if !isPlayerDead {
+            let next = generator.generateStep(index: sequence.steps.count)
+            sequence.steps.append(next)
+        }
+    }
+    
+    func finish() {
+        coordinator?.pop()
     }
     
     func showInventory() {

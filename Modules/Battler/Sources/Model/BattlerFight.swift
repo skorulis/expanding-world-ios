@@ -6,9 +6,11 @@ public struct BattlerFight: Sendable {
     
     let id = UUID()
     var monsters: [Monster]
+    let difficulty: Int
     
-    init(monsters: [MonsterSpec]) {
+    init(monsters: [MonsterSpec], difficulty: Int) {
         self.monsters = monsters.map { Monster(spec: $0) }
+        self.difficulty = difficulty
     }
     
     // The result of the battle

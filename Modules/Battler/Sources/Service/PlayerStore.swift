@@ -2,8 +2,8 @@
 
 import Foundation
 
-final class BattlerPlayerStore {
-    var player: BattlerPlayer
+final class BattlerPlayerStore: ObservableObject {
+    @Published var player: BattlerPlayer
     
     init(player: BattlerPlayer) {
         self.player = player

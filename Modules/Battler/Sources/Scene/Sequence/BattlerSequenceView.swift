@@ -7,6 +7,7 @@ import SwiftUI
 
 // MARK: - Memory footprint
 
+@MainActor
 struct BattlerSequenceView {
     @State var viewModel: BattlerSequenceViewModel
 }
@@ -16,6 +17,23 @@ struct BattlerSequenceView {
 extension BattlerSequenceView: View {
     
     var body: some View {
+        if viewModel.player.health.current > 0 {
+            aliveView
+        } else {
+            deadView
+        }
+    }
+    
+    private var deadView: some View {
+        VStack {
+            Text("You dead")
+            Button(action: viewModel.finish) {
+                Text("Menu")
+            }
+        }
+    }
+    
+    private var aliveView: some View {
         VStack {
             TitleBar(title: "Battler") {
                 invButton

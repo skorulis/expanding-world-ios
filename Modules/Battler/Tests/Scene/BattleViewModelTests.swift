@@ -9,13 +9,8 @@ struct BattleViewModelTests {
  
     @Test func attack() {
         let assembler = BattlerAssembly.testing()
-        let fight = BattlerFight(monsters: [.rat, .rat])
-        let player = BattlerPlayer.testPlayer()
-        let viewModel = assembler.resolver.battleViewModel(
-            player: player,
-            fight: fight,
-            resultHandler: { _ in }
-        )
+        let fight = BattlerFight(monsters: [.rat, .rat], difficulty: 2)
+        let viewModel = assembler.resolver.battleViewModel(fight: fight)
         
         #expect(viewModel.fight.monsters[0].health.current == 10)
         #expect(viewModel.fight.monsters[1].health.current == 10)

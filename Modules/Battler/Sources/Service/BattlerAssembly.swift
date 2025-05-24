@@ -39,6 +39,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattlerSequenceViewModel.self) { resolver in
             BattlerSequenceViewModel(
                 generator: resolver.battleStepGenerator(),
+                playerStore: resolver.battlerPlayerStore(),
                 eventPublisher: resolver.battlerEventPublisher()
             )
         }

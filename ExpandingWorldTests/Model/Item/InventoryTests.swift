@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 16/2/2025.
 
 import Testing
+import Core
 @testable import ExpandingWorld
 
 struct InventoryTests {
