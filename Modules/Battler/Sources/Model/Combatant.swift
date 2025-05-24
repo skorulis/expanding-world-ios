@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 4/5/2025.
 
+import Core
 import DesignSystem
 import Foundation
 
@@ -7,6 +8,10 @@ protocol Combatant {
     var id: UUID { get }
     var health: CombatantValue { get set }
     var abilities: [AttackAbility] { get }
+}
+
+protocol SkilledCombatant: Combatant {
+    func value(_ skill: Skill) -> Int
 }
 
 // Used for Health or Mana

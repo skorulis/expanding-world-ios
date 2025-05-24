@@ -19,7 +19,22 @@ enum AttackAbility {
             return type.name
         }
     }
+    
+    var attributes: Set<Attribute> {
+        switch self {
+        case .unarmed:
+            return [.physical, .unarmed]
+        }
+    }
 
+}
+
+extension AttackAbility {
+    
+    enum Attribute {
+        case physical
+        case unarmed
+    }
 }
 
 extension AttackAbility {

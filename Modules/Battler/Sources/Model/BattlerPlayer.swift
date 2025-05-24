@@ -3,18 +3,22 @@
 import Core
 import Foundation
 
-public struct BattlerPlayer: Combatant, Sendable {
+public struct BattlerPlayer: SkilledCombatant, Sendable {
     let id: UUID
     var health: CombatantValue = .init(10)
     var abilities: [AttackAbility] = [.unarmed(.punch, 2), .unarmed(.kick, 4)]
     var inventory: Inventory = .init()
+    var skills: SkillDictionary
     var money: Int64
     
     init(money: Int64 = 100) {
         self.id = UUID()
         self.money = money
+        self.skills = .init([.unarmed: 1])
     }
     
-    public typealias ChangeHandler = (BattlerPlayer) -> Void
+    func value(_ skill: Skill) -> Int {
+        skills.value(skill)
+    }
     
 }

@@ -36,5 +36,16 @@ final class AttackExecutor {
             defender.health -= damage
         }
     }
+    
+    func attackValue(attacker: Combatant, ability: AttackAbility) -> Int {
+        var base = 1
+        if let skilled = attacker as? SkilledCombatant {
+            if ability.attributes.contains(.unarmed) {
+                base += skilled.value(.unarmed)
+            }
+        }
+        
+        return base
+    }
 }
 

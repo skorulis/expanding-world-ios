@@ -7,8 +7,10 @@ import Testing
 @MainActor
 struct AttackExecutorTests {
     
-    @Test func testAttack1() {
-        let executor = AttackExecutor()
+    private let executor = AttackExecutor()
+    
+    @Test func attack1() {
+        
         var c1: any Combatant = FakeCombatant()
         var c2: any Combatant = FakeCombatant()
         #expect(executor.execute(attacker: &c1, defender: &c2).eliminatedIDs.count == 0)
@@ -17,6 +19,15 @@ struct AttackExecutorTests {
         #expect(executor.execute(attacker: &c1, defender: &c2).eliminatedIDs.count == 1)
         #expect(c1.health.current == 10)
         #expect(c2.health.current == 0)   
+    }
+    
+    @Test func attackPower() {
+        var c1 = BattlerPlayer()
+        c1.skills.set(skill: .unarmed, value: 1)
+        #expect(executor.attackValue(attacker: c1, ability: .unarmed(.punch, 1)) == 2)
+        
+        c1.skills.set(skill: .unarmed, value: 4)
+        #expect(executor.attackValue(attacker: c1, ability: .unarmed(.punch, 1)) == 5)
     }
     
 }
