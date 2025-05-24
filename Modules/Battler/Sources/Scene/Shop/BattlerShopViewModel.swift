@@ -7,14 +7,23 @@ import SwiftUI
 @Observable final class BattlerShopViewModel: CoordinatorViewModel {
     
     private let onFinish: (BattlerPlayer) -> Void
+    private let playerStore: BattlerPlayerStore
     var shop: BattlerShop
-    var player: BattlerPlayer
+    var player: BattlerPlayer {
+        didSet {
+            playerStore.player = player
+        }
+    }
     var selectedIndex: Int?
     var coordinator: Coordinator?
     
-    init(shop: BattlerShop, player: BattlerPlayer, onFinish: @escaping (BattlerPlayer) -> Void) {
+    init(shop: BattlerShop,
+         playerStore: BattlerPlayerStore,
+         onFinish: @escaping (BattlerPlayer) -> Void
+    ) {
         self.shop = shop
-        self.player = player
+        self.playerStore = playerStore
+        self.player = playerStore.player
         self.onFinish = onFinish
     }
     
@@ -39,7 +48,7 @@ extension BattlerShopViewModel {
     }
     
     func showInventory() {
-        
+        coordinator?.present(BattlerPath.equipment, style: .sheet)
     }
     
     func finish() {

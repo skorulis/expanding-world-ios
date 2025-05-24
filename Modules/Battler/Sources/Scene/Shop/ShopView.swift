@@ -106,9 +106,7 @@ extension ShopView: View {
     ])
     ShopView(
         viewModel: resolver.battlerShopViewModel(
-            shop: shop,
-            player: .testPlayer(),
-            onFinish: { _ in }
+            shop: shop
         )
     )
 }

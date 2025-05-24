@@ -147,6 +147,14 @@ extension Item {
         }
     }
     
+    public var slot: EquipmentSlot? {
+        switch self {
+        case .leatherArmor:
+            return .body
+        default:
+            return nil
+        }
+    }
     
 }
 
@@ -184,3 +192,10 @@ extension Item {
         }
     }
 }
+
+extension Item.Instance: Transferable {
+    public static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .content)
+    }
+}
+

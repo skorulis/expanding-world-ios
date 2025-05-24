@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 26/4/2025.
 
 import Core
+import DesignSystem
 import Foundation
 import SwiftUI
 
@@ -16,7 +17,10 @@ extension BattlerSequenceView: View {
     
     var body: some View {
         VStack {
-            Text("Battler")
+            TitleBar(title: "Battler") {
+                invButton
+            }
+            
             ScrollView {
                 VStack {
                     BattleSequenceStack(
@@ -26,6 +30,14 @@ extension BattlerSequenceView: View {
                     maybeDetails
                 }
             }
+        }
+    }
+    
+    private var invButton: some View {
+        Button(action: viewModel.showInventory) {
+            Asset.chest.swiftUIImage
+                .resizable()
+                .frame(width: 32, height: 32)
         }
     }
     

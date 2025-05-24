@@ -2,11 +2,12 @@
 
 import Foundation
 
-final class PlayerStore {
+final class BattlerPlayerStore {
     var player: BattlerPlayer
     
     init(player: BattlerPlayer) {
         self.player = player
+        self.player.inventory.add(.init(type: .leatherArmor, amount: 1))
     }
 
 }

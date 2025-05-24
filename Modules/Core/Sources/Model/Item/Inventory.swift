@@ -66,8 +66,10 @@ public struct Inventory: Codable, Sendable {
     }
 }
 
-public enum EquipmentSlot: String, Codable, CaseIterable, Sendable {
+public enum EquipmentSlot: String, Codable, CaseIterable, Sendable, Identifiable {
     case head
     case feet
     case body
+    
+    public var id: String { rawValue }
 }

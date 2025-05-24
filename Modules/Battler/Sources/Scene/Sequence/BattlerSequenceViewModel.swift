@@ -40,8 +40,9 @@ extension BattlerSequenceViewModel {
                 self?.handleFightResult(result: result)
             }
             coordinator?.present(path, style: .fullScreen)
-        case .shop:
-            break // TODO
+        case let .shop(shop):
+            let path = BattlerPath.shop(shop)
+            coordinator?.present(path, style: .fullScreen)
         }
     }
     
@@ -49,5 +50,9 @@ extension BattlerSequenceViewModel {
         let next = generator.generateStep(index: sequence.steps.count)
         sequence.steps.append(next)
         print("Finish")
+    }
+    
+    func showInventory() {
+        coordinator?.present(BattlerPath.equipment, style: .sheet)
     }
 }

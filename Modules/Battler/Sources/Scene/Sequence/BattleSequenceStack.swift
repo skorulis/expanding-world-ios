@@ -21,16 +21,20 @@ extension BattleSequenceStack: View {
                     step: sequence.steps[index],
                     selection: stepSelection(index: index)
                 )
+                .disabled(sequence.path.count > index)
             }
         }
         .background(
-            BattlerPathShape(sequence: sequence)
+            BattlerPathShape(sequence: sequence, selection: selection)
                 .stroke(Color.red, lineWidth: 4)
         )
     }
     
     private func stepSelection(index: Int) -> Binding<Int?> {
         return .init {
+            if sequence.path.count > index {
+                return sequence.path[index]
+            }
             guard selection?.stepIndex == index else {
                 return nil
             }

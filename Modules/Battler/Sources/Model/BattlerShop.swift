@@ -2,6 +2,6 @@
 
 import Core
 
-struct BattlerShop: Sendable {
+public struct BattlerShop: Sendable {
     var items: [Item.Instance]
 }

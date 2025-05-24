@@ -8,11 +8,14 @@ import SwiftUI
 struct BattleStepView {
     let step: BattleStep
     @Binding var selection: Int?
+    
+    @Environment(\.isEnabled) private var isEnabled
 }
 
 // MARK: - Rendering
 
 extension BattleStepView: View {
+    
     
     var body: some View {
         VStack(spacing: SequenceUIConstants.stepRowSpacing) {
@@ -36,12 +39,22 @@ extension BattleStepView: View {
                 width: SequenceUIConstants.avatarImageSize,
                 height: SequenceUIConstants.avatarImageSize
             )
-            .foregroundStyle(selected ? Color.green : Color.white)
+            .foregroundStyle(color(selected: selected))
             .padding(SequenceUIConstants.avatarPadding)
             .background(
                 Circle()
                     .fill(Color.black)
             )
+    }
+    
+    private func color(selected: Bool) -> Color {
+        if selected {
+            return Color.green
+        } else if !isEnabled {
+            return Color.gray
+        } else {
+            return Color.white
+        }
     }
     
     private func image(_ option: BattleOption) -> Image {

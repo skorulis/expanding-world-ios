@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 26/4/2025.
 
+import ASKCore
 import Core
 import Foundation
 import Knit
@@ -18,8 +19,8 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerPathRenderer(resolver: resolver)
         }
         
-        container.register(PlayerStore.self) { _ in
-            PlayerStore(player: .testPlayer())
+        container.register(BattlerPlayerStore.self) { _ in
+            BattlerPlayerStore(player: .testPlayer())
         }
         .inObjectScope(.container)
     }
@@ -30,16 +31,18 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         }
         
         container.register(PlayerEquipmentViewModel.self) { resolver in
-            PlayerEquipmentViewModel(playerStore: resolver.playerStore())
+            PlayerEquipmentViewModel(playerStore: resolver.battlerPlayerStore())
         }
         
         container.register(BattlerShopViewModel.self) { (
             resolver: Resolver,
-            shop: BattlerShop,
-            player: BattlerPlayer,
-            onFinish: @escaping BattlerPlayer.ChangeHandler
+            shop: BattlerShop
         ) in
-            BattlerShopViewModel(shop: shop, player: player, onFinish: onFinish)
+            BattlerShopViewModel(
+                shop: shop,
+                playerStore: resolver.battlerPlayerStore(),
+                onFinish: { _ in }
+            )
         }
         
         container.register(BattleViewModel.self) { (
@@ -73,7 +76,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         }
     }
     
-    public static var dependencies: [any Knit.ModuleAssembly.Type] { [CoreAssembly.self] }
+    public static var dependencies: [any Knit.ModuleAssembly.Type] { [ASKCoreAssembly.self, CoreAssembly.self] }
     
 }
 
