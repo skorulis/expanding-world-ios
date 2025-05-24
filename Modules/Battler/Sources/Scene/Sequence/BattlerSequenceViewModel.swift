@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 26/4/2025.
 
 import ASKCoordinator
+import Combine
 import Foundation
 
 @Observable class BattlerSequenceViewModel: CoordinatorViewModel {
@@ -11,10 +12,16 @@ import Foundation
     var selection: BattleSequenceIndex?
     var coordinator: Coordinator?
     
-    init(generator: BattleStepGenerator) {
+    private var subscribers: Set<AnyCancellable> = []
+    
+    init(generator: BattleStepGenerator, eventPublisher: AnyPublisher<BattlerEvent, Never>) {
         self.generator = generator
         let step1 = generator.generateStep(index: 0)
         self.sequence = .init(steps: [step1], player: .testPlayer(), path: [])
+        eventPublisher.sink { [unowned self] event in
+            self.handleStepResult()
+        }
+        .store(in: &subscribers)
     }
 }
 
@@ -34,11 +41,10 @@ extension BattlerSequenceViewModel {
         guard let selection else { return }
         let option = sequence.option(index: selection)
         sequence.path.append(selection.optionIndex)
+        self.selection = nil
         switch option {
         case let .fight(fight):
-            let path = BattlerPath.battle(sequence.player, fight) { [weak self] result in
-                self?.handleFightResult(result: result)
-            }
+            let path = BattlerPath.battle(fight)
             coordinator?.present(path, style: .fullScreen)
         case let .shop(shop):
             let path = BattlerPath.shop(shop)
@@ -46,7 +52,7 @@ extension BattlerSequenceViewModel {
         }
     }
     
-    private func handleFightResult(result: BattlerFight.Result) {
+    private func handleStepResult() {
         let next = generator.generateStep(index: sequence.steps.count)
         sequence.steps.append(next)
         print("Finish")

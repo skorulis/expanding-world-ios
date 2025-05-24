@@ -9,13 +9,13 @@ public enum BattlerPath: CoordinatorPath {
     case sequence
     case equipment
     case shop(BattlerShop)
-    case battle(BattlerPlayer, BattlerFight, BattlerFight.ResultHandler)
+    case battle(BattlerFight)
     
     public var id: String {
         switch self {
         case .sequence:
             return "battler.sequence"
-        case let .battle(_, fight, _):
+        case let .battle(fight):
             return "battle-\(fight.id)"
         case .equipment:
             return "battler.equipment"
@@ -37,11 +37,11 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
         case .sequence:
             BattlerSequenceView(viewModel: Self.apply(resolver.battlerSequenceViewModel(), coordinator))
         case let .shop(shop):
-            ShopView(viewModel: resolver.battlerShopViewModel(shop: shop))
-        case let .battle(player, fight, resultHandler):
+            ShopView(viewModel: Self.apply(resolver.battlerShopViewModel(shop: shop), coordinator))
+        case let .battle(fight):
             BattleView(
                 viewModel: Self.apply(
-                    resolver.battleViewModel(player: player, fight: fight, resultHandler: resultHandler),
+                    resolver.battleViewModel(fight: fight),
                     coordinator
                 )
             )

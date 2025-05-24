@@ -2,6 +2,7 @@
 
 import ASKCore
 import Core
+import Combine
 import Foundation
 import Knit
 
@@ -13,6 +14,15 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
     public func assemble(container: Container<TargetResolver>) {
         registerServices(container: container)
         registerViewModels(container: container)
+        
+        container.register(PassthroughSubject<BattlerEvent, Never>.self) { _ in
+            PassthroughSubject()
+        }
+        .inObjectScope(.container)
+        
+        container.register(AnyPublisher<BattlerEvent, Never>.self) { resolver in
+            resolver.battlerEventSubject().eraseToAnyPublisher()
+        }
         
         // @knit public
         container.register(BattlerPathRenderer.self) { resolver in
@@ -27,7 +37,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
     
     private func registerViewModels(container: Container<TargetResolver>) {
         container.register(BattlerSequenceViewModel.self) { resolver in
-            BattlerSequenceViewModel(generator: resolver.battleStepGenerator())
+            BattlerSequenceViewModel(
+                generator: resolver.battleStepGenerator(),
+                eventPublisher: resolver.battlerEventPublisher()
+            )
         }
         
         container.register(PlayerEquipmentViewModel.self) { resolver in
@@ -41,17 +54,19 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerShopViewModel(
                 shop: shop,
                 playerStore: resolver.battlerPlayerStore(),
-                onFinish: { _ in }
+                eventPublisher: resolver.battlerEventSubject()
             )
         }
         
         container.register(BattleViewModel.self) { (
-            resovler: Resolver,
-            player: BattlerPlayer,
-            fight: BattlerFight,
-            resultHandler: @escaping BattlerFight.ResultHandler
+            resolver: Resolver,
+            fight: BattlerFight
         ) in
-            BattleViewModel(player: player, fight: fight, resultHandler: resultHandler)
+            BattleViewModel(
+                fight: fight,
+                playerStore: resolver.battlerPlayerStore(),
+                eventPublisher: resolver.battlerEventSubject()
+            )
         }
     }
     

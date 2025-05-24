@@ -25,7 +25,7 @@ struct BattlerPathShape: Shape {
             x += SequenceUIConstants.avatarSize + SequenceUIConstants.stepColumnSpacing
             first = false
         }
-        if let selection, selection.stepIndex > sequence.path.count {
+        if let selection, selection.stepIndex >= sequence.path.count {
             addLine(
                 path: &path,
                 i: selection.stepIndex,

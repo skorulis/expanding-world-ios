@@ -21,14 +21,15 @@ extension BattlerSequenceView: View {
                 invButton
             }
             
-            ScrollView {
-                VStack {
+            VStack {
+                ScrollView(.horizontal) {
                     BattleSequenceStack(
                         sequence: viewModel.sequence,
                         selection: $viewModel.selection
                     )
-                    maybeDetails
+                    
                 }
+                maybeDetails
             }
         }
     }

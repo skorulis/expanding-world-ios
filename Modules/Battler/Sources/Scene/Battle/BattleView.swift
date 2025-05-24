@@ -126,7 +126,7 @@ extension BattleView: View {
     let resolver = assembler.resolver
     let fight = BattlerFight.testFight()
     BattleView(
-        viewModel: resolver.battleViewModel(player: .testPlayer(), fight: fight, resultHandler: { _ in})
+        viewModel: resolver.battleViewModel(fight: fight)
     )
 }
 
@@ -135,7 +135,7 @@ extension BattleView: View {
     let resolver = assembler.resolver
     let fight = BattlerFight(monsters: [])
     BattleView(
-        viewModel: resolver.battleViewModel(player: .testPlayer(), fight: fight, resultHandler: { _ in})
+        viewModel: resolver.battleViewModel(fight: fight)
     )
 }
 
@@ -146,7 +146,7 @@ extension BattleView: View {
     var player = BattlerPlayer.testPlayer()
     player.health.current = 0
     return BattleView(
-        viewModel: resolver.battleViewModel(player: player, fight: fight, resultHandler: { _ in})
+        viewModel: resolver.battleViewModel(fight: fight)
     )
 }
 

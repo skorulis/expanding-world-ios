@@ -16,8 +16,6 @@ public struct BattlerFight: Sendable {
         case win, loss
     }
     
-    public typealias ResultHandler = (Result) -> Void
-    
     var monsterDescriptions: String {
         let group = Dictionary(grouping: monsters, by: { $0.spec })
         return group.map { key, value in

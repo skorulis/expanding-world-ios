@@ -1,6 +1,7 @@
 //  Created by Alexander Skorulis on 27/4/2025.
 
 import Core
+import Combine
 import ASKCoordinator
 import Foundation
 import SwiftUI
@@ -8,15 +9,25 @@ import SwiftUI
 @Observable final class BattleViewModel: CoordinatorViewModel {
     
     var fight: BattlerFight
-    var player: BattlerPlayer
+    private let playerStore: BattlerPlayerStore
+    private let eventPublisher: PassthroughSubject<BattlerEvent, Never>
+    var player: BattlerPlayer {
+        didSet {
+            playerStore.player = player
+        }
+    }
     var coordinator: Coordinator?
-    private let resultHandler: BattlerFight.ResultHandler
     private let executor = AttackExecutor()
     
-    init(player: BattlerPlayer, fight: BattlerFight, resultHandler: @escaping BattlerFight.ResultHandler) {
-        self.player = player
+    init(
+        fight: BattlerFight,
+        playerStore: BattlerPlayerStore,
+        eventPublisher: PassthroughSubject<BattlerEvent, Never>
+    ) {
+        self.playerStore = playerStore
+        self.player = playerStore.player
+        self.eventPublisher = eventPublisher
         self.fight = fight
-        self.resultHandler = resultHandler
     }
     
     var currentMonster: Monster? {
@@ -51,9 +62,9 @@ import SwiftUI
     
     func complete() {
         if player.health.current <= 0 {
-            resultHandler(.loss)
+            eventPublisher.send(.stepFinished)
         } else {
-            resultHandler(.win)
+            eventPublisher.send(.stepFinished)
         }
         coordinator?.dismiss()
     }

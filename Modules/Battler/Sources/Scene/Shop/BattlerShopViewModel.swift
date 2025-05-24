@@ -1,13 +1,14 @@
 //  Created by Alexander Skorulis on 15/5/2025.
 
+import Combine
 import Foundation
 import ASKCoordinator
 import SwiftUI
 
 @Observable final class BattlerShopViewModel: CoordinatorViewModel {
     
-    private let onFinish: (BattlerPlayer) -> Void
     private let playerStore: BattlerPlayerStore
+    private let eventPublisher: PassthroughSubject<BattlerEvent, Never>
     var shop: BattlerShop
     var player: BattlerPlayer {
         didSet {
@@ -17,14 +18,15 @@ import SwiftUI
     var selectedIndex: Int?
     var coordinator: Coordinator?
     
-    init(shop: BattlerShop,
-         playerStore: BattlerPlayerStore,
-         onFinish: @escaping (BattlerPlayer) -> Void
+    init(
+        shop: BattlerShop,
+        playerStore: BattlerPlayerStore,
+        eventPublisher: PassthroughSubject<BattlerEvent, Never>
     ) {
         self.shop = shop
         self.playerStore = playerStore
         self.player = playerStore.player
-        self.onFinish = onFinish
+        self.eventPublisher = eventPublisher
     }
     
 }
@@ -53,5 +55,6 @@ extension BattlerShopViewModel {
     
     func finish() {
         coordinator?.dismiss()
+        eventPublisher.send(.stepFinished)
     }
 }
