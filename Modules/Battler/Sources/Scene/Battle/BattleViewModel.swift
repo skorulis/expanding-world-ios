@@ -40,6 +40,8 @@ import SwiftUI
         guard fight.monsters.count > 0 else { return }
         var monster = fight.monsters[0]
         let result = executor.execute(attacker: &player, defender: &monster, ability: action)
+        print("== PLAYER ATTACK == ")
+        result.context.logAttack()
         self.fight.monsters[0] = monster
         self.onAttackComplete(result: result)
         if !isFinished {
@@ -51,6 +53,8 @@ import SwiftUI
         for i in 0..<fight.monsters.count {
             var monster = fight.monsters[i]
             let result = executor.execute(attacker: &monster, defender: &player)
+            print("== MONSTER ATTACK == ")
+            result.context.logAttack()
             self.fight.monsters[i] = monster
             self.onAttackComplete(result: result)
         }

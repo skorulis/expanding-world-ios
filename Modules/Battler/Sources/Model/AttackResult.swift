@@ -20,4 +20,21 @@ struct AttackContext {
         self.damage = damage
     }
     
+    func logAttack() {
+        if let atk {
+            print("ATK: \(atk)")
+        }
+        if let def {
+            print("DEF: \(def)")
+        }
+        
+        if let hitChance, let hitRoll {
+            print("HIT CHANCE: \(hitChance) / \(hitRoll)")
+        }
+        
+        if let damage {
+            print("DAMAGE: \(damage)")
+        }
+    }
+    
 }

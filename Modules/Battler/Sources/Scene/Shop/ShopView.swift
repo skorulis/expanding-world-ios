@@ -18,12 +18,9 @@ extension ShopView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                Text("Shop")
-                Spacer()
-                invButton
+            TitleBar(title: "Shop") {
+                TrailingBarButtons(coordinator: viewModel.coordinator)
             }
-            .padding(.horizontal, 16)
             Spacer()
             Text("\(viewModel.player.money) coins")
             ScrollView(.horizontal, showsIndicators: false) {
@@ -43,16 +40,6 @@ extension ShopView: View {
             
             finishButton
         }
-    }
-    
-    private var invButton: some View {
-        Button(action: viewModel.showInventory) {
-            Asset.chest.swiftUIImage
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 44, height: 44)
-        }
-        
     }
     
     private var buyButton: some View {

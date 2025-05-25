@@ -7,6 +7,7 @@ import SwiftUI
 
 public enum BattlerPath: CoordinatorPath {
     case menu
+    case character
     case sequence
     case equipment
     case shop(BattlerShop)
@@ -16,6 +17,8 @@ public enum BattlerPath: CoordinatorPath {
         switch self {
         case .menu:
             return "menu"
+        case .character:
+            return "character"
         case .sequence:
             return "battler.sequence"
         case let .battle(fight):
@@ -37,6 +40,8 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
         switch path {
         case .menu:
             BattlerMenuView(viewModel: Self.apply(resolver.battlerMenuViewModel(), coordinator))
+        case .character:
+            CharacterView(viewModel: resolver.characterViewModel())
         case .equipment:
             PlayerEquipmentView(viewModel: resolver.playerEquipmentViewModel())
         case .sequence:

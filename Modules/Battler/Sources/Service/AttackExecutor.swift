@@ -60,11 +60,23 @@ final class AttackExecutor {
         context: inout AttackContext
     ) -> Double {
         context.atk = attackValue(attacker: attacker, ability: ability)
-        return hitChance(atk: context.atk!, def: 1)
+        context.def = defValue(defender: defender, ability: ability)
+        return hitChance(atk: context.atk!, def: context.def!)
     }
     
     func hitChance(atk: Int, def: Int) -> Double {
         return Double(atk) / Double(atk + def)
+    }
+    
+    func defValue(defender: Combatant, ability: AttackAbility) -> Int {
+        var base = 1
+        if let skilled = defender as? SkilledCombatant {
+            if ability.attributes.contains(.unarmed) {
+                base += skilled.value(.unarmed)
+            }
+        }
+        
+        return base
     }
     
     func attackValue(attacker: Combatant, ability: AttackAbility) -> Int {

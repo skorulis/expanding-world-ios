@@ -73,6 +73,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattlerMenuViewModel.self) { resolver in
             BattlerMenuViewModel(playerStore: resolver.battlerPlayerStore())
         }
+        
+        container.register(CharacterViewModel.self) { resolver in
+            CharacterViewModel(playerStore: resolver.battlerPlayerStore())
+        }
     }
     
     private func registerServices(container: Container<TargetResolver>) {

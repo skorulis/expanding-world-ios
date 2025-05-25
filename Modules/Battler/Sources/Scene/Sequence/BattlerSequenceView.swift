@@ -36,7 +36,7 @@ extension BattlerSequenceView: View {
     private var aliveView: some View {
         VStack {
             TitleBar(title: "Battler") {
-                invButton
+                TrailingBarButtons(coordinator: viewModel.coordinator)
             }
             
             VStack {
@@ -52,14 +52,6 @@ extension BattlerSequenceView: View {
                 maybeDetails
                 Spacer()
             }
-        }
-    }
-    
-    private var invButton: some View {
-        Button(action: viewModel.showInventory) {
-            Asset.chest.swiftUIImage
-                .resizable()
-                .frame(width: 32, height: 32)
         }
     }
     
