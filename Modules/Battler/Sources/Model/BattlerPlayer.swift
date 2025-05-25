@@ -10,15 +10,22 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
     var inventory: Inventory = .init()
     var skills: SkillDictionary
     var money: Int64
+    var xp: Int { 1 } // Not really used
     
-    init(money: Int64 = 100) {
+    init(money: Int64 = 100, skills: SkillDictionary) {
         self.id = UUID()
         self.money = money
-        self.skills = .init([.unarmed: 1])
+        self.skills = skills
     }
     
     func value(_ skill: Skill) -> Int {
         skills.value(skill)
+    }
+    
+    mutating func addXP(_ xp: [Skill: Int]) {
+        for (key, value) in xp {
+            skills.add(skill: key, xp: value)
+        }
     }
     
 }

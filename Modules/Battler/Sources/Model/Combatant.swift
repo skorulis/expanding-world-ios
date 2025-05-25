@@ -8,6 +8,8 @@ protocol Combatant {
     var id: UUID { get }
     var health: CombatantValue { get set }
     var abilities: [AttackAbility] { get }
+    var xp: Int { get }
+    mutating func addXP(_ xp: [Skill: Int])
 }
 
 protocol SkilledCombatant: Combatant {

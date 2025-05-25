@@ -53,7 +53,7 @@ public struct SkillState: Sendable, Codable {
     public let xp: Int
     
     public var neededXP: Int {
-        SkillXPTable.xp(forLevel: level)
+        SkillXPTable.xp(forLevel: level + 1)
     }
     
     public var remainingXP: Int {

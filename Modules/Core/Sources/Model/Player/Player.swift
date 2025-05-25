@@ -10,6 +10,7 @@ public struct Player: Codable {
     public var statuses: Statuses
     public var location: Location
     public var deaths: Int
+    public var skills: SkillDictionary
     
     public static var defaultValue: Player {
         .init(
@@ -17,7 +18,8 @@ public struct Player: Codable {
             inventory: .init(),
             statuses: .default,
             location: startingLocation,
-            deaths: 0
+            deaths: 0,
+            skills: .init([.unarmed:1, .toughness: 1])
         )
     }
     

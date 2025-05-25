@@ -1,14 +1,16 @@
 //Created by Alexander Skorulis on 26/4/2025.
 
 import ASKCoordinator
+import Core
 import Combine
 import Foundation
 
-@Observable class BattlerSequenceViewModel: CoordinatorViewModel {
+@Observable final class BattlerSequenceViewModel: CoordinatorViewModel {
     
     private let generator: BattleStepGenerator
+    private let playerStore: BattlerPlayerStore
+    private let mainPlayerStore: PlayerStore
     var sequence: BattlerSequence
-    var playerStore: BattlerPlayerStore
     var player: BattlerPlayer
     
     var selection: BattleSequenceIndex?
@@ -19,11 +21,13 @@ import Foundation
     init(
         generator: BattleStepGenerator,
         playerStore: BattlerPlayerStore,
+        mainPlayerStore: PlayerStore,
         eventPublisher: AnyPublisher<BattlerEvent, Never>
     ) {
         self.generator = generator
         self.playerStore = playerStore
         self.player = playerStore.player
+        self.mainPlayerStore = mainPlayerStore
         let step1 = generator.generateStep(index: 0)
         self.sequence = .init(steps: [step1], path: [])
         eventPublisher.sink { [unowned self] event in
@@ -74,6 +78,7 @@ extension BattlerSequenceViewModel {
     }
     
     func finish() {
+        self.mainPlayerStore.player.skills = player.skills
         coordinator?.pop()
     }
     

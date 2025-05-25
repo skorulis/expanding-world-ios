@@ -4,6 +4,7 @@ import Foundation
 
 public enum Skill: String, Hashable, Codable, Sendable, CaseIterable, Identifiable {
     case unarmed
+    case toughness
     
     public var id: Self { self }
     
@@ -11,6 +12,8 @@ public enum Skill: String, Hashable, Codable, Sendable, CaseIterable, Identifiab
         switch self {
         case .unarmed:
             return "Unarmed fighting"
+        case .toughness:
+            return "Toughness"
         }
     }
 }

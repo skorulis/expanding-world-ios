@@ -1,16 +1,19 @@
 //  Created by Alexander Skorulis on 24/5/2025.
 
 import ASKCoordinator
+import Core
 import Foundation
 import SwiftUI
 
 @Observable final class BattlerMenuViewModel: CoordinatorViewModel {
     
     var coordinator: Coordinator?
-    var playerStore: BattlerPlayerStore
+    private let playerStore: BattlerPlayerStore
+    private let mainPlayerStore: PlayerStore
     
-    init(playerStore: BattlerPlayerStore) {
+    init(playerStore: BattlerPlayerStore, mainPlayerStore: PlayerStore) {
         self.playerStore = playerStore
+        self.mainPlayerStore = mainPlayerStore
     }
 }
 
@@ -20,7 +23,10 @@ extension BattlerMenuViewModel {
     
     func start() {
         // TODO: Improve player creation
-        playerStore.player = .init(money: 10)
+        playerStore.player = .init(
+            money: 10,
+            skills: mainPlayerStore.player.skills
+        )
         coordinator!.push(BattlerPath.sequence)
     }
 }

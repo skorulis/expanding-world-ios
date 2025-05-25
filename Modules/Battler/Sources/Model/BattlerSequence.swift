@@ -48,7 +48,7 @@ enum BattleOption: Sendable {
 
 extension BattlerPlayer {
     static func testPlayer() -> BattlerPlayer {
-        .init()
+        .init(skills: .init([.unarmed: 1]))
     }
 }
 

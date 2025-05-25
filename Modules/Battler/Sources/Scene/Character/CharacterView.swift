@@ -47,7 +47,7 @@ private struct SkillView: View {
                 .font(.headline)
             
             GeometryReader { geometry in
-                ZStack(alignment: .center) {
+                ZStack(alignment: .leading) {
                     Rectangle()
                         .fill(Color.gray.opacity(0.2))
                     
@@ -55,10 +55,14 @@ private struct SkillView: View {
                         .fill(Color.blue)
                         .frame(width: geometry.size.width * CGFloat(state.xp) / CGFloat(state.neededXP))
                     
+                    
+                }
+                .overlay(
                     Text("\(state.xp)/\(state.neededXP) XP")
                         .font(.caption)
                         .padding(.horizontal, 4)
-                }
+                )
+                    
             }
             .frame(height: 20)
             .cornerRadius(4)

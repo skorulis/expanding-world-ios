@@ -26,6 +26,7 @@ final class AttackExecutor {
         ability: AttackAbility
     ) -> AttackResult {
         let context = execute(ability: ability, attacker: &attacker, defender: &defender)
+        attacker.addXP(context.attackerSkillXP)
         let both: [any Combatant] = [attacker, defender]
         let eliminated = both.filter { $0.health.current <= 0 }.map { $0.id }
         return .init(context: context, eliminatedIDs: Set(eliminated))
@@ -36,7 +37,7 @@ final class AttackExecutor {
         attacker: inout Attacker,
         defender: inout Defender
     ) -> AttackContext {
-        var context = AttackContext()
+        var context = AttackContext(attacker: attacker, defender: defender)
         context.hitChance = self.hitChance(attacker: attacker, defender: defender, ability: ability, context: &context)
         context.hitRoll = Double.random(in: 0...1, using: &self.random)
         if context.hitRoll! > context.hitChance! {
@@ -46,6 +47,8 @@ final class AttackExecutor {
         let damage: Int
         switch ability {
         case let .unarmed(_, dmg):
+            let skillGain = difficultyToSkillMultiplier(diff: (1 - context.hitChance!)) * Double(defender.xp)
+            context.addAttackerXP(skill: .unarmed, xp: skillGain)
             damage = dmg
         }
         defender.health -= damage
@@ -66,6 +69,10 @@ final class AttackExecutor {
     
     func hitChance(atk: Int, def: Int) -> Double {
         return Double(atk) / Double(atk + def)
+    }
+    
+    func difficultyToSkillMultiplier(diff: Double) -> Double {
+        1 + max((diff - 0.5) * 3, 0)
     }
     
     func defValue(defender: Combatant, ability: AttackAbility) -> Int {

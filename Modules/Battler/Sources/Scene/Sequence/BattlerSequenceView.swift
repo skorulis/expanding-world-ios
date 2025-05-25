@@ -17,11 +17,14 @@ struct BattlerSequenceView {
 extension BattlerSequenceView: View {
     
     var body: some View {
-        if viewModel.player.health.current > 0 {
-            aliveView
-        } else {
-            deadView
+        Group {
+            if viewModel.player.health.current > 0 {
+                aliveView
+            } else {
+                deadView
+            }
         }
+        .navigationBarHidden(true)
     }
     
     private var deadView: some View {
@@ -35,7 +38,10 @@ extension BattlerSequenceView: View {
     
     private var aliveView: some View {
         VStack {
-            TitleBar(title: "Battler") {
+            TitleBar(
+                title: "Battler",
+                backAction: viewModel.finish
+            ) {
                 TrailingBarButtons(coordinator: viewModel.coordinator)
             }
             

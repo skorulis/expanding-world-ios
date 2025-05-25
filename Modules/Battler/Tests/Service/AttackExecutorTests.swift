@@ -43,10 +43,18 @@ struct AttackExecutorTests {
         #expect(executor.attackValue(attacker: c1, ability: .unarmed(.punch, 1)) == 5)
     }
     
+    @Test func diffToSkill() {
+        let executor = AttackExecutor(random: random)
+        #expect(executor.difficultyToSkillMultiplier(diff: 0.5) == 0)
+        #expect(executor.difficultyToSkillMultiplier(diff: 0.75) == 1)
+        #expect(executor.difficultyToSkillMultiplier(diff: 1) == 2)
+    }
+    
 }
 
 struct FakeCombatant: Combatant {
     let id: UUID = .init()
     var health: CombatantValue = .init(10)
     var abilities: [AttackAbility] { [.unarmed(.punch, 5)] }
+    var xp: Int = 1
 }

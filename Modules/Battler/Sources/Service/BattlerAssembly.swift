@@ -40,6 +40,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerSequenceViewModel(
                 generator: resolver.battleStepGenerator(),
                 playerStore: resolver.battlerPlayerStore(),
+                mainPlayerStore: resolver.playerStore(),
                 eventPublisher: resolver.battlerEventPublisher()
             )
         }
@@ -71,7 +72,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         }
         
         container.register(BattlerMenuViewModel.self) { resolver in
-            BattlerMenuViewModel(playerStore: resolver.battlerPlayerStore())
+            BattlerMenuViewModel(playerStore: resolver.battlerPlayerStore(), mainPlayerStore: resolver.playerStore())
         }
         
         container.register(CharacterViewModel.self) { resolver in

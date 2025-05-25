@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 4/5/2025.
 
+import Core
 import Foundation
 
 struct AttackResult {
@@ -8,16 +9,24 @@ struct AttackResult {
 }
 
 struct AttackContext {
+    let attacker: Combatant
+    let defender: Combatant
     var atk: Int?
     var def: Int?
     var hitChance: Double?
     var hitRoll: Double?
     var damage: Int?
+    var attackerSkillXP: [Skill: Int] = [:]
     
-    init(hitChance: Double? = nil, hitRoll: Double? = nil, damage: Int? = nil) {
-        self.hitChance = hitChance
-        self.hitRoll = hitRoll
-        self.damage = damage
+    init(attacker: Combatant, defender: Combatant) {
+        self.attacker = attacker
+        self.defender = defender
+    }
+    
+    mutating func addAttackerXP(skill: Skill, xp: Double) {
+        let xpInt = Int(round(xp))
+        guard xpInt > 0 else { return }
+        attackerSkillXP[skill] = (attackerSkillXP[skill] ?? 0) + xpInt
     }
     
     func logAttack() {
@@ -34,6 +43,11 @@ struct AttackContext {
         
         if let damage {
             print("DAMAGE: \(damage)")
+        }
+        
+        if !attackerSkillXP.isEmpty {
+            let items = attackerSkillXP.map { "\($0.key): \($0.value)" }
+            print("SKILL GAIN: \(items.joined(separator: ", "))")
         }
     }
     
