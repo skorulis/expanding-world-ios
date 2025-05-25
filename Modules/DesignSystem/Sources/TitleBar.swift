@@ -21,7 +21,7 @@ public struct TitleBar<TrailingIcon: View>: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 8) {
+            HStack(spacing: 4) {
                 maybeBackButton
                     
                 Text(title)

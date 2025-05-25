@@ -24,11 +24,16 @@ public struct SkillDictionary: Sendable, Codable {
     
     public mutating func add(skill: Skill, xp: Int) {
         skillXP[skill] = self.xp(skill) + xp
+        while remainingXP(skill: skill) <= 0 {
+            let newXP = (skillXP[skill] ?? 0) - neededXP(skill: skill)
+            skillXP[skill] = newXP
+            self.set(skill: skill, value: value(skill) + 1)
+        }
     }
     
     public func neededXP(skill: Skill) -> Int {
         let level = skills[skill] ?? 0
-        return SkillXPTable.xp(forLevel: level)
+        return SkillXPTable.xp(forLevel: level + 1)
     }
     
     public func remainingXP(skill: Skill) -> Int {
@@ -71,8 +76,8 @@ enum SkillXPTable {
     
     static let fixedTable: [Int: Int] = [
         1: 0, // Level 1 should be granted automatically
-        2: 100,
-        3: 250,
+        2: 50,
+        3: 100,
         4: 500,
         5: 1000,
         6: 2000,
