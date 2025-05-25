@@ -17,7 +17,7 @@ import SwiftUI
         }
     }
     var coordinator: Coordinator?
-    private let executor = AttackExecutor()
+    private let executor = AttackExecutor(random: SystemRandomNumberGenerator())
     
     init(
         fight: BattlerFight,

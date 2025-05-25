@@ -23,7 +23,8 @@ let package = Package(
             url: "https://github.com/skorulis/ASKCoordinator",
             branch: "main"
         ),
-        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/spm-plugin")
+        .package(url: "https://github.com/cashapp/knit.git", branch: "skorulis/spm-plugin"),
+        .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0")
     ],
     targets: [
         .target(
@@ -44,6 +45,7 @@ let package = Package(
             dependencies: [
                 "Battler",
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                .product(name: "Numerics", package: "swift-numerics"),
             ]
         ),
     ]
