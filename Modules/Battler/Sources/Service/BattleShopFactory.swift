@@ -8,8 +8,7 @@ struct BattleShopFactory {
     func makeShop() -> BattlerShop {
         let items: [Item.Instance] = [
             .init(type: .leatherArmor, amount: 1),
-            .init(type: .leatherArmor, amount: 1),
-            .init(type: .leatherArmor, amount: 1),
+            .init(type: .copperDagger, amount: 1),
         ]
         return .init(items: items)
     }

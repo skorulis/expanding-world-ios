@@ -107,7 +107,9 @@ extension BattleView: View {
         }) {
             VStack {
                 action.image
-                    .font(.system(size: 24))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 32, height: 32)
                 Text(action.name)
                     .font(.caption)
             }

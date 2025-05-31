@@ -37,7 +37,7 @@ final class AttackExecutor {
         attacker: inout Attacker,
         defender: inout Defender
     ) -> AttackContext {
-        var context = AttackContext(attacker: attacker, defender: defender)
+        var context = AttackContext(attacker: attacker, defender: defender, ability: ability)
         context.hitChance = self.hitChance(attacker: attacker, defender: defender, ability: ability, context: &context)
         context.hitRoll = Double.random(in: 0...1, using: &self.random)
         if context.hitRoll! > context.hitChance! {
@@ -50,6 +50,8 @@ final class AttackExecutor {
             let skillGain = difficultyToSkillMultiplier(diff: (1 - context.hitChance!)) * Double(defender.xp)
             context.addAttackerXP(skill: .unarmed, xp: skillGain)
             damage = dmg
+        case let .weapon(item):
+            damage = item.type.attack!.damage.randomElement(using: &self.random)!
         }
         defender.health -= damage
         context.damage = damage

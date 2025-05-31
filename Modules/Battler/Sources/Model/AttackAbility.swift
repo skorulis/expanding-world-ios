@@ -1,22 +1,37 @@
 //  Created by Alexander Skorulis on 4/5/2025.
 
+import Core
 import Foundation
 import SwiftUI
 
 enum AttackAbility {
     case unarmed(UnarmedType, Int)
+    case weapon(Item.Instance)
 
     var image: Image {
         switch self {
         case let .unarmed(type, _):
             return type.image
+        case let .weapon(item):
+            return item.type.icon
         }
     }
 
     var name: String {
         switch self {
         case let .unarmed(type, _):
-            return type.name
+            return type.attackDetails.action
+        case let .weapon(item):
+            return item.type.attack!.action
+        }
+    }
+    
+    var details: AttackDetails {
+        switch self {
+        case let .unarmed(type, _):
+            return type.attackDetails
+        case let .weapon(weapon):
+            return weapon.type.attack!
         }
     }
     
@@ -24,6 +39,9 @@ enum AttackAbility {
         switch self {
         case .unarmed:
             return [.physical, .unarmed]
+        case .weapon:
+            // TODO: Pull attributes from the item
+            return []
         }
     }
 
@@ -34,6 +52,8 @@ extension AttackAbility {
     enum Attribute {
         case physical
         case unarmed
+        case melee
+        case bladed
     }
 }
 
@@ -57,16 +77,34 @@ extension AttackAbility {
             }
         }
         
-        var name: String {
+        var attackDetails: AttackDetails {
             switch self {
             case .punch:
-                return "Punch"
+                return AttackDetails(
+                    action: "Punch",
+                    damage: 1...3,
+                    damageBonuses: [.unarmed: 1, .melee: 1],
+                    baseAttack: 1,
+                    attackBonuses: [.unarmed: 1, .melee: 1],
+                )
             case .kick:
-                return "Kick"
+                return AttackDetails(
+                    action: "Kick",
+                    damage: 1...4,
+                    baseAttack: 1
+                )
             case .bite:
-                return "Bite"
+                return AttackDetails(
+                    action: "Bite",
+                    damage: 1...3,
+                    baseAttack: 1
+                )
             case .slap:
-                return "Slap"
+                return AttackDetails(
+                    action: "Slap",
+                    damage: 1...4,
+                    baseAttack: 4
+                )
             }
         }
     }

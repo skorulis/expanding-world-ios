@@ -36,7 +36,7 @@ extension EquipmentSlotView: View {
     @ViewBuilder
     private var maybeDescription: some View {
         if item == nil {
-            Text(slot.rawValue.capitalized)
+            Text(slot.name.capitalized)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }

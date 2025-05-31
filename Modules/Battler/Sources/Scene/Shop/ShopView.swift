@@ -90,6 +90,7 @@ extension ShopView: View {
     let shop = BattlerShop(items: [
         .init(type: .leatherArmor, amount: 1),
         .init(type: .stew, amount: 1),
+        .init(type: .copperDagger, amount: 1),
     ])
     ShopView(
         viewModel: resolver.battlerShopViewModel(

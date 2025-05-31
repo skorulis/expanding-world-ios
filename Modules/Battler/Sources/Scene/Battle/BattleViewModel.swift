@@ -34,7 +34,16 @@ import SwiftUI
         return fight.monsters.first
     }
     
-    var playerActions: [AttackAbility] { player.abilities }
+    var playerActions: [AttackAbility] {
+        var actions = player.abilities
+        if player.inventory.equipped(.mainHand) == nil {
+            actions.append(.unarmed(.punch, 2))
+        }
+        for item in player.inventory.allEquipped where item.type.attack != nil {
+            actions.append(.weapon(item))
+        }
+        return actions
+    }
     
     func perform(action: AttackAbility) {
         guard fight.monsters.count > 0 else { return }

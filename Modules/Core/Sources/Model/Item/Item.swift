@@ -4,6 +4,7 @@ import Foundation
 import SwiftUI
 
 public enum Item: Codable, Sendable {
+    case copperDagger
     case grog
     case stew
     case leatherArmor
@@ -19,12 +20,15 @@ extension Item {
     public enum Category {
         case food
         case armor
+        case weapon
         
         public var color: Color {
             switch self {
             case .food:
                 return .brown
             case .armor:
+                return .brown
+            case .weapon:
                 return .brown
             }
         }
@@ -84,9 +88,11 @@ extension Item {
         case .stew:
             return "Stew"
         case .leatherArmor:
-            return "Leather Armor"
+            return "Leather armor"
         case .robe:
             return "Robe"
+        case .copperDagger:
+            return "Copper dagger"
         }
     }
     
@@ -100,6 +106,8 @@ extension Item {
             return "Armor made from leather"
         case .robe:
             return "A simple robe"
+        case .copperDagger:
+            return "A badly made dagger"
         }
     }
     
@@ -113,6 +121,8 @@ extension Item {
             return Asset.Item.robe.swiftUIImage
         case .leatherArmor:
             return Asset.Item.leatherArmor.swiftUIImage
+        case .copperDagger:
+            return Asset.Item.copperDagger.swiftUIImage
         }
     }
     
@@ -120,7 +130,7 @@ extension Item {
         switch self {
         case .grog, .stew:
             return .poor
-        case .leatherArmor, .robe:
+        case .leatherArmor, .robe, .copperDagger:
             return .common
         }
     }
@@ -131,6 +141,8 @@ extension Item {
             return .food
         case .leatherArmor, .robe:
             return .armor
+        case .copperDagger:
+            return .weapon
         }
     }
     
@@ -140,6 +152,8 @@ extension Item {
             return 2
         case .stew:
             return 3
+        case .copperDagger:
+            return 5
         case .robe:
             return 20
         case .leatherArmor:
@@ -151,12 +165,16 @@ extension Item {
         switch self {
         case .leatherArmor:
             return .body
+        case .copperDagger:
+            return .mainHand
         default:
             return nil
         }
     }
     
 }
+
+
 
 // MARK: - Consumption
 

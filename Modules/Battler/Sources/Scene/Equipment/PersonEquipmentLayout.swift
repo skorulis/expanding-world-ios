@@ -23,6 +23,12 @@ extension PersonEquipmentLayout: View {
             )
             HStack(spacing: 8) {
                 EquipmentSlotView(
+                    slot: .mainHand,
+                    item: inventory.equipped(.mainHand),
+                    onPress: onPress
+                )
+                
+                EquipmentSlotView(
                     slot: .body,
                     item: inventory.equipped(.body),
                     onPress: onPress

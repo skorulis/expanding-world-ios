@@ -64,12 +64,26 @@ public struct Inventory: Codable, Sendable {
             slots.removeValue(forKey: slot)
         }
     }
+    
+    public var allEquipped: [Item.Instance] {
+        return Array(slots.values)
+    }
 }
 
 public enum EquipmentSlot: String, Codable, CaseIterable, Sendable, Identifiable {
     case head
     case feet
     case body
+    case mainHand
     
     public var id: String { rawValue }
+    
+    public var name: String {
+        switch self {
+        case .mainHand:
+            return "Main hand"
+        default:
+            return rawValue.capitalized
+        }
+    }
 }

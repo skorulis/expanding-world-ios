@@ -9,8 +9,10 @@ struct AttackResult {
 }
 
 struct AttackContext {
+    
     let attacker: Combatant
     let defender: Combatant
+    let ability: AttackAbility
     var atk: Int?
     var def: Int?
     var hitChance: Double?
@@ -18,9 +20,10 @@ struct AttackContext {
     var damage: Int?
     var attackerSkillXP: [Skill: Int] = [:]
     
-    init(attacker: Combatant, defender: Combatant) {
+    init(attacker: Combatant, defender: Combatant, ability: AttackAbility) {
         self.attacker = attacker
         self.defender = defender
+        self.ability = ability
     }
     
     mutating func addAttackerXP(skill: Skill, xp: Double) {
