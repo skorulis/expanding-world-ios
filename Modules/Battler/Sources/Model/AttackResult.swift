@@ -19,6 +19,7 @@ struct AttackContext {
     var hitRoll: Double?
     var damage: Int?
     var attackerSkillXP: [Skill: Int] = [:]
+    var defenderSkillXP: [Skill: Int] = [:]
     
     init(attacker: Combatant, defender: Combatant, ability: AttackAbility) {
         self.attacker = attacker
@@ -26,10 +27,28 @@ struct AttackContext {
         self.ability = ability
     }
     
+    mutating func addAttackerXP(skill: Skill, difficulty: Double) {
+        guard attackerGainsXP else { return }
+        let skillGain = skill.difficultyToXP(difficulty) * Double(defender.xp)
+        addAttackerXP(skill: skill, xp: skillGain)
+    }
+    
     mutating func addAttackerXP(skill: Skill, xp: Double) {
         let xpInt = Int(round(xp))
         guard xpInt > 0 else { return }
         attackerSkillXP[skill] = (attackerSkillXP[skill] ?? 0) + xpInt
+    }
+    
+    mutating func addDefenderXP(skill: Skill, difficulty: Double) {
+        guard defenderGainsXP else { return }
+        let skillGain = skill.difficultyToXP(difficulty) * Double(attacker.xp)
+        addDefenderXP(skill: skill, xp: skillGain)
+    }
+    
+    mutating func addDefenderXP(skill: Skill, xp: Double) {
+        let xpInt = Int(round(xp))
+        guard xpInt > 0 else { return }
+        defenderSkillXP[skill] = (defenderSkillXP[skill] ?? 0) + xpInt
     }
     
     func logAttack() {
@@ -48,10 +67,22 @@ struct AttackContext {
             print("DAMAGE: \(damage)")
         }
         
-        if !attackerSkillXP.isEmpty {
+        if !attackerSkillXP.isEmpty && attackerGainsXP {
             let items = attackerSkillXP.map { "\($0.key): \($0.value)" }
             print("SKILL GAIN: \(items.joined(separator: ", "))")
         }
+        if !defenderSkillXP.isEmpty && defenderGainsXP {
+            let items = defenderSkillXP.map { "\($0.key): \($0.value)" }
+            print("SKILL GAIN: \(items.joined(separator: ", "))")
+        }
+    }
+    
+    var attackerGainsXP: Bool {
+        return attacker is SkilledCombatant
+    }
+    
+    var defenderGainsXP: Bool {
+        return defender is SkilledCombatant
     }
     
 }

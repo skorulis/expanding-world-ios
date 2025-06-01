@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 4/5/2025.
 
+import Core
 import Foundation
 
 final class AttackExecutor {
@@ -27,6 +28,7 @@ final class AttackExecutor {
     ) -> AttackResult {
         let context = execute(ability: ability, attacker: &attacker, defender: &defender)
         attacker.addXP(context.attackerSkillXP)
+        defender.addXP(context.defenderSkillXP)
         let both: [any Combatant] = [attacker, defender]
         let eliminated = both.filter { $0.health.current <= 0 }.map { $0.id }
         return .init(context: context, eliminatedIDs: Set(eliminated))
@@ -47,12 +49,16 @@ final class AttackExecutor {
         let damage: Int
         switch ability {
         case let .unarmed(_, dmg):
-            let skillGain = difficultyToSkillMultiplier(diff: (1 - context.hitChance!)) * Double(defender.xp)
-            context.addAttackerXP(skill: .unarmed, xp: skillGain)
-            damage = dmg
+            context.addAttackerXP(skill: .unarmed, difficulty: (1 - context.hitChance!))
+            damage = dmg.randomElement(using: &self.random)!
         case let .weapon(item):
             damage = item.type.attack!.damage.randomElement(using: &self.random)!
         }
+        context.addDefenderXP(
+            skill: .toughness,
+            difficulty: defender.health.percentage(amount: damage)
+        )
+        
         defender.health -= damage
         context.damage = damage
         return context
@@ -73,8 +79,8 @@ final class AttackExecutor {
         return Double(atk) / Double(atk + def)
     }
     
-    func difficultyToSkillMultiplier(diff: Double) -> Double {
-        1 + max((diff - 0.5) * 3, 0)
+    func difficultyToSkillMultiplier(skill: Skill, diff: Double) -> Double {
+        return skill.difficultyToXP(diff)
     }
     
     func defValue(defender: Combatant, ability: AttackAbility) -> Int {

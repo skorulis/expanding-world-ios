@@ -19,9 +19,9 @@ enum MonsterSpec: CaseIterable {
     var abilities: [AttackAbility] {
         switch self {
         case .rat:
-            return [.unarmed(.bite, 1)]
+            return [.unarmed(.bite, 1...3)]
         case .slime:
-            return [.unarmed(.slap, 2)]
+            return [.unarmed(.slap, 2...4)]
         }
     }
     

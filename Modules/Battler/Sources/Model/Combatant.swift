@@ -35,4 +35,12 @@ struct CombatantValue: CurrentValueType {
         lhs.current = max(0, lhs.current - rhs)
     }
     
+    func percentage(amount: Int) -> Double {
+        return Double(amount) / Double(limit)
+    }
+    
+    mutating func refill() {
+        current = limit
+    }
+    
 }

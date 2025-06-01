@@ -37,7 +37,7 @@ import SwiftUI
     var playerActions: [AttackAbility] {
         var actions = player.abilities
         if player.inventory.equipped(.mainHand) == nil {
-            actions.append(.unarmed(.punch, 2))
+            actions.append(.unarmed(.punch, 2...4))
         }
         for item in player.inventory.allEquipped where item.type.attack != nil {
             actions.append(.weapon(item))
@@ -77,6 +77,7 @@ import SwiftUI
         if player.health.current <= 0 {
             eventPublisher.send(.stepFinished)
         } else {
+            player.health.refill()
             eventPublisher.send(.stepFinished)
         }
         coordinator?.dismiss()

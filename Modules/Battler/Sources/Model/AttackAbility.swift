@@ -5,7 +5,7 @@ import Foundation
 import SwiftUI
 
 enum AttackAbility {
-    case unarmed(UnarmedType, Int)
+    case unarmed(UnarmedType, ClosedRange<Int>)
     case weapon(Item.Instance)
 
     var image: Image {

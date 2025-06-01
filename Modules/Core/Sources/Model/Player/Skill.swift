@@ -29,4 +29,14 @@ public enum Skill: String, Hashable, Codable, Sendable, CaseIterable, Identifiab
             return true
         }
     }
+    
+    public func difficultyToXP(_ difficulty: Double) -> Double {
+        switch self {
+        case .toughness:
+            return difficulty * 10
+        default:
+            // Standard scaling
+            return pow(difficulty, 2) * 10
+        }
+    }
 }
