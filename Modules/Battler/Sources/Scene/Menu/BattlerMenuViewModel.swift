@@ -29,4 +29,8 @@ extension BattlerMenuViewModel {
         )
         coordinator!.push(BattlerPath.sequence)
     }
+    
+    func showBestiary() {
+        coordinator?.push(BattlerPath.bestiary)
+    }
 }

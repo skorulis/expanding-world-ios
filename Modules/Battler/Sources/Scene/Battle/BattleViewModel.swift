@@ -1,5 +1,7 @@
 //  Created by Alexander Skorulis on 27/4/2025.
 
+import Knit
+import KnitMacros
 import Core
 import Combine
 import ASKCoordinator
@@ -10,6 +12,7 @@ import SwiftUI
     
     var fight: BattlerFight
     private let playerStore: BattlerPlayerStore
+    private let persistentStore: BattlerPersistentStore
     private let eventPublisher: PassthroughSubject<BattlerEvent, Never>
     var player: BattlerPlayer {
         didSet {
@@ -19,15 +22,18 @@ import SwiftUI
     var coordinator: Coordinator?
     private let executor = AttackExecutor(random: SystemRandomNumberGenerator())
     
+    @Resolvable<Resolver>
     init(
-        fight: BattlerFight,
+        @Argument fight: BattlerFight,
         playerStore: BattlerPlayerStore,
-        eventPublisher: PassthroughSubject<BattlerEvent, Never>
+        eventPublisher: PassthroughSubject<BattlerEvent, Never>,
+        persistentStore: BattlerPersistentStore
     ) {
         self.playerStore = playerStore
         self.player = playerStore.player
         self.eventPublisher = eventPublisher
         self.fight = fight
+        self.persistentStore = persistentStore
     }
     
     var currentMonster: Monster? {
@@ -84,6 +90,10 @@ import SwiftUI
     }
     
     private func onAttackComplete(result: AttackResult) {
+        let deadMonsters = fight.monsters.filter { result.eliminatedIDs.contains($0.id) }
+        for monster in deadMonsters {
+            persistentStore.stats.addKill(spec: monster.spec)
+        }
         fight.monsters = fight.monsters.filter { !result.eliminatedIDs.contains($0.id) }
     }
 }

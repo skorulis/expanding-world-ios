@@ -55,6 +55,10 @@ extension BestiaryView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
+                
+                Text("Kills: \(viewModel.kills(monster: entry))")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
             }
             
             Spacer()

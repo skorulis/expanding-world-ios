@@ -11,9 +11,11 @@ import SwiftUI
     
     var coordinator: Coordinator?
     
+    private let persistentStore: BattlerPersistentStore
+    
     @Resolvable<Resolver>
-    public init() {
-
+    public init(persistentStore: BattlerPersistentStore) {
+        self.persistentStore = persistentStore
     }
 }
 
@@ -22,6 +24,10 @@ import SwiftUI
 extension BestiaryViewModel {
     var entries: [MonsterSpec] {
         MonsterSpec.allCases
+    }
+    
+    func kills(monster: MonsterSpec) -> Int {
+        persistentStore.stats.kills(spec: monster)
     }
     
     func select(_ entry: MonsterSpec) {

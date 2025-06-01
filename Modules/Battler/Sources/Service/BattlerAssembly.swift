@@ -14,6 +14,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
     public func assemble(container: Container<TargetResolver>) {
         registerServices(container: container)
         registerViewModels(container: container)
+        registerStores(container: container)
         
         container.register(PassthroughSubject<BattlerEvent, Never>.self) { _ in
             PassthroughSubject()
@@ -28,11 +29,6 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattlerPathRenderer.self) { resolver in
             BattlerPathRenderer(resolver: resolver)
         }
-        
-        container.register(BattlerPlayerStore.self) { _ in
-            BattlerPlayerStore(player: .testPlayer())
-        }
-        .inObjectScope(.container)
     }
     
     private func registerViewModels(container: Container<TargetResolver>) {
@@ -66,11 +62,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             resolver: Resolver,
             fight: BattlerFight
         ) in
-            BattleViewModel(
-                fight: fight,
-                playerStore: resolver.battlerPlayerStore(),
-                eventPublisher: resolver.battlerEventSubject()
-            )
+            BattleViewModel.make(resolver: resolver, fight: fight)
         }
         
         container.register(BattlerMenuViewModel.self) { resolver in
@@ -101,6 +93,15 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattleService.self) { resolver in
             BattleService()
         }
+    }
+    
+    private func registerStores(container: Container<TargetResolver>) {
+        container.register(BattlerPlayerStore.self) { _ in
+            BattlerPlayerStore(player: .testPlayer())
+        }
+        .inObjectScope(.container)
+        
+        container.register(BattlerPersistentStore.self) { BattlerPersistentStore.make(resolver: $0) }
     }
     
     public static var dependencies: [any Knit.ModuleAssembly.Type] { [ASKCoreAssembly.self, CoreAssembly.self] }

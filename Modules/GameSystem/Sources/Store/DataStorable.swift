@@ -27,6 +27,7 @@ public protocol DataStorable: Codable {
 
 public enum DataStoreKey: String, CaseIterable {
     case player
+    case battlerStats
     case knowledge
     case shops
     case time

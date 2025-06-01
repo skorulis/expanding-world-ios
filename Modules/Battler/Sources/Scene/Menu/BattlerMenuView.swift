@@ -17,10 +17,15 @@ extension BattlerMenuView: View {
     var body: some View {
         VStack {
             TitleBar(title: "Menu")
-            VStack {
+            VStack(spacing: 8) {
                 Spacer()
                 Button(action: viewModel.start) {
                     Text("Start")
+                }
+                .buttonStyle(RectangleButtonStyle())
+                
+                Button(action: viewModel.showBestiary) {
+                    Text("Bestiary")
                 }
                 .buttonStyle(RectangleButtonStyle())
                 Spacer()

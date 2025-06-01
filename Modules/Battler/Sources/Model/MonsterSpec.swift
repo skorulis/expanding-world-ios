@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-enum MonsterSpec: CaseIterable, Identifiable {
+enum MonsterSpec: CaseIterable, Identifiable, Codable {
     case rat
     case slime
     
