@@ -3,16 +3,17 @@
 import Foundation
 import Core
 
-struct Monster: Combatant, Identifiable {
+struct Monster: Combatant, Identifiable, Sendable {
     let id: UUID
     let spec: MonsterSpec
-    var health: CombatantValue = .init(10)
+    var health: CombatantValue
     let abilities: [AttackAbility]
     var xp: Int { spec.difficultyValue }
     
     init(spec: MonsterSpec) {
         self.spec = spec
         self.abilities = spec.abilities
+        self.health = .init(spec.health)
         self.id = UUID()
     }
     

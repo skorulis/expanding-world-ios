@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-enum MonsterSpec: CaseIterable, Identifiable, Codable {
+public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
     case rat
     case slime
     
@@ -41,7 +41,7 @@ enum MonsterSpec: CaseIterable, Identifiable, Codable {
         }
     }
     
-    var id: String { name }
+    public var id: String { name }
     
     var difficultyValue: Int {
         switch self {

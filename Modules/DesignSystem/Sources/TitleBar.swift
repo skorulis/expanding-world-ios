@@ -51,8 +51,8 @@ public struct TitleBar<TrailingIcon: View>: View {
 }
 
 public extension TitleBar where TrailingIcon == EmptyView {
-    public init(title: String) {
-        self.init(title: title, trailing: { EmptyView() })
+    public init(title: String, backAction: (() -> Void)? = nil) {
+        self.init(title: title, backAction: backAction, trailing: { EmptyView() })
     }
 }
 

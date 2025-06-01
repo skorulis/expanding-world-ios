@@ -17,9 +17,13 @@ extension BestiaryView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TitleBar(title: "Bestiary")
+            TitleBar(
+                title: "Bestiary",
+                backAction: { viewModel.coordinator?.pop() }
+            )
             listView
         }
+        .navigationBarHidden(true)
     }
     
     private var listView: some View {

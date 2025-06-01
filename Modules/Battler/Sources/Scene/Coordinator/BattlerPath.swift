@@ -13,6 +13,7 @@ public enum BattlerPath: CoordinatorPath {
     case shop(BattlerShop)
     case battle(BattlerFight)
     case bestiary
+    case bestiaryEntry(MonsterSpec)
     
     public var id: String {
         switch self {
@@ -30,6 +31,8 @@ public enum BattlerPath: CoordinatorPath {
             return "shop"
         case .bestiary:
             return "battler.bestiary"
+        case let .bestiaryEntry(monster):
+            return "bestiary.entry.\(monster.id)"
         }
     }
 }
@@ -60,6 +63,8 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
             )
         case .bestiary:
             BestiaryView(viewModel: Self.apply(resolver.bestiaryViewModel(), coordinator))
+        case let .bestiaryEntry(monster):
+            BestiaryEntryView(viewModel: Self.apply(resolver.bestiaryEntryViewModel(monster: monster), coordinator))
         }
     }
     

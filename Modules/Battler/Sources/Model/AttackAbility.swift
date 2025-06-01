@@ -44,6 +44,23 @@ enum AttackAbility {
             return []
         }
     }
+    
+    var damageRange: ClosedRange<Int>? {
+        switch self {
+        case .unarmed(_, let closedRange):
+            closedRange
+        case .weapon(let instance):
+            instance.type.attack!.damage
+        }
+    }
+    
+    var damangeRangeString: String? {
+        guard let damageRange else { return nil }
+        if damageRange.lowerBound == damageRange.upperBound {
+            return "\(damageRange.lowerBound)"
+        }
+        return "\(damageRange.lowerBound)-\(damageRange.upperBound)"
+    }
 
 }
 

@@ -69,6 +69,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerMenuViewModel(playerStore: resolver.battlerPlayerStore(), mainPlayerStore: resolver.playerStore())
         }
         
+        container.register(BestiaryEntryViewModel.self) { (r: Resolver, monster: MonsterSpec) in
+            BestiaryEntryViewModel.make(resolver: r, monster: monster)
+        }
+        
         container.register(CharacterViewModel.self) { resolver in
             CharacterViewModel(playerStore: resolver.battlerPlayerStore())
         }

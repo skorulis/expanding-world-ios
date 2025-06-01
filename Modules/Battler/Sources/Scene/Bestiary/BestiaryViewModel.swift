@@ -23,7 +23,7 @@ import SwiftUI
 
 extension BestiaryViewModel {
     var entries: [MonsterSpec] {
-        MonsterSpec.allCases
+        MonsterSpec.allCases.filter { kills(monster: $0) > 0 }
     }
     
     func kills(monster: MonsterSpec) -> Int {
@@ -31,6 +31,6 @@ extension BestiaryViewModel {
     }
     
     func select(_ entry: MonsterSpec) {
-        
+        coordinator?.push(BattlerPath.bestiaryEntry(entry))
     }
 }
