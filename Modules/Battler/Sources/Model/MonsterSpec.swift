@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-enum MonsterSpec: CaseIterable {
+enum MonsterSpec: CaseIterable, Identifiable {
     case rat
     case slime
     
@@ -13,6 +13,15 @@ enum MonsterSpec: CaseIterable {
             return Asset.Monsters.monsterRat.swiftUIImage
         case .slime:
             return Asset.Monsters.monsterSlime.swiftUIImage
+        }
+    }
+    
+    var health: Int {
+        switch self {
+        case .rat:
+            return 5
+        case .slime:
+            return 10
         }
     }
     
@@ -31,6 +40,8 @@ enum MonsterSpec: CaseIterable {
         case .slime: return "Slime"
         }
     }
+    
+    var id: String { name }
     
     var difficultyValue: Int {
         switch self {

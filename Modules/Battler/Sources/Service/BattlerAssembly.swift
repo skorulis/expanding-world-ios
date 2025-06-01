@@ -49,6 +49,8 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             PlayerEquipmentViewModel(playerStore: resolver.battlerPlayerStore())
         }
         
+        container.register(BestiaryViewModel.self) { BestiaryViewModel.make(resolver: $0) }
+        
         container.register(BattlerShopViewModel.self) { (
             resolver: Resolver,
             shop: BattlerShop
