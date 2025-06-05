@@ -26,6 +26,7 @@ internal enum Asset {
   internal static let chest = ImageAsset(name: "chest")
   internal static let fireworks = ImageAsset(name: "fireworks")
   internal enum Monsters {
+    internal static let angryCat = ImageAsset(name: "angry-cat")
     internal static let monsterRat = ImageAsset(name: "monster-rat")
     internal static let monsterSlime = ImageAsset(name: "monster-slime")
   }

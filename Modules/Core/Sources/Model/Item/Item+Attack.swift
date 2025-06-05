@@ -27,7 +27,7 @@ public extension Item {
     }
 }
 
-public struct AttackDetails {
+public struct AttackDetails: Sendable {
     public let action: String
     public let damage: ClosedRange<Int>
     public let damageBonuses: [Skill: Int]

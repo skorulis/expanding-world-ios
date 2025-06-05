@@ -12,7 +12,7 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
     var money: Int64
     var xp: Int { 1 } // Not really used
     
-    init(money: Int64 = 100, skills: SkillDictionary) {
+    init(money: Int64 = 0, skills: SkillDictionary) {
         self.id = UUID()
         self.money = money
         self.skills = skills

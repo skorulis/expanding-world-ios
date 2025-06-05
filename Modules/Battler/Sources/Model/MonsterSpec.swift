@@ -6,6 +6,7 @@ import SwiftUI
 public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
     case rat
     case slime
+    case angryCat
     
     var image: Image {
         switch self {
@@ -13,6 +14,8 @@ public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
             return Asset.Monsters.monsterRat.swiftUIImage
         case .slime:
             return Asset.Monsters.monsterSlime.swiftUIImage
+        case .angryCat:
+            return Asset.Monsters.angryCat.swiftUIImage
         }
     }
     
@@ -21,6 +24,8 @@ public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
         case .rat:
             return 5
         case .slime:
+            return 10
+        case .angryCat:
             return 10
         }
     }
@@ -31,6 +36,13 @@ public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
             return [.unarmed(.bite, 1...3)]
         case .slime:
             return [.unarmed(.slap, 2...4)]
+        case .angryCat:
+            return [
+                .monsterSkill(
+                    nil,
+                    .init(action: "Scratch", damage: 3...5, baseAttack: 1)
+                )
+            ]
         }
     }
     
@@ -38,6 +50,7 @@ public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
         switch self {
         case .rat: return "Rat"
         case .slime: return "Slime"
+        case .angryCat: return "Angry cat"
         }
     }
     
@@ -47,7 +60,7 @@ public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
         switch self {
         case .rat:
             return 1
-        case .slime:
+        case .slime, .angryCat:
             return 2
         }
     }

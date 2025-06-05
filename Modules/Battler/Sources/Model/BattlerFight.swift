@@ -5,11 +5,13 @@ import Foundation
 public struct BattlerFight: Sendable {
     
     let id = UUID()
+    let startMonsters: [Monster]
     var monsters: [Monster]
     let difficulty: Int
     
     init(monsters: [MonsterSpec], difficulty: Int) {
         self.monsters = monsters.map { Monster(spec: $0) }
+        self.startMonsters = self.monsters
         self.difficulty = difficulty
     }
     
@@ -25,6 +27,9 @@ public struct BattlerFight: Sendable {
             return "\(value.count) \(key.name)\(plural)"
         }
         .joined(separator: ", ")
-        
+    }
+    
+    var reward: Int {
+        return monsters.map { $0.spec.difficultyValue }.reduce(0, +) * monsters.count
     }
 }

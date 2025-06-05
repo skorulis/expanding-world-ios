@@ -84,6 +84,7 @@ import SwiftUI
             eventPublisher.send(.stepFinished)
         } else {
             player.health.refill()
+            player.money += Int64(fight.reward)
             eventPublisher.send(.stepFinished)
         }
         coordinator?.dismiss()

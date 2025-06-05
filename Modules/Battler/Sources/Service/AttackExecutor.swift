@@ -53,6 +53,8 @@ final class AttackExecutor {
             damage = dmg.randomElement(using: &self.random)!
         case let .weapon(item):
             damage = item.type.attack!.damage.randomElement(using: &self.random)!
+        case let .monsterSkill(_, details):
+            damage = details.damage.randomElement(using: &self.random)!
         }
         context.addDefenderXP(
             skill: .toughness,

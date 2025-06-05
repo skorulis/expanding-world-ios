@@ -4,9 +4,10 @@ import Core
 import Foundation
 import SwiftUI
 
-enum AttackAbility {
+enum AttackAbility: Sendable {
     case unarmed(UnarmedType, ClosedRange<Int>)
     case weapon(Item.Instance)
+    case monsterSkill(Image?, AttackDetails)
 
     var image: Image {
         switch self {
@@ -14,6 +15,8 @@ enum AttackAbility {
             return type.image
         case let .weapon(item):
             return item.type.icon
+        case let .monsterSkill(image, _):
+            return image ?? Image(systemName: "play.fill")
         }
     }
 
@@ -23,6 +26,8 @@ enum AttackAbility {
             return type.attackDetails.action
         case let .weapon(item):
             return item.type.attack!.action
+        case let .monsterSkill(_, details):
+            return details.action
         }
     }
     
@@ -32,6 +37,8 @@ enum AttackAbility {
             return type.attackDetails
         case let .weapon(weapon):
             return weapon.type.attack!
+        case let .monsterSkill(_, details):
+            return details
         }
     }
     
@@ -42,15 +49,19 @@ enum AttackAbility {
         case .weapon:
             // TODO: Pull attributes from the item
             return []
+        case .monsterSkill:
+            return []
         }
     }
     
     var damageRange: ClosedRange<Int>? {
         switch self {
         case .unarmed(_, let closedRange):
-            closedRange
+            return closedRange
         case .weapon(let instance):
-            instance.type.attack!.damage
+            return instance.type.attack!.damage
+        case let .monsterSkill(_, details):
+            return details.damage
         }
     }
     

@@ -37,10 +37,10 @@ struct AttackExecutorTests {
     @Test func attackPower() {
         let executor = AttackExecutor(random: random)
         var c1 = BattlerPlayer(skills: SkillDictionary([.unarmed: 1]))
-        #expect(executor.attackValue(attacker: c1, ability: .unarmed(.punch, 1)) == 2)
+        #expect(executor.attackValue(attacker: c1, ability: .unarmed(.punch, 1...1)) == 2)
         
         c1.skills.set(skill: .unarmed, value: 4)
-        #expect(executor.attackValue(attacker: c1, ability: .unarmed(.punch, 1)) == 5)
+        #expect(executor.attackValue(attacker: c1, ability: .unarmed(.punch, 1...1)) == 5)
     }
     
     @Test func diffToSkill() {
@@ -57,7 +57,7 @@ struct AttackExecutorTests {
 struct FakeCombatant: Combatant {
     let id: UUID = .init()
     var health: CombatantValue = .init(10)
-    var abilities: [AttackAbility] { [.unarmed(.punch, 5)] }
+    var abilities: [AttackAbility] { [.unarmed(.punch, 5...5)] }
     var xp: Int = 1
     
     mutating func addXP(_ xp: [Skill : Int]) {}
