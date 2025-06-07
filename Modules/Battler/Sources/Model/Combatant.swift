@@ -10,6 +10,8 @@ protocol Combatant {
     var abilities: [AttackAbility] { get }
     var xp: Int { get }
     mutating func addXP(_ xp: [Skill: Int])
+    
+    func defence(against: AttackAbility) -> Int
 }
 
 protocol SkilledCombatant: Combatant {

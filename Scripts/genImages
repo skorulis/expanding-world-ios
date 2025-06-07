@@ -1,0 +1,7 @@
+cd Modules/Core/
+swiftgen
+cd -
+
+cd Modules/Battler
+swiftgen
+cd -

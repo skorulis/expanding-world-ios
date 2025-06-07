@@ -28,4 +28,8 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
         }
     }
     
+    func defence(against: AttackAbility) -> Int {
+        return 1
+    }
+    
 }

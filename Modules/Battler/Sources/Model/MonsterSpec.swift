@@ -30,6 +30,28 @@ public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
         }
     }
     
+    var defence: Int {
+        switch self {
+        case .rat:
+            return 3
+        case .slime:
+            return 1
+        case .angryCat:
+            return 4
+        }
+    }
+    
+    var attack: Int {
+        switch self {
+        case .rat:
+            return 2
+        case .slime:
+            return 2
+        case .angryCat:
+            return 4
+        }
+    }
+    
     var abilities: [AttackAbility] {
         switch self {
         case .rat:

@@ -86,14 +86,7 @@ final class AttackExecutor {
     }
     
     func defValue(defender: Combatant, ability: AttackAbility) -> Int {
-        var base = 1
-        if let skilled = defender as? SkilledCombatant {
-            if ability.attributes.contains(.unarmed) {
-                base += skilled.value(.unarmed)
-            }
-        }
-        
-        return base
+        return defender.defence(against: ability)
     }
     
     func attackValue(attacker: Combatant, ability: AttackAbility) -> Int {

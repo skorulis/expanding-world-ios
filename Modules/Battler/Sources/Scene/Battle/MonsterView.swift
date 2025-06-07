@@ -8,6 +8,7 @@ import SwiftUI
 
 struct MonsterView {
     let monsters: [Monster]
+    @Binding var selected: UUID?
 }
 
 // MARK: - Rendering
@@ -29,16 +30,21 @@ extension MonsterView: View {
     }
     
     @ViewBuilder
-    private func singleMonsterView(_ monster: Monster) -> some View {
-        ZStack {
-            monster.spec.image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxHeight: 120)
-                .padding()
-        }
-        .overlay(alignment: .topTrailing) {
-            ValueCircle(value: monster.health, color: .red)
+    private func singleMonsterView(
+        _ monster: Monster
+    ) -> some View {
+        Button(action: { selected = monster.id }) {
+            ZStack {
+                monster.spec.image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 120)
+                    .padding()
+            }
+            .overlay(alignment: .topTrailing) {
+                ValueCircle(value: monster.health, color: .red)
+            }
+            .border(selected == monster.id ? Color.red : Color.clear, width: 2)
         }
     }
 }
@@ -51,7 +57,8 @@ extension MonsterView: View {
             monsters: [
                 .init(spec: .rat),
                 .init(spec: .rat),
-            ]
+            ],
+            selected: .constant(nil)
         )
         Color.black
             .frame(height: 2)
@@ -62,7 +69,8 @@ extension MonsterView: View {
                 .init(spec: .rat),
                 .init(spec: .rat),
                 .init(spec: .rat),
-            ]
+            ],
+            selected: .constant(nil)
         )
     }
     

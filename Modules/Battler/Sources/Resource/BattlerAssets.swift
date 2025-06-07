@@ -25,6 +25,12 @@ internal enum Asset {
   internal static let character = ImageAsset(name: "character")
   internal static let chest = ImageAsset(name: "chest")
   internal static let fireworks = ImageAsset(name: "fireworks")
+  internal enum Icon {
+    internal static let attack = ImageAsset(name: "attack")
+    internal static let defence = ImageAsset(name: "defence")
+    internal static let heart = ImageAsset(name: "heart")
+    internal static let skull = ImageAsset(name: "skull")
+  }
   internal enum Monsters {
     internal static let angryCat = ImageAsset(name: "angry-cat")
     internal static let monsterRat = ImageAsset(name: "monster-rat")

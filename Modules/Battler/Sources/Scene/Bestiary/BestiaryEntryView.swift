@@ -50,25 +50,41 @@ extension BestiaryEntryView: View {
             
             HStack(spacing: 24) {
                 statView(
-                    icon: "heart.fill",
+                    icon: Asset.Icon.heart.swiftUIImage,
                     color: .red,
                     value: "\(viewModel.monster.health)",
                     label: "Health"
                 )
                 
                 statView(
-                    icon: "skull.fill",
+                    icon: Asset.Icon.skull.swiftUIImage,
                     color: .gray,
                     value: "\(viewModel.kills)",
                     label: "Kills"
+                )
+                
+                statView(
+                    icon: Asset.Icon.attack.swiftUIImage,
+                    color: .gray,
+                    value: "\(viewModel.monster.attack)",
+                    label: "Attack"
+                )
+                
+                statView(
+                    icon: Asset.Icon.defence.swiftUIImage,
+                    color: .gray,
+                    value: "\(viewModel.monster.defence)",
+                    label: "Defence"
                 )
             }
         }
     }
     
-    private func statView(icon: String, color: Color, value: String, label: String) -> some View {
+    private func statView(icon: Image, color: Color, value: String, label: String) -> some View {
         VStack(spacing: 4) {
-            Image(systemName: icon)
+            icon
+                .resizable()
+                .frame(width: 28, height: 28)
                 .font(.title2)
                 .foregroundColor(color)
             

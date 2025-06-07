@@ -22,6 +22,8 @@ import SwiftUI
     var coordinator: Coordinator?
     private let executor = AttackExecutor(random: SystemRandomNumberGenerator())
     
+    var selectedMonsterID: UUID?
+    
     @Resolvable<Resolver>
     init(
         @Argument fight: BattlerFight,
@@ -37,7 +39,25 @@ import SwiftUI
     }
     
     var currentMonster: Monster? {
-        return fight.monsters.first
+        guard let selectedMonsterID else {
+            return fight.monsters.first
+        }
+        return fight.monsters.first(where: { $0.id == selectedMonsterID })
+    }
+    
+    var monsterIndex: Int {
+        guard let selectedMonsterID else {
+            return 0
+        }
+        return fight.monsters.firstIndex(where: { $0.id == selectedMonsterID} ) ?? 0
+    }
+    
+    var selectedBinding: Binding<UUID?> {
+        return .init { [unowned self] in
+            self.currentMonster?.id
+        } set: { newValue in
+            self.selectedMonsterID = newValue
+        }
     }
     
     var playerActions: [AttackAbility] {
@@ -53,11 +73,12 @@ import SwiftUI
     
     func perform(action: AttackAbility) {
         guard fight.monsters.count > 0 else { return }
-        var monster = fight.monsters[0]
+        let monsterIndex = fight.monsters.firstIndex(where: { $0.id == selectedMonsterID }) ?? 0
+        var monster = fight.monsters[monsterIndex]
         let result = executor.execute(attacker: &player, defender: &monster, ability: action)
         print("== PLAYER ATTACK == ")
         result.context.logAttack()
-        self.fight.monsters[0] = monster
+        self.fight.monsters[monsterIndex] = monster
         self.onAttackComplete(result: result)
         if !isFinished {
             monsterAttack()

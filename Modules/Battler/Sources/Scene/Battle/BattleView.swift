@@ -31,7 +31,10 @@ extension BattleView: View {
         if viewModel.player.health.current <= 0 {
             lossView
         } else if viewModel.currentMonster != nil {
-            MonsterView(monsters: viewModel.fight.monsters)
+            MonsterView(
+                monsters: viewModel.fight.monsters,
+                selected: viewModel.selectedBinding
+            )
         } else {
             winView
         }
@@ -70,21 +73,6 @@ extension BattleView: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.red.opacity(0.2))
         )
-    }
-    
-    @ViewBuilder
-    private func monsterView(_ monster: Monster) -> some View {
-        ZStack {
-            monster.spec.image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxHeight: 200)
-                .padding()
-        }
-        .frame(maxWidth: .infinity)
-        .overlay(alignment: .topTrailing) {
-            ValueCircle(value: monster.health, color: .red)
-        }
     }
     
     private var stats: some View {
