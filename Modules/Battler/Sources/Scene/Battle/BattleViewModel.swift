@@ -11,6 +11,7 @@ import SwiftUI
 @Observable final class BattleViewModel: CoordinatorViewModel {
     
     var fight: BattlerFight
+    var totalSkillGain: [Skill: Int] = [:]
     private let playerStore: BattlerPlayerStore
     private let persistentStore: BattlerPersistentStore
     private let eventPublisher: PassthroughSubject<BattlerEvent, Never>
@@ -80,6 +81,7 @@ import SwiftUI
         result.context.logAttack()
         self.fight.monsters[monsterIndex] = monster
         self.onAttackComplete(result: result)
+        totalSkillGain = totalSkillGain.adding(other: result.context.attackerSkillXP)
         if !isFinished {
             monsterAttack()
         }
@@ -93,6 +95,7 @@ import SwiftUI
             result.context.logAttack()
             self.fight.monsters[i] = monster
             self.onAttackComplete(result: result)
+            totalSkillGain = totalSkillGain.adding(other: result.context.defenderSkillXP)
         }
     }
     
@@ -117,5 +120,15 @@ import SwiftUI
             persistentStore.stats.addKill(spec: monster.spec)
         }
         fight.monsters = fight.monsters.filter { !result.eliminatedIDs.contains($0.id) }
+    }
+}
+
+extension Dictionary where Key == Skill, Value == Int {
+    func adding(other: Dictionary<Skill, Int>) -> Dictionary<Skill, Int> {
+        var result = self
+        for (key, value) in other {
+            result[key] = (result[key] ?? 0) + (other[key] ?? 0)
+        }
+        return result
     }
 }

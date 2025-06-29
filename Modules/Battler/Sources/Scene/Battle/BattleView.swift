@@ -16,50 +16,30 @@ import SwiftUI
 extension BattleView: View {
     
     var body: some View {
+        if viewModel.player.health.current <= 0 {
+            lossView
+        } else if viewModel.currentMonster != nil {
+            fightView
+        } else {
+            BattleSuccessView(
+                skillGain: viewModel.totalSkillGain,
+                onContinue: viewModel.complete
+            )
+        }
+    }
+    
+    private var fightView: some View {
         VStack(spacing: 8) {
-            topSection
+            MonsterView(
+                monsters: viewModel.fight.monsters,
+                selected: viewModel.selectedBinding
+            )
             
             Spacer()
             stats
             grid
         }
         .padding(.horizontal, 16)
-    }
-    
-    @ViewBuilder
-    private var topSection: some View {
-        if viewModel.player.health.current <= 0 {
-            lossView
-        } else if viewModel.currentMonster != nil {
-            MonsterView(
-                monsters: viewModel.fight.monsters,
-                selected: viewModel.selectedBinding
-            )
-        } else {
-            winView
-        }
-    }
-    
-    private var winView: some View {
-        VStack {
-            Asset.fireworks.swiftUIImage
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxHeight: 200)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .padding()
-            Button(action: viewModel.complete) {
-                Text("You Win")
-                    .font(.title)
-                    .foregroundColor(.red)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.red.opacity(0.2))
-            )
-        }
-        
     }
     
     private var lossView: some View {
@@ -124,8 +104,10 @@ extension BattleView: View {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
     let fight = BattlerFight(monsters: [], difficulty: 0)
-    BattleView(
-        viewModel: resolver.battleViewModel(fight: fight)
+    let viewModel = resolver.battleViewModel(fight: fight)
+    viewModel.totalSkillGain = [.melee: 20]
+    return BattleView(
+        viewModel: viewModel
     )
 }
 
