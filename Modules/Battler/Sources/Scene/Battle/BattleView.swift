@@ -73,18 +73,11 @@ extension BattleView: View {
         Button(action: {
             viewModel.perform(action: action)
         }) {
-            VStack {
-                action.image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 32, height: 32)
-                Text(action.name)
-                    .font(.caption)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color.blue.opacity(0.2))
-            .cornerRadius(8)
+            AttackAbilityCard(
+                attackAbility: action,
+                chance: viewModel.hitChance(action: action),
+                action: { viewModel.perform(action: action) }
+            )
         }
     }
 }

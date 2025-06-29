@@ -72,6 +72,14 @@ import SwiftUI
         return actions
     }
     
+    func hitChance(action: AttackAbility) -> Double {
+        guard let currentMonster else {
+            return 0
+        }
+        var context = AttackContext(attacker: player, defender: currentMonster, ability: action)
+        return executor.hitChance(context: &context)
+    }
+    
     func perform(action: AttackAbility) {
         guard fight.monsters.count > 0 else { return }
         let monsterIndex = fight.monsters.firstIndex(where: { $0.id == selectedMonsterID }) ?? 0

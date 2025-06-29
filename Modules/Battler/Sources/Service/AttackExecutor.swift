@@ -40,7 +40,7 @@ final class AttackExecutor {
         defender: inout Defender
     ) -> AttackContext {
         var context = AttackContext(attacker: attacker, defender: defender, ability: ability)
-        context.hitChance = self.hitChance(attacker: attacker, defender: defender, ability: ability, context: &context)
+        context.hitChance = self.hitChance(context: &context)
         context.hitRoll = Double.random(in: 0...1, using: &self.random)
         if context.hitRoll! > context.hitChance! {
             // Miss
@@ -67,13 +67,10 @@ final class AttackExecutor {
     }
     
     func hitChance(
-        attacker: Combatant,
-        defender: Combatant,
-        ability: AttackAbility,
         context: inout AttackContext
     ) -> Double {
-        context.atk = attackValue(attacker: attacker, ability: ability)
-        context.def = defValue(defender: defender, ability: ability)
+        context.atk = attackValue(attacker: context.attacker, ability: context.ability)
+        context.def = defValue(defender: context.defender, ability: context.ability)
         return hitChance(atk: context.atk!, def: context.def!)
     }
     
