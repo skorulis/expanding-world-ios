@@ -67,6 +67,9 @@ extension BattlerSequenceViewModel {
         case let .shop(shop):
             let path = BattlerPath.shop(shop)
             coordinator?.present(path, style: .fullScreen)
+        case let .temple(temple):
+            let path = BattlerPath.temple(temple)
+            coordinator?.present(path, style: .fullScreen)
         }
     }
     

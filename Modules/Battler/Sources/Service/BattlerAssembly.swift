@@ -58,6 +58,13 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             )
         }
         
+        container.register(TempleViewModel.self) { (
+            resolver: Resolver,
+            temple: BattlerTemple
+        ) in
+            TempleViewModel(temple: temple)
+        }
+        
         container.register(BattleViewModel.self) { (
             resolver: Resolver,
             fight: BattlerFight

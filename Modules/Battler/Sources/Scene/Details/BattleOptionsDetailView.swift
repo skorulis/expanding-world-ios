@@ -21,6 +21,8 @@ extension BattleOptionsDetailView: View {
                 fightDetails(fight)
             case .shop:
                 shopDetails
+            case .temple:
+                templeDetails()
             }
             Button(action: onSelect) {
                 Text("Select")
@@ -33,11 +35,16 @@ extension BattleOptionsDetailView: View {
     private func fightDetails(_ fight: BattlerFight) -> some View {
         VStack {
             Text("Fight \(fight.monsterDescriptions)")
+            Text("Reward: \(fight.reward) gold")
         }
     }
     
     private var shopDetails: some View {
         Text("Shop")
+    }
+    
+    private func templeDetails() -> some View {
+        Text("Temple")
     }
 }
 

@@ -63,6 +63,8 @@ extension BattleStepView: View {
             return Image(systemName: "person.2.fill")
         case .shop:
             return Image(systemName: "dollarsign.bank.building.fill")
+        case .temple:
+            return Image(systemName: "cross.circle")
         }
     }
 }

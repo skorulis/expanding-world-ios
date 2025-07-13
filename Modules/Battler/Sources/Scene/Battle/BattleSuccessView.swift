@@ -5,6 +5,7 @@ import DesignSystem
 import SwiftUI
 
 struct BattleSuccessView: View {
+    let fight: BattlerFight
     let skillGain: [Skill: Int]
     let onContinue: () -> Void
     
@@ -22,7 +23,7 @@ struct BattleSuccessView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .padding()
                     
-                    
+                    rewardsView
                     skillsView
                 }
                 .padding()
@@ -52,6 +53,16 @@ struct BattleSuccessView: View {
                     )
                 }
             }
+        }
+    }
+    
+    private var rewardsView: some View {
+        VStack(spacing: 16) {
+            Text("Rewards")
+                .font(.headline)
+                .fontWeight(.bold)
+            
+            Text("Gold: \(fight.reward)")
         }
     }
     
@@ -86,6 +97,7 @@ struct BattleSuccessView: View {
 
 #Preview {
     BattleSuccessView(
+        fight: .init(monsters: [], difficulty: 10),
         skillGain: [
             .melee: 10,
             .toughness: 5

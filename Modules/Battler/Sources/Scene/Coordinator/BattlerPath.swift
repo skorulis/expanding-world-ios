@@ -12,6 +12,7 @@ public enum BattlerPath: CoordinatorPath {
     case equipment
     case shop(BattlerShop)
     case battle(BattlerFight)
+    case temple(BattlerTemple)
     case bestiary
     case bestiaryEntry(MonsterSpec)
     
@@ -29,6 +30,8 @@ public enum BattlerPath: CoordinatorPath {
             return "battler.equipment"
         case .shop:
             return "shop"
+        case .temple:
+            return "temple"
         case .bestiary:
             return "battler.bestiary"
         case let .bestiaryEntry(monster):
@@ -54,6 +57,8 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
             BattlerSequenceView(viewModel: Self.apply(resolver.battlerSequenceViewModel(), coordinator))
         case let .shop(shop):
             ShopView(viewModel: Self.apply(resolver.battlerShopViewModel(shop: shop), coordinator))
+        case let .temple(temple):
+            TempleView(viewModel: Self.apply(resolver.templeViewModel(temple: temple), coordinator))
         case let .battle(fight):
             BattleView(
                 viewModel: Self.apply(

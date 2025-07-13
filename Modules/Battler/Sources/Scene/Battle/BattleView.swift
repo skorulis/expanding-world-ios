@@ -22,6 +22,7 @@ extension BattleView: View {
             fightView
         } else {
             BattleSuccessView(
+                fight: viewModel.fight,
                 skillGain: viewModel.totalSkillGain,
                 onContinue: viewModel.complete
             )

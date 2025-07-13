@@ -40,6 +40,7 @@ enum BattleStepType: CaseIterable {
 enum BattleOption: Sendable {
     case fight(BattlerFight)
     case shop(BattlerShop)
+    case temple(BattlerTemple)
     
     static func testFight() -> BattleOption {
         .fight(.testFight())

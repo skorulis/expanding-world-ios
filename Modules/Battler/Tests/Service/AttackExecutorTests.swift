@@ -61,4 +61,8 @@ struct FakeCombatant: Combatant {
     var xp: Int = 1
     
     mutating func addXP(_ xp: [Skill : Int]) {}
+    
+    func defence(against: Battler.AttackAbility) -> Int {
+        return 1
+    }
 }
