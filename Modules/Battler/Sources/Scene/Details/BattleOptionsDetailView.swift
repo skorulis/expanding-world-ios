@@ -21,8 +21,6 @@ extension BattleOptionsDetailView: View {
                 fightDetails(fight)
             case .shop:
                 shopDetails
-            case .temple:
-                templeDetails()
             }
             Button(action: onSelect) {
                 Text("Select")
@@ -43,9 +41,6 @@ extension BattleOptionsDetailView: View {
         Text("Shop")
     }
     
-    private func templeDetails() -> some View {
-        Text("Temple")
-    }
 }
 
 // MARK: - Previews

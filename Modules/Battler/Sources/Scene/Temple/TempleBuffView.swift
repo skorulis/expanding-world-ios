@@ -6,7 +6,7 @@ import SwiftUI
 // MARK: - Memory footprint
 
 struct TempleBuffView {
-    let item: Temple.BuffItem
+    let item: BattlerShop.BuffItem
 }
 
 // MARK: - Rendering

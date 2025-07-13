@@ -40,7 +40,6 @@ enum BattleStepType: CaseIterable {
 enum BattleOption: Sendable {
     case fight(BattlerFight)
     case shop(BattlerShop)
-    case temple(Temple)
     
     static func testFight() -> BattleOption {
         .fight(.testFight())
@@ -61,6 +60,6 @@ extension BattlerFight {
 
 extension BattlerShop {
     static func testShop() -> BattlerShop {
-        .init(items: [.init(type: .leatherArmor, amount: 1)])
+        .init(spec: .generalStore)
     }
 }

@@ -18,7 +18,7 @@ extension ShopView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            TitleBar(title: "Shop") {
+            TitleBar(title: viewModel.shop.spec.name) {
                 TrailingBarButtons(coordinator: viewModel.coordinator)
             }
             Spacer()
@@ -39,6 +39,18 @@ extension ShopView: View {
             buyButton
             
             finishButton
+        }
+    }
+    
+    private var buffList: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(viewModel.shop.buffs) { buff in
+                    Button(action: { }) {
+                        TempleBuffView(item: buff)
+                    }
+                }
+            }
         }
     }
     
@@ -84,14 +96,10 @@ extension ShopView: View {
 
 // MARK: - Previews
 
-#Preview {
+#Preview("General") {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
-    let shop = BattlerShop(items: [
-        .init(type: .leatherArmor, amount: 1),
-        .init(type: .stew, amount: 1),
-        .init(type: .copperDagger, amount: 1),
-    ])
+    let shop = BattlerShop(spec: .generalStore)
     ShopView(
         viewModel: resolver.battlerShopViewModel(
             shop: shop
@@ -99,3 +107,13 @@ extension ShopView: View {
     )
 }
 
+#Preview("Temple") {
+    let assembler = BattlerAssembly.testing()
+    let resolver = assembler.resolver
+    let shop = BattlerShop(spec: .lightTemple)
+    ShopView(
+        viewModel: resolver.battlerShopViewModel(
+            shop: shop
+        )
+    )
+}
