@@ -31,7 +31,7 @@ struct BuffTests {
     }
     
     @Test func buffsAfterBattle() {
-        var buffs = Buffs(active: [.init(type: .attack(2), duration: .battles(1))])
+        var buffs = Buffs(active: [.init(name: "", effect: .attack(2), duration: .battles(1))])
         #expect(buffs.active.count == 1)
         buffs.onBattleEnd()
         #expect(buffs.active.count == 0)
@@ -39,14 +39,14 @@ struct BuffTests {
     
     @Test func addBuff() {
         var buffs = Buffs()
-        buffs.add(buff: .init(type: .attack(1), duration: .forever))
+        buffs.add(buff: .init(name: "", effect: .attack(1), duration: .forever))
         #expect(buffs.active.count == 1)
-        buffs.add(buff: .init(type: .attack(1), duration: .forever))
+        buffs.add(buff: .init(name: "", effect: .attack(1), duration: .forever))
         #expect(buffs.active.count == 1)
-        #expect(buffs.active[0] == Buff(type: .attack(2), duration: .forever))
-        buffs.add(buff: .init(type: .healing(1), duration: .forever))
+        #expect(buffs.active[0] == Buff(name: "", effect: .attack(2), duration: .forever))
+        buffs.add(buff: .init(name: "", effect: .healing(1), duration: .forever))
         #expect(buffs.active.count == 2)
-        buffs.add(buff: .init(type: .attack(5), duration: .battles(1)))
+        buffs.add(buff: .init(name: "", effect: .attack(5), duration: .battles(1)))
         #expect(buffs.active.count == 3)
     }
 }

@@ -10,10 +10,16 @@ import SwiftUI
     var coordinator: Coordinator?
     private let playerStore: BattlerPlayerStore
     private let mainPlayerStore: PlayerStore
+    private let persistentStore: BattlerPersistentStore
     
-    init(playerStore: BattlerPlayerStore, mainPlayerStore: PlayerStore) {
+    init(
+        playerStore: BattlerPlayerStore,
+        mainPlayerStore: PlayerStore,
+        persistentStore: BattlerPersistentStore
+    ) {
         self.playerStore = playerStore
         self.mainPlayerStore = mainPlayerStore
+        self.persistentStore = persistentStore
     }
 }
 
@@ -28,6 +34,10 @@ extension BattlerMenuViewModel {
             skills: mainPlayerStore.player.skills
         )
         coordinator!.push(BattlerPath.sequence)
+    }
+    
+    var bestiaryUnlocked: Bool {
+        persistentStore.stats.totalKills > 0
     }
     
     func showBestiary() {

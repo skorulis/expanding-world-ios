@@ -12,4 +12,8 @@ struct BattlerStats: Codable {
     func kills(spec: MonsterSpec) -> Int {
         killCounts[spec] ?? 0
     }
+    
+    var totalKills: Int {
+        killCounts.reduce(0) { $0 + $1.value }
+    }
 }

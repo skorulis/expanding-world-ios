@@ -24,10 +24,13 @@ extension BattlerMenuView: View {
                 }
                 .buttonStyle(RectangleButtonStyle())
                 
-                Button(action: viewModel.showBestiary) {
-                    Text("Bestiary")
+                if viewModel.bestiaryUnlocked {
+                    Button(action: viewModel.showBestiary) {
+                        Text("Bestiary")
+                    }
+                    .buttonStyle(RectangleButtonStyle())
                 }
-                .buttonStyle(RectangleButtonStyle())
+                
                 Spacer()
             }
             .padding(.horizontal, 16)

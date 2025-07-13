@@ -12,7 +12,7 @@ public enum BattlerPath: CoordinatorPath {
     case equipment
     case shop(BattlerShop)
     case battle(BattlerFight)
-    case temple(BattlerTemple)
+    case temple(Temple)
     case bestiary
     case bestiaryEntry(MonsterSpec)
     

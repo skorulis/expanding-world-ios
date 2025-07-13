@@ -60,7 +60,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         
         container.register(TempleViewModel.self) { (
             resolver: Resolver,
-            temple: BattlerTemple
+            temple: Temple
         ) in
             TempleViewModel(temple: temple)
         }
@@ -73,7 +73,11 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         }
         
         container.register(BattlerMenuViewModel.self) { resolver in
-            BattlerMenuViewModel(playerStore: resolver.battlerPlayerStore(), mainPlayerStore: resolver.playerStore())
+            BattlerMenuViewModel(
+                playerStore: resolver.battlerPlayerStore(),
+                mainPlayerStore: resolver.playerStore(),
+                persistentStore: resolver.battlerPersistentStore()
+            )
         }
         
         container.register(BestiaryEntryViewModel.self) { (r: Resolver, monster: MonsterSpec) in
