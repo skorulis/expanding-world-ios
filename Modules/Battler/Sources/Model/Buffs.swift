@@ -4,14 +4,14 @@ import Foundation
 
 /// Container to hold Buff objects
 struct Buffs {
-    var active: [Buff]
+    var active: [StatusEffect]
     
-    init(active: [Buff] = []) {
+    init(active: [StatusEffect] = []) {
         self.active = active
     }
     
     /// Add a new active buff
-    mutating func add(buff: Buff) {
+    mutating func add(buff: StatusEffect) {
         if let combineIndex = (active.firstIndex { $0.canCombine(buff) }) {
             active[combineIndex] = active[combineIndex].combine(buff)
         } else {

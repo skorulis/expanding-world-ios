@@ -80,6 +80,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(CharacterViewModel.self) { resolver in
             CharacterViewModel(playerStore: resolver.battlerPlayerStore())
         }
+        
+        container.register(MainCharacterViewModel.self) { resolver in
+            MainCharacterViewModel()
+        }
     }
     
     private func registerServices(container: Container<TargetResolver>) {

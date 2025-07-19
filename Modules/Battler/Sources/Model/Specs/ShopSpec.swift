@@ -61,7 +61,7 @@ extension ShopSpec {
     }
     
     struct BuffSpec {
-        let buff: Buff
+        let buff: StatusEffect
         let cost: Int
     }
 }

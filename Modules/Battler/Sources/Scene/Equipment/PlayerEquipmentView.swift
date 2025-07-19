@@ -18,7 +18,7 @@ extension PlayerEquipmentView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            TitleBar(title: "Equipment")
+            TitleBar(title: "Equipment", backAction: { viewModel.coordinator?.pop() })
             ScrollView {
                 VStack {
                     equipmentSection
@@ -26,7 +26,8 @@ extension PlayerEquipmentView: View {
                 }
             }
         }
-        .padding()
+        .padding(.horizontal, 16)
+        .navigationBarHidden(true)
     }
     
     private var equipmentSection: some View {

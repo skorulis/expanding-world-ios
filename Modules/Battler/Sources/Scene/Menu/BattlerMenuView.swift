@@ -16,7 +16,12 @@ extension BattlerMenuView: View {
     
     var body: some View {
         VStack {
-            TitleBar(title: "Menu")
+            TitleBar(
+                title: "Menu",
+                trailing: {
+                    TrailingBarButtons(coordinator: viewModel.coordinator)
+                }
+            )
             VStack(spacing: 8) {
                 Spacer()
                 Button(action: viewModel.start) {

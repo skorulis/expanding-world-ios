@@ -1,17 +1,18 @@
 //  Created by Alexander Skorulis on 13/7/2025.
 
 import Foundation
+import SwiftUI
 
-struct Buff: Equatable {
+struct StatusEffect: Equatable {
     let name: String
     let effect: BuffEffect
-    var duration: BuffDuration
+    var duration: EffectDuration
     
-    func canCombine(_ other: Buff) -> Bool {
+    func canCombine(_ other: StatusEffect) -> Bool {
         return name == other.name && effect.canCombine(other.effect) && duration == other.duration
     }
     
-    func combine(_ other: Buff) -> Buff {
+    func combine(_ other: StatusEffect) -> StatusEffect {
         guard canCombine(other) else {
             fatalError("Attempt to combine incompatible buffs")
         }
@@ -19,7 +20,7 @@ struct Buff: Equatable {
     }
 }
 
-enum BuffDuration: Equatable {
+enum EffectDuration: Equatable {
     /// The buff remains for x Battles
     case battles(Int)
     
@@ -32,7 +33,7 @@ enum BuffDuration: Equatable {
     /// This buff has expired and needs to be removed
     case expired
     
-    func updateAfterBattle() -> BuffDuration {
+    func updateAfterBattle() -> EffectDuration {
         switch self {
         case .expired:
             return .expired
@@ -48,7 +49,7 @@ enum BuffDuration: Equatable {
         }
     }
     
-    func updateAfterRound() -> BuffDuration {
+    func updateAfterRound() -> EffectDuration {
         switch self {
         case .expired:
             return .expired
@@ -132,6 +133,17 @@ enum BuffEffect: Equatable {
             return "Defence +\(int)"
         case let .healing(int):
             return "Heal \(int)HP each round"
+        }
+    }
+    
+    var icon: Image {
+        switch self {
+        case .attack:
+            return Asset.Icon.attack.swiftUIImage
+        case .defence:
+            return Asset.Icon.defence.swiftUIImage
+        case .healing:
+            return Asset.Icon.heart.swiftUIImage
         }
     }
 }

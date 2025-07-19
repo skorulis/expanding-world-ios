@@ -16,15 +16,6 @@ extension TrailingBarButtons: View {
     var body: some View {
         HStack(spacing: 8) {
             characterButton
-            invButton
-        }
-    }
-    
-    private var invButton: some View {
-        Button(action: showInventory) {
-            Asset.chest.swiftUIImage
-                .resizable()
-                .frame(width: 32, height: 32)
         }
     }
     
@@ -37,11 +28,10 @@ extension TrailingBarButtons: View {
     }
     
     private func showCharacter() {
-        coordinator?.present(BattlerPath.character, style: .sheet)
-    }
-    
-    private func showInventory() {
-        coordinator?.present(BattlerPath.equipment, style: .sheet)
+        coordinator?.present(
+            BattlerPath.mainCharacter,
+            style: .sheet
+        )
     }
 }
 

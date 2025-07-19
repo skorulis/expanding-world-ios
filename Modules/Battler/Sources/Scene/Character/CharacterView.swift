@@ -16,12 +16,13 @@ extension CharacterView: View {
     
     var body: some View {
         VStack {
-            TitleBar(title: "Character")
+            TitleBar(title: "Character", backAction: { viewModel.coordinator?.pop() })
             ScrollView {
                 skills
             }
         }
-        
+        .padding(.horizontal, 16)
+        .navigationBarHidden(true)
     }
     
     private var skills: some View {

@@ -23,7 +23,7 @@ public struct BattlerShop: Sendable {
 extension BattlerShop {
     struct BuffItem: Identifiable {
         let id: UUID = .init()
-        let buff: Buff
+        let buff: StatusEffect
         let cost: Int
         var count: Int
     }
