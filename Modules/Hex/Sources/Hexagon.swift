@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 /// Calculations for a single hexagon
-public struct Hexagon {
+public struct Hexagon: Sendable {
     
     public static let aspectRatio: CGFloat = 2 / sqrt(3)
     public let width: CGFloat

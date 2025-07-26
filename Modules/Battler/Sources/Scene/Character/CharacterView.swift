@@ -15,14 +15,14 @@ struct CharacterView {
 extension CharacterView: View {
     
     var body: some View {
-        VStack {
+        PageLayout {
             TitleBar(title: "Character", backAction: { viewModel.coordinator?.pop() })
-            ScrollView {
+        } content: {
+            VStack {
                 skills
             }
+            .padding(.horizontal, 16)
         }
-        .padding(.horizontal, 16)
-        .navigationBarHidden(true)
     }
     
     private var skills: some View {

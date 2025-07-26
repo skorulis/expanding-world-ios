@@ -28,6 +28,7 @@ import SwiftUI
 extension BattlerMenuViewModel {
     
     func start() {
+        persistentStore.stats.gameStarts += 1
         // TODO: Improve player creation
         playerStore.player = .init(
             money: 10,
@@ -42,5 +43,9 @@ extension BattlerMenuViewModel {
     
     func showBestiary() {
         coordinator?.push(BattlerPath.bestiary)
+    }
+    
+    func showStats() {
+        coordinator?.push(BattlerPath.stats)
     }
 }

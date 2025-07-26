@@ -9,17 +9,21 @@ public enum BattlerPath: CoordinatorPath {
     case menu
     case mainCharacter
     case character
+    case characterEffects
     case sequence
     case equipment
     case shop(BattlerShop)
     case battle(BattlerFight)
     case bestiary
+    case stats
     case bestiaryEntry(MonsterSpec)
     
     public var id: String {
         switch self {
         case .mainCharacter:
             return "mainCharacter"
+        case .characterEffects:
+            return "characterEffects"
         case .menu:
             return "menu"
         case .character:
@@ -34,6 +38,8 @@ public enum BattlerPath: CoordinatorPath {
             return "shop-\(shop.spec.name)"
         case .bestiary:
             return "battler.bestiary"
+        case .stats:
+            return "stats"
         case let .bestiaryEntry(monster):
             return "bestiary.entry.\(monster.id)"
         }
@@ -48,33 +54,43 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
     public func render(path: BattlerPath, in coordinator: Coordinator) -> some View {
         switch path {
         case .menu:
-            BattlerMenuView(viewModel: Self.apply(resolver.battlerMenuViewModel(), coordinator))
+            BattlerMenuView(viewModel: coordinator.apply(resolver.battlerMenuViewModel()))
         case .mainCharacter:
-            MainCharacterView(viewModel: Self.apply(resolver.mainCharacterViewModel(), coordinator))
+            MainCharacterView(viewModel: coordinator.apply(resolver.mainCharacterViewModel()))
         case .character:
-            CharacterView(viewModel: Self.apply(resolver.characterViewModel(), coordinator))
+            CharacterView(viewModel: coordinator.apply(resolver.characterViewModel()))
+        case .characterEffects:
+            CharacterEffectsView(viewModel: coordinator.apply(resolver.characterEffectsViewModel()))
         case .equipment:
-            PlayerEquipmentView(viewModel: Self.apply(resolver.playerEquipmentViewModel(), coordinator))
+            PlayerEquipmentView(viewModel: coordinator.apply(resolver.playerEquipmentViewModel()))
         case .sequence:
-            BattlerSequenceView(viewModel: Self.apply(resolver.battlerSequenceViewModel(), coordinator))
+            BattlerSequenceView(viewModel: coordinator.apply(resolver.battlerSequenceViewModel()))
         case let .shop(shop):
-            ShopView(viewModel: Self.apply(resolver.battlerShopViewModel(shop: shop), coordinator))
+            ShopView(viewModel: coordinator.apply(resolver.battlerShopViewModel(shop: shop)))
         case let .battle(fight):
             BattleView(
-                viewModel: Self.apply(
-                    resolver.battleViewModel(fight: fight),
-                    coordinator
+                viewModel: coordinator.apply(
+                    resolver.battleViewModel(fight: fight)
                 )
             )
         case .bestiary:
             BestiaryView(viewModel: Self.apply(resolver.bestiaryViewModel(), coordinator))
         case let .bestiaryEntry(monster):
             BestiaryEntryView(viewModel: Self.apply(resolver.bestiaryEntryViewModel(monster: monster), coordinator))
+        case .stats:
+            BattlerStatsView(viewModel: Self.apply(resolver.battlerStatsViewModel(), coordinator))
         }
     }
     
     static func apply<Obj>(_ obj: Obj, _ coordinator: Coordinator) -> Obj {
         (obj as? CoordinatorViewModel)?.coordinator = coordinator
+        return obj
+    }
+}
+
+private extension Coordinator {
+    func apply<Obj>(_ obj: Obj) -> Obj {
+        (obj as? CoordinatorViewModel)?.coordinator = self
         return obj
     }
 }

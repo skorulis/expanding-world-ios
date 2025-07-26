@@ -19,4 +19,8 @@ extension MainCharacterViewModel {
     func skills() {
         coordinator?.push(BattlerPath.character)
     }
+    
+    func effects() {
+        coordinator?.push(BattlerPath.characterEffects)
+    }
 }

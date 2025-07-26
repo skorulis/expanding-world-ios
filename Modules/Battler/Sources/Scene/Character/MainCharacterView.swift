@@ -6,6 +6,7 @@ import SwiftUI
 
 // MARK: - Memory footprint
 
+@MainActor
 struct MainCharacterView {
     @State var viewModel: MainCharacterViewModel
 }
@@ -15,8 +16,15 @@ struct MainCharacterView {
 extension MainCharacterView: View {
     
     var body: some View {
-        VStack(spacing: 12) {
+        PageLayout {
             TitleBar(title: "Character")
+        } content: {
+            content
+        }
+    }
+    
+    private var content: some View {
+        VStack(spacing: 12) {
             Spacer()
             
             Button(action: viewModel.equipment) {
@@ -29,11 +37,14 @@ extension MainCharacterView: View {
             }
             .buttonStyle(RectangleButtonStyle())
             
+            Button(action: viewModel.effects) {
+                Text("Effects")
+            }
+            .buttonStyle(RectangleButtonStyle())
+            
             Spacer()
         }
         .padding(.horizontal, 16)
-        .navigationBarHidden(true)
-        
     }
 }
 

@@ -23,10 +23,6 @@ final class BattlerPersistentStore: ObservableObject {
     }
 }
 
-extension BattlerStats: DataStorable {
-    static var defaultValue: BattlerStats {
-        BattlerStats(killCounts: [:])
-    }
-    
+extension BattlerStats: DataStorable {    
     public static var storageKey: DataStoreKey { .battlerStats }
 }

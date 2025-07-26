@@ -36,7 +36,7 @@ final class GameService {
     }
     
     @MainActor func startNewGame() {
-        alertService.post(message: "You wake up in a dimly lit room sitting at a table. It is not a place you recognise.")
+        // alertService.post(message: "You wake up in a dimly lit room sitting at a table. It is not a place you recognise.")
     }
     
     @MainActor func playerDied() {

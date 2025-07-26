@@ -36,6 +36,11 @@ extension BattlerMenuView: View {
                     .buttonStyle(RectangleButtonStyle())
                 }
                 
+                Button(action: viewModel.showStats) {
+                    Text("Stats")
+                }
+                .buttonStyle(RectangleButtonStyle())
+                
                 Spacer()
             }
             .padding(.horizontal, 16)

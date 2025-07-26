@@ -17,17 +17,15 @@ struct PlayerEquipmentView {
 extension PlayerEquipmentView: View {
     
     var body: some View {
-        VStack(spacing: 20) {
+        PageLayout {
             TitleBar(title: "Equipment", backAction: { viewModel.coordinator?.pop() })
-            ScrollView {
-                VStack {
-                    equipmentSection
-                    inventorySection
-                }
+        } content: {
+            VStack {
+                equipmentSection
+                inventorySection
             }
+            .padding(.horizontal, 16)
         }
-        .padding(.horizontal, 16)
-        .navigationBarHidden(true)
     }
     
     private var equipmentSection: some View {

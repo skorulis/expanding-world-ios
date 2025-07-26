@@ -46,6 +46,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         }
         
         container.register(BestiaryViewModel.self) { BestiaryViewModel.make(resolver: $0) }
+        container.register(CharacterEffectsViewModel.self) { CharacterEffectsViewModel.make(resolver: $0) }
         
         container.register(BattlerShopViewModel.self) { (
             resolver: Resolver,
@@ -83,6 +84,10 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         
         container.register(MainCharacterViewModel.self) { resolver in
             MainCharacterViewModel()
+        }
+        
+        container.register(BattlerStatsViewModel.self) { resolver in
+            BattlerStatsViewModel.make(resolver: resolver)
         }
     }
     

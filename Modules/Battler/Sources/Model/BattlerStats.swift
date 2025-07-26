@@ -4,6 +4,11 @@ import Foundation
 
 struct BattlerStats: Codable {
     var killCounts: [MonsterSpec: Int]
+    var gameStarts: Int
+    
+    static var defaultValue: BattlerStats {
+        .init(killCounts: [:], gameStarts: 0)
+    }
     
     mutating func addKill(spec: MonsterSpec) {
         killCounts[spec] = (killCounts[spec] ?? 0) + 1
