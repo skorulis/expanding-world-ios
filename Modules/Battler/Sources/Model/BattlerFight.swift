@@ -30,6 +30,6 @@ public struct BattlerFight: Sendable {
     }
     
     var reward: Int {
-        return monsters.map { $0.spec.difficultyValue }.reduce(0, +) * monsters.count
+        return startMonsters.map { $0.spec.difficultyValue }.reduce(0, +) * monsters.count
     }
 }

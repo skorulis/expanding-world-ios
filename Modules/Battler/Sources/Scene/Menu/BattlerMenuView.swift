@@ -19,7 +19,10 @@ extension BattlerMenuView: View {
             TitleBar(
                 title: "Menu",
                 trailing: {
-                    TrailingBarButtons(coordinator: viewModel.coordinator)
+                    TrailingBarButtons(
+                        money: nil,
+                        coordinator: viewModel.coordinator
+                    )
                 }
             )
             VStack(spacing: 8) {

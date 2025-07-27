@@ -8,10 +8,10 @@ import Foundation
 @Observable final class BattlerSequenceViewModel: CoordinatorViewModel {
     
     private let generator: BattleStepGenerator
-    private let playerStore: BattlerPlayerStore
+    private let playerStore: BattlerRunStore
     private let mainPlayerStore: PlayerStore
-    var sequence: BattlerSequence
     var player: BattlerPlayer
+    var sequence: BattlerSequence
     
     var selection: BattleSequenceIndex?
     var coordinator: Coordinator?
@@ -20,7 +20,7 @@ import Foundation
     
     init(
         generator: BattleStepGenerator,
-        playerStore: BattlerPlayerStore,
+        playerStore: BattlerRunStore,
         mainPlayerStore: PlayerStore,
         eventPublisher: AnyPublisher<BattlerEvent, Never>
     ) {
@@ -28,14 +28,24 @@ import Foundation
         self.playerStore = playerStore
         self.player = playerStore.player
         self.mainPlayerStore = mainPlayerStore
-        let step1 = generator.generateStep(index: 0)
-        self.sequence = .init(steps: [step1], path: [])
+        self.sequence = playerStore.sequence
         eventPublisher.sink { [unowned self] event in
-            self.handleStepResult()
+            switch event {
+            case .stepFinished:
+                self.handleStepResult()
+            default:
+                break
+            }
         }
         .store(in: &subscribers)
+        
         playerStore.$player.sink { [unowned self] value in
             self.player = value
+        }
+        .store(in: &subscribers)
+        
+        playerStore.$sequence.sink { [unowned self] value in
+            self.sequence = value
         }
         .store(in: &subscribers)
     }

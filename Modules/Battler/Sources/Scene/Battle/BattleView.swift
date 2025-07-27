@@ -16,16 +16,14 @@ import SwiftUI
 extension BattleView: View {
     
     var body: some View {
-        if viewModel.player.health.current <= 0 {
-            lossView
-        } else if viewModel.currentMonster != nil {
-            fightView
-        } else {
+        if viewModel.currentMonster == nil && viewModel.player.health.current > 0 {
             BattleSuccessView(
                 fight: viewModel.fight,
                 skillGain: viewModel.totalSkillGain,
                 onContinue: viewModel.complete
             )
+        } else {
+            fightView
         }
     }
     

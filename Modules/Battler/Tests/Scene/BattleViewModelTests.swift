@@ -21,7 +21,7 @@ struct BattleViewModelTests {
     
     @Test func complete() {
         let assembler = BattlerAssembly.testing()
-        let playerStore = assembler.resolver.battlerPlayerStore()
+        let playerStore = assembler.resolver.BattlerRunStore()
         let fight = BattlerFight(monsters: [.rat, .rat], difficulty: 2)
         let viewModel = assembler.resolver.battleViewModel(fight: fight)
         

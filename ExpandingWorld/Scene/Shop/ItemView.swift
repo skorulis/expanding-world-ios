@@ -1,6 +1,7 @@
 //Created by Alexander Skorulis on 15/2/2025.
 
 import Core
+import DesignSystem
 import Foundation
 import Hex
 import SwiftUI

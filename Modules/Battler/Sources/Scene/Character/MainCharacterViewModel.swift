@@ -2,16 +2,26 @@
 
 import ASKCoordinator
 import Foundation
+import KnitMacros
+import Knit
 
 @Observable final class MainCharacterViewModel: CoordinatorViewModel {
     var coordinator: Coordinator?
     
-    init() {
-        
+    private let playerStore: BattlerRunStore
+    
+    @Resolvable<Resolver>
+    init(playerStore: BattlerRunStore) {
+        self.playerStore = playerStore
     }
 }
 
 extension MainCharacterViewModel {
+    
+    var money: Int64 {
+        playerStore.player.money
+    }
+    
     func equipment() {
         coordinator?.push(BattlerPath.equipment)
     }

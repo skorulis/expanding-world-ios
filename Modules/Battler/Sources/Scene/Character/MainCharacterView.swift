@@ -27,6 +27,11 @@ extension MainCharacterView: View {
         VStack(spacing: 12) {
             Spacer()
             
+            HStack {
+                Text("Money")
+                MoneyView(amount: viewModel.money)
+            }
+            
             Button(action: viewModel.equipment) {
                 Text("Equipment")
             }

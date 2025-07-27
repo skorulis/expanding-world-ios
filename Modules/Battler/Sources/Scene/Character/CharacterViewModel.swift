@@ -7,12 +7,12 @@ import SwiftUI
 
 @Observable final class CharacterViewModel: CoordinatorViewModel {
     
-    private let playerStore: BattlerPlayerStore
+    private let playerStore: BattlerRunStore
     var player: BattlerPlayer { playerStore.player }
     
     var coordinator: Coordinator?
     
-    init(playerStore: BattlerPlayerStore) {
+    init(playerStore: BattlerRunStore) {
         self.playerStore = playerStore
     }
     

@@ -3,21 +3,27 @@
 import ASKCoordinator
 import Core
 import Foundation
+import Knit
+import KnitMacros
 import SwiftUI
 
 @Observable final class BattlerMenuViewModel: CoordinatorViewModel {
     
     var coordinator: Coordinator?
-    private let playerStore: BattlerPlayerStore
+    private let playerStore: BattlerRunStore
+    private let generator: BattleStepGenerator
     private let mainPlayerStore: PlayerStore
     private let persistentStore: BattlerPersistentStore
     
+    @Resolvable<Resolver>
     init(
-        playerStore: BattlerPlayerStore,
+        playerStore: BattlerRunStore,
+        generator: BattleStepGenerator,
         mainPlayerStore: PlayerStore,
         persistentStore: BattlerPersistentStore
     ) {
         self.playerStore = playerStore
+        self.generator = generator
         self.mainPlayerStore = mainPlayerStore
         self.persistentStore = persistentStore
     }
@@ -29,11 +35,16 @@ extension BattlerMenuViewModel {
     
     func start() {
         persistentStore.stats.gameStarts += 1
+        
         // TODO: Improve player creation
-        playerStore.player = .init(
+        let player = BattlerPlayer(
             money: 10,
-            skills: mainPlayerStore.player.skills
+            skills: playerStore.player.skills
         )
+        let step1 = generator.generateStep(index: 0)
+        let sequence = BattlerSequence(steps: [step1], path: [])
+        playerStore.reset(player: player, sequence: sequence)
+        
         coordinator!.push(BattlerPath.sequence)
     }
     

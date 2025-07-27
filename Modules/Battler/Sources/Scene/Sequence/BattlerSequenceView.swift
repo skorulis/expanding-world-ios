@@ -42,7 +42,10 @@ extension BattlerSequenceView: View {
                 title: "Battler",
                 backAction: viewModel.finish
             ) {
-                TrailingBarButtons(coordinator: viewModel.coordinator)
+                TrailingBarButtons(
+                    money: viewModel.player.money,
+                    coordinator: viewModel.coordinator
+                )
             }
             
             VStack {

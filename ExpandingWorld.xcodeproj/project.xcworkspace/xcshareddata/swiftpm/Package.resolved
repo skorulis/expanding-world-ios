@@ -7,7 +7,7 @@
       "location" : "https://github.com/skorulis/ASKCoordinator",
       "state" : {
         "branch" : "main",
-        "revision" : "1221b40d7158478bda097900df24fce64fb08377"
+        "revision" : "f794997e6f7633dc07b31d0df90329aa76e6d7f8"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser",
       "state" : {
-        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
-        "version" : "1.5.0"
+        "revision" : "309a47b2b1d9b5e991f36961c983ecec72275be3",
+        "version" : "1.6.1"
       }
     },
     {

@@ -1,11 +1,13 @@
 //  Created by Alexander Skorulis on 25/5/2025.
 
 import ASKCoordinator
+import DesignSystem
 import SwiftUI
 
 // MARK: - Memory footprint
 
 struct TrailingBarButtons {
+    let money: Int64?
     let coordinator: Coordinator?
 }
 
@@ -16,6 +18,9 @@ extension TrailingBarButtons: View {
     var body: some View {
         HStack(spacing: 8) {
             characterButton
+            if let money {
+                MoneyView(amount: money)
+            }
         }
     }
     
@@ -38,6 +43,6 @@ extension TrailingBarButtons: View {
 // MARK: - Previews
 
 #Preview {
-    TrailingBarButtons(coordinator: nil)
+    TrailingBarButtons(money: 100, coordinator: nil)
 }
 

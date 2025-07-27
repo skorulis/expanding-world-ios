@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 26/4/2025.
 
+import DesignSystem
 import Foundation
 import SwiftUI
 
@@ -33,7 +34,10 @@ extension BattleOptionsDetailView: View {
     private func fightDetails(_ fight: BattlerFight) -> some View {
         VStack {
             Text("Fight \(fight.monsterDescriptions)")
-            Text("Reward: \(fight.reward) gold")
+            HStack {
+                Text("Reward:")
+                MoneyView(amount: Int64(fight.reward))
+            }
         }
     }
     

@@ -12,12 +12,12 @@ import SwiftUI
     
     var fight: BattlerFight
     var totalSkillGain: [Skill: Int] = [:]
-    private let playerStore: BattlerPlayerStore
+    private let battlerRunStore: BattlerRunStore
     private let persistentStore: BattlerPersistentStore
     private let eventPublisher: PassthroughSubject<BattlerEvent, Never>
     var player: BattlerPlayer {
         didSet {
-            playerStore.player = player
+            battlerRunStore.player = player
         }
     }
     var coordinator: Coordinator?
@@ -28,12 +28,12 @@ import SwiftUI
     @Resolvable<Resolver>
     init(
         @Argument fight: BattlerFight,
-        playerStore: BattlerPlayerStore,
+        battlerRunStore: BattlerRunStore,
         eventPublisher: PassthroughSubject<BattlerEvent, Never>,
         persistentStore: BattlerPersistentStore
     ) {
-        self.playerStore = playerStore
-        self.player = playerStore.player
+        self.battlerRunStore = battlerRunStore
+        self.player = battlerRunStore.player
         self.eventPublisher = eventPublisher
         self.fight = fight
         self.persistentStore = persistentStore
@@ -85,6 +85,9 @@ import SwiftUI
         let monsterIndex = fight.monsters.firstIndex(where: { $0.id == selectedMonsterID }) ?? 0
         var monster = fight.monsters[monsterIndex]
         let result = executor.execute(attacker: &player, defender: &monster, ability: action)
+        if let damage = result.context.damage {
+            eventPublisher.send(.damageDealt(damage))
+        }
         print("== PLAYER ATTACK == ")
         result.context.logAttack()
         self.fight.monsters[monsterIndex] = monster
@@ -99,11 +102,17 @@ import SwiftUI
         for i in 0..<fight.monsters.count {
             var monster = fight.monsters[i]
             let result = executor.execute(attacker: &monster, defender: &player)
+            if let damage = result.context.damage {
+                eventPublisher.send(.damageTaken(damage))
+            }
             print("== MONSTER ATTACK == ")
             result.context.logAttack()
             self.fight.monsters[i] = monster
             self.onAttackComplete(result: result)
             totalSkillGain = totalSkillGain.adding(other: result.context.defenderSkillXP)
+        }
+        if player.health.current <= 0 {
+            coordinator?.push(BattlerPath.gameOver)
         }
     }
     
@@ -112,13 +121,9 @@ import SwiftUI
     }
     
     func complete() {
-        if player.health.current <= 0 {
-            eventPublisher.send(.stepFinished)
-        } else {
-            player.health.refill()
-            player.money += Int64(fight.reward)
-            eventPublisher.send(.stepFinished)
-        }
+        player.health.refill()
+        player.money += Int64(fight.reward)
+        eventPublisher.send(.stepFinished)
         coordinator?.dismiss()
     }
     

@@ -8,11 +8,11 @@ import Foundation
 final class CharacterEffectsViewModel: CoordinatorViewModel {
     var coordinator: Coordinator?
     
-    private let playerStore: BattlerPlayerStore
+    private let playerStore: BattlerRunStore
     var player: BattlerPlayer { playerStore.player }
     
     @Resolvable<Resolver>
-    init(playerStore: BattlerPlayerStore) {
+    init(playerStore: BattlerRunStore) {
         self.playerStore = playerStore
     }
     

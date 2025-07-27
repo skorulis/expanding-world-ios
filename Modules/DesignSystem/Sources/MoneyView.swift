@@ -5,19 +5,23 @@ import SwiftUI
 
 // MARK: - Memory footprint
 
-struct MoneyView {
-    let amount: Int64
+public struct MoneyView {
+    private let amount: Int64
     
     var gold: Int64 { amount / 10000 }
     var silver: Int64 { (amount % 10000) / 100 }
     var copper: Int64 { amount % 100 }
+    
+    public init(amount: Int64) {
+        self.amount = amount
+    }
 }
 
 // MARK: - Rendering
 
 extension MoneyView: View {
     
-    var body: some View {
+    public var body: some View {
         HStack(spacing: 4) {
             if gold > 0 {
                 singlePart(amount: gold, color: .yellow)
@@ -25,7 +29,7 @@ extension MoneyView: View {
             if silver > 0 {
                 singlePart(amount: silver, color: .gray)
             }
-            if copper > 0 && gold <= 0 {
+            if gold <= 0 {
                 singlePart(amount: copper, color: .orange)
             }
         }
@@ -51,6 +55,7 @@ extension MoneyView: View {
 
 #Preview {
     VStack {
+        MoneyView(amount: 0)
         MoneyView(amount: 10)
         MoneyView(amount: 100)
         MoneyView(amount: 110)

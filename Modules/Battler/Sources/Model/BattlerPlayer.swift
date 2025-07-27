@@ -33,3 +33,10 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
     }
     
 }
+
+struct RoundStats {
+    var moneyEarned: Int64 = 0
+    var fightsWon: Int = 0
+    var damageDealt: Int = 0
+    var damageTaken: Int = 0
+}

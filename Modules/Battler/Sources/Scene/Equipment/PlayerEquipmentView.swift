@@ -88,7 +88,7 @@ struct InventoryItemView: View {
 func previewViewModel() -> PlayerEquipmentViewModel {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
-    let playerStore = resolver.battlerPlayerStore()
+    let playerStore = resolver.battlerRunStore()
     playerStore.player.inventory
         .add(.init(type: .leatherArmor, amount: 5))
     return resolver.playerEquipmentViewModel()

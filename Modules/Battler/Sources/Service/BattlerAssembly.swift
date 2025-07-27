@@ -35,14 +35,14 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattlerSequenceViewModel.self) { resolver in
             BattlerSequenceViewModel(
                 generator: resolver.battleStepGenerator(),
-                playerStore: resolver.battlerPlayerStore(),
+                playerStore: resolver.battlerRunStore(),
                 mainPlayerStore: resolver.playerStore(),
                 eventPublisher: resolver.battlerEventPublisher()
             )
         }
         
         container.register(PlayerEquipmentViewModel.self) { resolver in
-            PlayerEquipmentViewModel(playerStore: resolver.battlerPlayerStore())
+            PlayerEquipmentViewModel(playerStore: resolver.battlerRunStore())
         }
         
         container.register(BestiaryViewModel.self) { BestiaryViewModel.make(resolver: $0) }
@@ -54,7 +54,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         ) in
             BattlerShopViewModel(
                 shop: shop,
-                playerStore: resolver.battlerPlayerStore(),
+                playerStore: resolver.battlerRunStore(),
                 eventPublisher: resolver.battlerEventSubject()
             )
         }
@@ -66,29 +66,25 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattleViewModel.make(resolver: resolver, fight: fight)
         }
         
-        container.register(BattlerMenuViewModel.self) { resolver in
-            BattlerMenuViewModel(
-                playerStore: resolver.battlerPlayerStore(),
-                mainPlayerStore: resolver.playerStore(),
-                persistentStore: resolver.battlerPersistentStore()
-            )
-        }
+        container.register(BattlerMenuViewModel.self) { BattlerMenuViewModel.make(resolver: $0) }
         
         container.register(BestiaryEntryViewModel.self) { (r: Resolver, monster: MonsterSpec) in
             BestiaryEntryViewModel.make(resolver: r, monster: monster)
         }
         
         container.register(CharacterViewModel.self) { resolver in
-            CharacterViewModel(playerStore: resolver.battlerPlayerStore())
+            CharacterViewModel(playerStore: resolver.battlerRunStore())
         }
         
         container.register(MainCharacterViewModel.self) { resolver in
-            MainCharacterViewModel()
+            MainCharacterViewModel.make(resolver: resolver)
         }
         
         container.register(BattlerStatsViewModel.self) { resolver in
             BattlerStatsViewModel.make(resolver: resolver)
         }
+        
+        container.register(GameOverViewModel.self) { GameOverViewModel.make(resolver: $0) }
     }
     
     private func registerServices(container: Container<TargetResolver>) {
@@ -110,11 +106,15 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BattleService.self) { resolver in
             BattleService()
         }
+        
+        // @knit public
+        container.register(BattlerStatsMonitor.self) { BattlerStatsMonitor.make(resolver: $0) }
+            .inObjectScope(.container)
     }
     
     private func registerStores(container: Container<TargetResolver>) {
-        container.register(BattlerPlayerStore.self) { _ in
-            BattlerPlayerStore(player: .testPlayer())
+        container.register(BattlerRunStore.self) { _ in
+            BattlerRunStore()
         }
         .inObjectScope(.container)
         

@@ -19,7 +19,10 @@ extension ShopView: View {
     var body: some View {
         VStack(spacing: 16) {
             TitleBar(title: viewModel.shop.spec.name) {
-                TrailingBarButtons(coordinator: viewModel.coordinator)
+                TrailingBarButtons(
+                    money: viewModel.player.money,
+                    coordinator: viewModel.coordinator
+                )
             }
             Spacer()
             Text("\(viewModel.player.money) coins")

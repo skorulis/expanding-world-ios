@@ -8,7 +8,7 @@ import SwiftUI
     
     var coordinator: Coordinator?
     
-    private let playerStore: BattlerPlayerStore
+    private let playerStore: BattlerRunStore
     
     var player: BattlerPlayer {
         didSet {
@@ -16,7 +16,7 @@ import SwiftUI
         }
     }
     
-    init(playerStore: BattlerPlayerStore) {
+    init(playerStore: BattlerRunStore) {
         self.playerStore = playerStore
         self.player = playerStore.player
     }

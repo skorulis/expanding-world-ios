@@ -7,7 +7,7 @@ import SwiftUI
 
 @Observable final class BattlerShopViewModel: CoordinatorViewModel {
     
-    private let playerStore: BattlerPlayerStore
+    private let playerStore: BattlerRunStore
     private let eventPublisher: PassthroughSubject<BattlerEvent, Never>
     var shop: BattlerShop
     var player: BattlerPlayer {
@@ -20,7 +20,7 @@ import SwiftUI
     
     init(
         shop: BattlerShop,
-        playerStore: BattlerPlayerStore,
+        playerStore: BattlerRunStore,
         eventPublisher: PassthroughSubject<BattlerEvent, Never>
     ) {
         self.shop = shop

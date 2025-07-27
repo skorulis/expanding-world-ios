@@ -25,6 +25,8 @@ extension BattlerStatsView: View {
         VStack(spacing: 8) {
             Text("Battler runs: \(viewModel.stats.gameStarts)")
             Text("Kills: \(viewModel.stats.totalKills)")
+            Text("Damage dealt: \(viewModel.stats.damageDealt)")
+            Text("Damage taken: \(viewModel.stats.damageTaken)")
         }
     }
 }
