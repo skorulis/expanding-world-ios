@@ -112,6 +112,7 @@ import SwiftUI
             totalSkillGain = totalSkillGain.adding(other: result.context.defenderSkillXP)
         }
         if player.health.current <= 0 {
+            eventPublisher.send(.death)
             coordinator?.push(BattlerPath.gameOver)
         }
     }

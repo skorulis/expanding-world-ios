@@ -4,6 +4,7 @@ import Foundation
 
 enum BattlerEvent {
     case stepFinished
+    case death
     case damageTaken(Int)
     case damageDealt(Int)
 }

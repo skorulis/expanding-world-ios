@@ -33,6 +33,8 @@ import Foundation
             switch event {
             case .stepFinished:
                 self.handleStepResult()
+            case .death:
+                self.coordinator?.popToRoot()
             default:
                 break
             }

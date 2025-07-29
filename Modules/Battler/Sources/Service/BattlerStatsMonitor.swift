@@ -40,6 +40,8 @@ public final class BattlerStatsMonitor {
         case let .damageDealt(dam):
             battlerRunStore.roundStats.damageDealt += dam
             battlerPersistentStore.stats.damageDealt += dam
+        case .death:
+            battlerPersistentStore.stats.deaths += 1
         }
     }
 }

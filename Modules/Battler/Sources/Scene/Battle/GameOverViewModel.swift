@@ -23,6 +23,6 @@ extension GameOverViewModel {
     }
     
     func finish() {
-        coordinator?.popToRoot()
+        coordinator?.dismiss()
     }
 }

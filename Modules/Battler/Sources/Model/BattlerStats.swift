@@ -9,6 +9,7 @@ struct BattlerStats: Codable {
     var fightsWon: Int = 0
     var damageDealt: Int = 0
     var damageTaken: Int = 0
+    var deaths: Int = 0
     
     static var defaultValue: BattlerStats {
         .init(
@@ -17,7 +18,8 @@ struct BattlerStats: Codable {
             moneyEarned: 0,
             fightsWon: 0,
             damageDealt: 0,
-            damageTaken: 0
+            damageTaken: 0,
+            deaths: 0
         )
     }
     
