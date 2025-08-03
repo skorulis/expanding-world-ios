@@ -15,10 +15,19 @@ import SwiftUI
     init(playerStore: BattlerRunStore) {
         self.playerStore = playerStore
     }
+}
+
+// MARK: - Logic
+
+extension CharacterViewModel {
     
     var knownSkills: [Skill] {
         return Skill.allCases.filter {
             player.skills.isKnown(skill: $0)
         }
+    }
+    
+    func showDetails(skill: Skill) {
+        self.coordinator?.push(BattlerPath.skillDetails(skill))
     }
 }

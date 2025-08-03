@@ -1,5 +1,6 @@
 //  Created by Alexander Skorulis on 27/4/2025.
 
+import Core
 import Knit
 import ASKCoordinator
 import Foundation
@@ -18,6 +19,7 @@ public enum BattlerPath: CoordinatorPath {
     case stats
     case gameOver
     case bestiaryEntry(MonsterSpec)
+    case skillDetails(Skill)
     
     public var id: String {
         switch self {
@@ -45,6 +47,8 @@ public enum BattlerPath: CoordinatorPath {
             return "gameOver"
         case let .bestiaryEntry(monster):
             return "bestiary.entry.\(monster.id)"
+        case let .skillDetails(skill):
+            return "skill.details.\(skill.name)"
         }
     }
 }
@@ -84,6 +88,8 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
             BattlerStatsView(viewModel: Self.apply(resolver.battlerStatsViewModel(), coordinator))
         case .gameOver:
             GameOverView(viewModel: Self.apply(resolver.gameOverViewModel(), coordinator))
+        case let .skillDetails(skill):
+            SkillDetailsView(viewModel: Self.apply(resolver.skillDetailsViewModel(skill: skill), coordinator))
         }
     }
     

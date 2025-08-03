@@ -6,6 +6,7 @@ import SwiftUI
 
 // MARK: - Memory footprint
 
+@MainActor
 struct CharacterView {
     @State var viewModel: CharacterViewModel
 }
@@ -28,45 +29,22 @@ extension CharacterView: View {
     private var skills: some View {
         VStack {
             ForEach(viewModel.knownSkills) { skill in
-                SkillView(
-                    skill: skill,
-                    state: viewModel.player.skills.state(skill: skill)
-                )
+                skillButton(skill: skill)
             }
         }
         .padding(.horizontal, 16)
     }
-}
-
-private struct SkillView: View {
-    let skill: Skill
-    let state: SkillState
     
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("\(skill.name) - Level \(state.level)")
-                .font(.headline)
-            
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                    
-                    Rectangle()
-                        .fill(Color.blue)
-                        .frame(width: geometry.size.width * CGFloat(state.xp) / CGFloat(state.neededXP))
-                    
-                    
-                }
-                .overlay(
-                    Text("\(state.xp)/\(state.neededXP) XP")
-                        .font(.caption)
-                        .padding(.horizontal, 4)
+    private func skillButton(skill: Skill) -> some View {
+        Button(action: { viewModel.showDetails(skill: skill) }) {
+            HStack {
+                SkillView(
+                    skill: skill,
+                    state: viewModel.player.skills.state(skill: skill)
                 )
-                    
+                
+                Image(systemName: "chevron.forward")
             }
-            .frame(height: 20)
-            .cornerRadius(4)
         }
     }
 }
