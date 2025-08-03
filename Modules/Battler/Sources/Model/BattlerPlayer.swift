@@ -46,6 +46,27 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
         return skills.totalLevel
     }
     
+    func allSkillEffects() -> [StatusEffect] {
+        var result: [StatusEffect] = []
+        for (key, value) in skills.skills {
+            result.append(contentsOf: key.effects(level: value))
+        }
+        return result
+    }
+    
+    func activeSkillEffects() -> [StatusEffect] {
+        allSkillEffects().filter { effect in
+            effect.conditions.allSatisfy { isConditionActive($0) }
+        }
+    }
+    
+    func isConditionActive(_ condition: StatusEffectCondition) -> Bool {
+        switch condition {
+        case .unarmed:
+            return self.inventory.equipped(.mainHand) == nil
+        }
+    }
+    
 }
 
 struct RoundStats {

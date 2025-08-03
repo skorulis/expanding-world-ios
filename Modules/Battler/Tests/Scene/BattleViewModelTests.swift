@@ -21,12 +21,13 @@ struct BattleViewModelTests {
     
     @Test func complete() {
         let assembler = BattlerAssembly.testing()
-        let playerStore = assembler.resolver.BattlerRunStore()
+        let playerStore = assembler.resolver.battlerRunStore()
+        let startMoney = playerStore.player.money
         let fight = BattlerFight(monsters: [.rat, .rat], difficulty: 2)
         let viewModel = assembler.resolver.battleViewModel(fight: fight)
         
         viewModel.complete()
         
-        #expect(playerStore.player.money == 4)
+        #expect(playerStore.player.money == startMoney + 4)
     }
 }

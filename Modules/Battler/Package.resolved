@@ -1,5 +1,5 @@
 {
-  "originHash" : "d21458b4b188136a5523c739d399df46d7631ba8efb34000737ec1ad018453ab",
+  "originHash" : "acbdb563edbcb80a8498626e3e19fb85ef7906a15ce26a3e77eaa7f2c637a0e8",
   "pins" : [
     {
       "identity" : "askcoordinator",
@@ -7,7 +7,7 @@
       "location" : "https://github.com/skorulis/ASKCoordinator",
       "state" : {
         "branch" : "main",
-        "revision" : "1221b40d7158478bda097900df24fce64fb08377"
+        "revision" : "f794997e6f7633dc07b31d0df90329aa76e6d7f8"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser",
       "state" : {
-        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
-        "version" : "1.5.0"
+        "revision" : "309a47b2b1d9b5e991f36961c983ecec72275be3",
+        "version" : "1.6.1"
       }
     },
     {
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
       "state" : {
-        "revision" : "1be8144023c367c5de701a6313ed29a3a10bf59b",
-        "version" : "1.18.3"
+        "revision" : "d7e40607dcd6bc26543f5d9433103f06e0b28f8f",
+        "version" : "1.18.6"
       }
     },
     {
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "39de59b2d47f7ef3ca88a039dff3084688fe27f4",
-        "version" : "1.5.2"
+        "revision" : "23e3442166b5122f73f9e3e622cd1e4bafeab3b7",
+        "version" : "1.6.0"
       }
     }
   ],

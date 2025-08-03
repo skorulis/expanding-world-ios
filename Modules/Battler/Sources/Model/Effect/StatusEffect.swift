@@ -6,17 +6,38 @@ import SwiftUI
 struct StatusEffect: Equatable {
     let name: String
     let effect: BuffEffect
+    let conditions: [StatusEffectCondition]
     var duration: EffectDuration
     
+    init(
+        name: String,
+        effect: BuffEffect,
+        conditions: [StatusEffectCondition] = [],
+        duration: EffectDuration
+    ) {
+        self.name = name
+        self.effect = effect
+        self.conditions = conditions
+        self.duration = duration
+    }
+    
     func canCombine(_ other: StatusEffect) -> Bool {
-        return name == other.name && effect.canCombine(other.effect) && duration == other.duration
+        return name == other.name
+            && effect.canCombine(other.effect)
+            && duration == other.duration
+            && conditions == other.conditions
     }
     
     func combine(_ other: StatusEffect) -> StatusEffect {
         guard canCombine(other) else {
             fatalError("Attempt to combine incompatible buffs")
         }
-        return .init(name: name, effect: effect.combine(other.effect)!, duration: duration)
+        return .init(
+            name: name,
+            effect: effect.combine(other.effect)!,
+            conditions: conditions,
+            duration: duration
+        )
     }
 }
 
@@ -128,11 +149,11 @@ enum BuffEffect: Equatable {
     var description: String {
         switch self {
         case let .attack(int):
-            return "Attack +\(int)"
+            return "+\(int) ATK"
         case let .defence(int):
-            return "Defence +\(int)"
+            return "+\(int) DEF"
         case let .healing(int):
-            return "Heal \(int)HP each round"
+            return "+\(int)HP per round"
         }
     }
     

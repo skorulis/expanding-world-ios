@@ -18,6 +18,8 @@ protocol Combatant {
 
 protocol SkilledCombatant: Combatant {
     func value(_ skill: Skill) -> Int
+    
+    func activeSkillEffects() -> [StatusEffect]
 }
 
 // Used for Health or Mana

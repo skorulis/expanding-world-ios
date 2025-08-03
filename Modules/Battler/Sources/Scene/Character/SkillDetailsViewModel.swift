@@ -25,4 +25,8 @@ extension SkillDetailsViewModel {
     var state: SkillState {
         playerStore.player.skills.state(skill: skill)
     }
+    
+    var effects: [StatusEffect] {
+        skill.effects(level: state.level)
+    }
 }
