@@ -36,14 +36,9 @@ extension BattlerMenuViewModel {
     func start() {
         persistentStore.stats.gameStarts += 1
         
-        // TODO: Improve player creation
-        let player = BattlerPlayer(
-            money: 10,
-            skills: playerStore.player.skills
-        )
         let step1 = generator.generateStep(index: 0)
         let sequence = BattlerSequence(steps: [step1], path: [])
-        playerStore.reset(player: player, sequence: sequence)
+        playerStore.reset(sequence: sequence)
         
         coordinator!.push(BattlerPath.sequence)
     }

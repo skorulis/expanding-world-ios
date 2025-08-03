@@ -113,9 +113,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
     }
     
     private func registerStores(container: Container<TargetResolver>) {
-        container.register(BattlerRunStore.self) { _ in
-            BattlerRunStore()
-        }
+        container.register(BattlerRunStore.self) { BattlerRunStore.make(resolver: $0) }
         .inObjectScope(.container)
         
         container.register(BattlerPersistentStore.self) { BattlerPersistentStore.make(resolver: $0) }
