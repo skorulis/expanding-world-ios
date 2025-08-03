@@ -31,7 +31,7 @@ import Foundation
         self.sequence = playerStore.sequence
         eventPublisher.sink { [unowned self] event in
             switch event {
-            case .stepFinished:
+            case .battleFinished, .shopFinished:
                 self.handleStepResult()
             case .death:
                 self.coordinator?.popToRoot()

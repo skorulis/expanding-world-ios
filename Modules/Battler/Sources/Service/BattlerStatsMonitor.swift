@@ -32,8 +32,9 @@ public final class BattlerStatsMonitor {
     
     private func process(_ event: BattlerEvent) {
         switch event {
-        case .stepFinished:
+        case let .battleFinished(battle):
             battlerRunStore.roundStats.fightsWon += 1
+            battlerPersistentStore.stats.moneyEarned += battle.reward
         case let .damageTaken(dam):
             battlerRunStore.roundStats.damageTaken += dam
             battlerPersistentStore.stats.damageTaken += dam
@@ -42,6 +43,8 @@ public final class BattlerStatsMonitor {
             battlerPersistentStore.stats.damageDealt += dam
         case .death:
             battlerPersistentStore.stats.deaths += 1
+        case .shopFinished:
+            break
         }
     }
 }

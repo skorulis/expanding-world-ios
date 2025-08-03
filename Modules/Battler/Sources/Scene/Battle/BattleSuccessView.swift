@@ -62,7 +62,7 @@ struct BattleSuccessView: View {
                 .font(.headline)
                 .fontWeight(.bold)
             
-            Text("Gold: \(fight.reward)")
+            MoneyView(amount: fight.reward)
         }
     }
     

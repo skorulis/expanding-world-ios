@@ -24,9 +24,15 @@ extension BattlerStatsView: View {
     private var stats: some View {
         VStack(spacing: 8) {
             Text("Battler runs: \(viewModel.stats.gameStarts)")
+            HStack {
+                Text("Money Earned:")
+                MoneyView(amount: viewModel.stats.moneyEarned)
+            }
+            
             Text("Kills: \(viewModel.stats.totalKills)")
             Text("Damage dealt: \(viewModel.stats.damageDealt)")
             Text("Damage taken: \(viewModel.stats.damageTaken)")
+            Text("Deaths: \(viewModel.stats.deaths)")
         }
     }
 }

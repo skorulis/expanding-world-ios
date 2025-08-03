@@ -9,8 +9,9 @@ final class BattlerRunStore: ObservableObject {
     @Published var roundStats: RoundStats = RoundStats()
     @Published var sequence = BattlerSequence(steps: [], path: [])
     
-    init() {
-        self.player = .testPlayer()
+    private let playerStore: PlayerStore
+    
+    init(playerStore: PlayerStore) {
         self.player.inventory.add(.init(type: .leatherArmor, amount: 1))
     }
     

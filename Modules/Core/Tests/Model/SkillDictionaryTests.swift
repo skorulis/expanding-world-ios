@@ -26,4 +26,13 @@ struct SkillDictionaryTests {
         #expect(skills.xp(.unarmed) == 50)
     }
     
+    @Test func totalLevel() {
+        var skills = SkillDictionary()
+        skills.set(skill: .unarmed, value: 3)
+        skills.set(skill: .toughness, value: 2)
+        
+        #expect(skills.totalLevel == 3)
+        
+    }
+    
 }

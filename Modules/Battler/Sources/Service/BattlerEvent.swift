@@ -3,7 +3,8 @@
 import Foundation
 
 enum BattlerEvent {
-    case stepFinished
+    case battleFinished(BattlerFight)
+    case shopFinished
     case death
     case damageTaken(Int)
     case damageDealt(Int)

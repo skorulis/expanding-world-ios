@@ -51,6 +51,10 @@ public struct SkillDictionary: Sendable, Codable {
         )
     }
     
+    public var totalLevel: Int {
+        return 1 + skills.values.map { max($0 - 1, 0) }.reduce(0, +)
+    }
+    
 }
 
 public struct SkillState: Sendable, Codable {

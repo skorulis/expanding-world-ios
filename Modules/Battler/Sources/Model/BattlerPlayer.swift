@@ -11,6 +11,7 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
     var skills: SkillDictionary
     var money: Int64
     var xp: Int { 1 } // Not really used
+    var name: String { "Player" }
     
     init(money: Int64 = 0, skills: SkillDictionary) {
         self.id = UUID()
@@ -28,8 +29,21 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
         }
     }
     
+    func atkValue(using ability: AttackAbility) -> Int {
+        var base = 3
+        if ability.attributes.contains(.unarmed) {
+            base += value(.unarmed)
+        }
+        
+        return base
+    }
+    
     func defence(against: AttackAbility) -> Int {
         return 1
+    }
+    
+    var level: Int {
+        return skills.totalLevel
     }
     
 }

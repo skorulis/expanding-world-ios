@@ -25,6 +25,8 @@ import SwiftUI
     
     var selectedMonsterID: UUID?
     
+    var logs: [FightLog] = []
+    
     @Resolvable<Resolver>
     init(
         @Argument fight: BattlerFight,
@@ -37,6 +39,7 @@ import SwiftUI
         self.eventPublisher = eventPublisher
         self.fight = fight
         self.persistentStore = persistentStore
+        logs.append(.init(message: "The fight started"))
     }
     
     var currentMonster: Monster? {
@@ -90,6 +93,7 @@ import SwiftUI
         }
         print("== PLAYER ATTACK == ")
         result.context.logAttack()
+        logs.insert(contentsOf: result.logs, at: 0)
         self.fight.monsters[monsterIndex] = monster
         self.onAttackComplete(result: result)
         totalSkillGain = totalSkillGain.adding(other: result.context.attackerSkillXP)
@@ -107,6 +111,7 @@ import SwiftUI
             }
             print("== MONSTER ATTACK == ")
             result.context.logAttack()
+            logs.insert(contentsOf: result.logs, at: 0)
             self.fight.monsters[i] = monster
             self.onAttackComplete(result: result)
             totalSkillGain = totalSkillGain.adding(other: result.context.defenderSkillXP)
@@ -123,8 +128,8 @@ import SwiftUI
     
     func complete() {
         player.health.refill()
-        player.money += Int64(fight.reward)
-        eventPublisher.send(.stepFinished)
+        player.money += fight.reward
+        eventPublisher.send(.battleFinished(fight))
         coordinator?.dismiss()
     }
     

@@ -18,8 +18,12 @@ import Knit
 
 extension MainCharacterViewModel {
     
+    var player: BattlerPlayer {
+        playerStore.player
+    }
+    
     var money: Int64 {
-        playerStore.player.money
+        player.money
     }
     
     func equipment() {

@@ -31,6 +31,7 @@ extension MainCharacterView: View {
                 Text("Money")
                 MoneyView(amount: viewModel.money)
             }
+            Text("Level: \(viewModel.player.level)")
             
             Button(action: viewModel.equipment) {
                 Text("Equipment")

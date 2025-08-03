@@ -36,7 +36,7 @@ extension BattleOptionsDetailView: View {
             Text("Fight \(fight.monsterDescriptions)")
             HStack {
                 Text("Reward:")
-                MoneyView(amount: Int64(fight.reward))
+                MoneyView(amount: fight.reward)
             }
         }
     }

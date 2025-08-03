@@ -26,6 +26,7 @@ internal enum Asset {
     internal static let copperDagger = ImageAsset(name: "copper-dagger")
     internal static let leatherArmor = ImageAsset(name: "leather-armor")
     internal static let robe = ImageAsset(name: "robe")
+    internal static let stew = ImageAsset(name: "stew")
   }
   internal enum Objects {
     internal static let brickBuilding2 = ImageAsset(name: "brickBuilding2")

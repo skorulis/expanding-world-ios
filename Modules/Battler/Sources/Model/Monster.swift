@@ -9,6 +9,7 @@ struct Monster: Combatant, Identifiable, Sendable {
     var health: CombatantValue
     let abilities: [AttackAbility]
     var xp: Int { spec.difficultyValue }
+    var name: String { spec.name }
     
     init(spec: MonsterSpec) {
         self.spec = spec
@@ -22,5 +23,9 @@ struct Monster: Combatant, Identifiable, Sendable {
     
     func defence(against: AttackAbility) -> Int {
         return spec.defence
+    }
+    
+    func atkValue(using: AttackAbility) -> Int {
+        return 1
     }
 }

@@ -34,7 +34,7 @@ extension BattleView: View {
                 selected: viewModel.selectedBinding
             )
             
-            Spacer()
+            FightLogView(logs: viewModel.logs)
             stats
             grid
         }

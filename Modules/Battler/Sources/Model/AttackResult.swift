@@ -6,6 +6,8 @@ import Foundation
 struct AttackResult {
     let context: AttackContext
     let eliminatedIDs: Set<UUID>
+    
+    var logs: [FightLog] { context.logs.reversed() }
 }
 
 struct AttackContext {
@@ -20,6 +22,7 @@ struct AttackContext {
     var damage: Int?
     var attackerSkillXP: [Skill: Int] = [:]
     var defenderSkillXP: [Skill: Int] = [:]
+    var logs: [FightLog] = []
     
     init(attacker: Combatant, defender: Combatant, ability: AttackAbility) {
         self.attacker = attacker

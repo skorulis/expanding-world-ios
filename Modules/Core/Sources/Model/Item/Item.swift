@@ -116,7 +116,7 @@ extension Item {
         case .grog:
             return Image(systemName: "mug.fill")
         case .stew:
-            return Image(systemName: "carrot.fill")
+            return Asset.Item.stew.swiftUIImage
         case .robe:
             return Asset.Item.robe.swiftUIImage
         case .leatherArmor:

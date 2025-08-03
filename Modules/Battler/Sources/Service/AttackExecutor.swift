@@ -44,6 +44,7 @@ final class AttackExecutor {
         context.hitRoll = Double.random(in: 0...1, using: &self.random)
         if context.hitRoll! > context.hitChance! {
             // Miss
+            context.logs.append(.init(message: missMessage(context: context)))
             return context
         }
         let damage: Int
@@ -56,6 +57,7 @@ final class AttackExecutor {
         case let .monsterSkill(_, details):
             damage = details.damage.randomElement(using: &self.random)!
         }
+        context.logs.append(.init(message: hitMessage(context: context, damage: damage)))
         context.addDefenderXP(
             skill: .toughness,
             difficulty: defender.health.percentage(amount: damage)
@@ -87,14 +89,14 @@ final class AttackExecutor {
     }
     
     func attackValue(attacker: Combatant, ability: AttackAbility) -> Int {
-        var base = 1
-        if let skilled = attacker as? SkilledCombatant {
-            if ability.attributes.contains(.unarmed) {
-                base += skilled.value(.unarmed)
-            }
-        }
-        
-        return base
+        return attacker.atkValue(using: ability)
+    }
+    
+    private func hitMessage(context: AttackContext, damage: Int) -> String {
+        return "\(context.attacker.name) hits \(context.defender.name) for \(damage) damage"
+    }
+    
+    private func missMessage(context: AttackContext) -> String {
+        return "\(context.attacker.name) misses"
     }
 }
-

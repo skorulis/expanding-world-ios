@@ -55,6 +55,6 @@ extension BattlerShopViewModel {
     
     func finish() {
         coordinator?.dismiss()
-        eventPublisher.send(.stepFinished)
+        eventPublisher.send(.shopFinished)
     }
 }
