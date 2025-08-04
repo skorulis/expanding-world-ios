@@ -2,13 +2,11 @@
 
 import Combine
 import Foundation
-import ASKCoordinator
 import SwiftUI
 
-@Observable final class BattlerShopViewModel: CoordinatorViewModel {
+@Observable final class GeneralShopViewModel {
     
     private let playerStore: BattlerRunStore
-    private let eventPublisher: PassthroughSubject<BattlerEvent, Never>
     var shop: BattlerShop
     var player: BattlerPlayer {
         didSet {
@@ -16,24 +14,21 @@ import SwiftUI
         }
     }
     var selectedIndex: Int?
-    var coordinator: Coordinator?
     
     init(
         shop: BattlerShop,
-        playerStore: BattlerRunStore,
-        eventPublisher: PassthroughSubject<BattlerEvent, Never>
+        playerStore: BattlerRunStore
     ) {
         self.shop = shop
         self.playerStore = playerStore
         self.player = playerStore.player
-        self.eventPublisher = eventPublisher
     }
     
 }
 
 // MARK: - Logic
 
-extension BattlerShopViewModel {
+extension GeneralShopViewModel {
     var canBuy: Bool {
         guard let selectedIndex else { return  false }
         let price = shop.items[selectedIndex].baseCost
@@ -49,12 +44,4 @@ extension BattlerShopViewModel {
         player.money -= item.baseCost
     }
     
-    func showInventory() {
-        coordinator?.present(BattlerPath.equipment, style: .sheet)
-    }
-    
-    func finish() {
-        coordinator?.dismiss()
-        eventPublisher.send(.shopFinished)
-    }
 }

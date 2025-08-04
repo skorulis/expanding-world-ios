@@ -8,24 +8,16 @@ import Core
 // MARK: - Memory footprint
 
 @MainActor
-struct ShopView {
-    @State var viewModel: BattlerShopViewModel
+struct GeneralShopView {
+    @State var viewModel: GeneralShopViewModel
 }
 
 // MARK: - Rendering
 
-extension ShopView: View {
+extension GeneralShopView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            TitleBar(title: viewModel.shop.spec.name) {
-                TrailingBarButtons(
-                    money: viewModel.player.money,
-                    coordinator: viewModel.coordinator
-                )
-            }
-            Spacer()
-            Text("\(viewModel.player.money) coins")
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(Array(viewModel.shop.items.indices), id: \.self) { index in
@@ -40,8 +32,6 @@ extension ShopView: View {
             }
             
             buyButton
-            
-            finishButton
         }
     }
     
@@ -66,14 +56,6 @@ extension ShopView: View {
         .buttonStyle(RectangleButtonStyle())
         .padding(.horizontal)
         .disabled(!viewModel.canBuy)
-    }
-    
-    private var finishButton: some View {
-        Button(action: viewModel.finish) {
-            Text("Finish")
-        }
-        .buttonStyle(RectangleButtonStyle())
-        .padding(.horizontal)
     }
     
     private var buyButtonTitle: String {
@@ -103,8 +85,8 @@ extension ShopView: View {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
     let shop = BattlerShop(spec: .generalStore)
-    ShopView(
-        viewModel: resolver.battlerShopViewModel(
+    GeneralShopView(
+        viewModel: resolver.generalShopViewModel(
             shop: shop
         )
     )
@@ -114,8 +96,8 @@ extension ShopView: View {
     let assembler = BattlerAssembly.testing()
     let resolver = assembler.resolver
     let shop = BattlerShop(spec: .lightTemple)
-    ShopView(
-        viewModel: resolver.battlerShopViewModel(
+    GeneralShopView(
+        viewModel: resolver.generalShopViewModel(
             shop: shop
         )
     )

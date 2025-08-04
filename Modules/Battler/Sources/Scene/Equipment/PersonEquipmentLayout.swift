@@ -33,6 +33,12 @@ extension PersonEquipmentLayout: View {
                     item: inventory.equipped(.body),
                     onPress: onPress
                 )
+                
+                EquipmentSlotView(
+                    slot: .offHand,
+                    item: inventory.equipped(.offHand),
+                    onPress: onPress
+                )
             }
             EquipmentSlotView(
                 slot: .feet,

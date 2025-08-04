@@ -43,8 +43,6 @@ public final class BattlerStatsMonitor {
             battlerPersistentStore.stats.damageDealt += dam
         case .death:
             battlerPersistentStore.stats.deaths += 1
-        case .shopFinished:
-            break
         }
     }
 }

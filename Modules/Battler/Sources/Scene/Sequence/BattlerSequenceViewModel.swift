@@ -31,7 +31,7 @@ import Foundation
         self.sequence = playerStore.sequence
         eventPublisher.sink { [unowned self] event in
             switch event {
-            case .battleFinished, .shopFinished:
+            case .battleFinished:
                 self.handleStepResult()
             case .death:
                 self.coordinator?.popToRoot()
@@ -75,9 +75,6 @@ extension BattlerSequenceViewModel {
         switch option {
         case let .fight(fight):
             let path = BattlerPath.battle(fight)
-            coordinator?.present(path, style: .fullScreen)
-        case let .shop(shop):
-            let path = BattlerPath.shop(shop)
             coordinator?.present(path, style: .fullScreen)
         }
     }

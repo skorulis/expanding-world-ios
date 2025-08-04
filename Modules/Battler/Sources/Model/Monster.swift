@@ -21,7 +21,7 @@ struct Monster: Combatant, Identifiable, Sendable {
     // Monsters do not gain XP
     mutating func addXP(_ xp: [Skill: Int]) {}
     
-    func defence(against: AttackAbility) -> Int {
+    func defValue(against: AttackAbility) -> Int {
         return spec.defence
     }
     

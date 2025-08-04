@@ -16,7 +16,6 @@ struct BattleStepView {
 
 extension BattleStepView: View {
     
-    
     var body: some View {
         VStack(spacing: SequenceUIConstants.stepRowSpacing) {
             ForEach(Array(step.options.indices), id: \.self) { index in
@@ -61,8 +60,6 @@ extension BattleStepView: View {
         switch option {
         case .fight:
             return Image(systemName: "person.2.fill")
-        case .shop:
-            return Image(systemName: "dollarsign.bank.building.fill")
         }
     }
 }

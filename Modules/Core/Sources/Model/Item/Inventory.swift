@@ -75,6 +75,7 @@ public enum EquipmentSlot: String, Codable, CaseIterable, Sendable, Identifiable
     case feet
     case body
     case mainHand
+    case offHand
     
     public var id: String { rawValue }
     
@@ -82,6 +83,8 @@ public enum EquipmentSlot: String, Codable, CaseIterable, Sendable, Identifiable
         switch self {
         case .mainHand:
             return "Main hand"
+        case .offHand:
+            return "Off hand"
         default:
             return rawValue.capitalized
         }

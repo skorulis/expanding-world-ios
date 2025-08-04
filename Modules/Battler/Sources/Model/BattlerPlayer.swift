@@ -31,15 +31,29 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
     
     func atkValue(using ability: AttackAbility) -> Int {
         var base = 3
-        if ability.attributes.contains(.unarmed) {
-            base += value(.unarmed)
+        for effect in activeSkillEffects() {
+            switch effect.effect {
+            case let .attack(atk):
+                base += atk
+            default:
+                break
+            }
         }
         
         return base
     }
     
-    func defence(against: AttackAbility) -> Int {
-        return 1
+    func defValue(against: AttackAbility) -> Int {
+        var base = 1
+        for effect in activeSkillEffects() {
+            switch effect.effect {
+            case let .defence(def):
+                base += def
+            default:
+                break
+            }
+        }
+        return base
     }
     
     var level: Int {

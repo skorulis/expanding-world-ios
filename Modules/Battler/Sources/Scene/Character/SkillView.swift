@@ -33,6 +33,7 @@ struct SkillView: View {
             .frame(height: 20)
             .cornerRadius(4)
         }
+        .foregroundStyle(Color.black)
     }
 }
 

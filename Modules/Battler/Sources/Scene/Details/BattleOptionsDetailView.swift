@@ -20,8 +20,6 @@ extension BattleOptionsDetailView: View {
             switch option {
             case let .fight(fight):
                 fightDetails(fight)
-            case .shop:
-                shopDetails
             }
             Button(action: onSelect) {
                 Text("Select")
@@ -39,10 +37,6 @@ extension BattleOptionsDetailView: View {
                 MoneyView(amount: fight.reward)
             }
         }
-    }
-    
-    private var shopDetails: some View {
-        Text("Shop")
     }
     
 }

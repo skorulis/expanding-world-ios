@@ -85,7 +85,7 @@ final class AttackExecutor {
     }
     
     func defValue(defender: Combatant, ability: AttackAbility) -> Int {
-        return defender.defence(against: ability)
+        return defender.defValue(against: ability)
     }
     
     func attackValue(attacker: Combatant, ability: AttackAbility) -> Int {

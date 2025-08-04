@@ -33,13 +33,11 @@ struct BattleStep: Identifiable, Sendable {
 
 enum BattleStepType: CaseIterable {
     case fight
-    case intermission
 }
 
 /// A single option that can be chosen in a battle step
 enum BattleOption: Sendable {
     case fight(BattlerFight)
-    case shop(BattlerShop)
     
     static func testFight() -> BattleOption {
         .fight(.testFight())

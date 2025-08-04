@@ -13,13 +13,13 @@ public enum BattlerPath: CoordinatorPath {
     case characterEffects
     case sequence
     case equipment
-    case shop(BattlerShop)
     case battle(BattlerFight)
     case bestiary
     case stats
     case gameOver
     case bestiaryEntry(MonsterSpec)
     case skillDetails(Skill)
+    case combinedShop
     
     public var id: String {
         switch self {
@@ -37,8 +37,6 @@ public enum BattlerPath: CoordinatorPath {
             return "battle-\(fight.id)"
         case .equipment:
             return "battler.equipment"
-        case let .shop(shop):
-            return "shop-\(shop.spec.name)"
         case .bestiary:
             return "battler.bestiary"
         case .stats:
@@ -49,6 +47,8 @@ public enum BattlerPath: CoordinatorPath {
             return "bestiary.entry.\(monster.id)"
         case let .skillDetails(skill):
             return "skill.details.\(skill.name)"
+        case .combinedShop:
+            return "combined.shop"
         }
     }
 }
@@ -72,8 +72,6 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
             PlayerEquipmentView(viewModel: coordinator.apply(resolver.playerEquipmentViewModel()))
         case .sequence:
             BattlerSequenceView(viewModel: coordinator.apply(resolver.battlerSequenceViewModel()))
-        case let .shop(shop):
-            ShopView(viewModel: coordinator.apply(resolver.battlerShopViewModel(shop: shop)))
         case let .battle(fight):
             BattleView(
                 viewModel: coordinator.apply(
@@ -90,6 +88,8 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
             GameOverView(viewModel: Self.apply(resolver.gameOverViewModel(), coordinator))
         case let .skillDetails(skill):
             SkillDetailsView(viewModel: Self.apply(resolver.skillDetailsViewModel(skill: skill), coordinator))
+        case .combinedShop:
+            CombinedShopView(viewModel: Self.apply(resolver.combinedShopViewModel(), coordinator))
         }
     }
     

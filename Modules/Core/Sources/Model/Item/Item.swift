@@ -9,6 +9,8 @@ public enum Item: Codable, Sendable {
     case stew
     case leatherArmor
     case robe
+    
+    case woodenShield
 }
 
 extension Item {
@@ -21,6 +23,7 @@ extension Item {
         case food
         case armor
         case weapon
+        case shield
         
         public var color: Color {
             switch self {
@@ -29,6 +32,8 @@ extension Item {
             case .armor:
                 return .brown
             case .weapon:
+                return .brown
+            default:
                 return .brown
             }
         }
@@ -93,6 +98,8 @@ extension Item {
             return "Robe"
         case .copperDagger:
             return "Copper dagger"
+        case .woodenShield:
+            return "Wooden shield"
         }
     }
     
@@ -108,6 +115,8 @@ extension Item {
             return "A simple robe"
         case .copperDagger:
             return "A badly made dagger"
+        case .woodenShield:
+            return "A shield made of wood"
         }
     }
     
@@ -123,6 +132,9 @@ extension Item {
             return Asset.Item.leatherArmor.swiftUIImage
         case .copperDagger:
             return Asset.Item.copperDagger.swiftUIImage
+        case .woodenShield:
+            return Asset.Item.woodenShield.swiftUIImage
+            
         }
     }
     
@@ -131,6 +143,8 @@ extension Item {
         case .grog, .stew:
             return .poor
         case .leatherArmor, .robe, .copperDagger:
+            return .common
+        default:
             return .common
         }
     }
@@ -143,6 +157,8 @@ extension Item {
             return .armor
         case .copperDagger:
             return .weapon
+        case .woodenShield:
+            return .shield
         }
     }
     
@@ -158,6 +174,8 @@ extension Item {
             return 20
         case .leatherArmor:
             return 50
+        case .woodenShield:
+            return 10
         }
     }
     
@@ -167,6 +185,8 @@ extension Item {
             return .body
         case .copperDagger:
             return .mainHand
+        case .woodenShield:
+            return .offHand
         default:
             return nil
         }

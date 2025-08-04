@@ -13,13 +13,11 @@ protocol Combatant {
     mutating func addXP(_ xp: [Skill: Int])
     
     func atkValue(using: AttackAbility) -> Int
-    func defence(against: AttackAbility) -> Int
+    func defValue(against: AttackAbility) -> Int
 }
 
 protocol SkilledCombatant: Combatant {
     func value(_ skill: Skill) -> Int
-    
-    func activeSkillEffects() -> [StatusEffect]
 }
 
 // Used for Health or Mana
