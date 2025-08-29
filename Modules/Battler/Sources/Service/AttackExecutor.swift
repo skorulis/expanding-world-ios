@@ -6,6 +6,7 @@ import Foundation
 final class AttackExecutor {
     
     var random: RandomNumberGenerator
+    let debug: Bool = true
     
     init(random: RandomNumberGenerator) {
         self.random = random
@@ -93,10 +94,18 @@ final class AttackExecutor {
     }
     
     private func hitMessage(context: AttackContext, ability: AttackAbility, damage: Int) -> String {
-        return "\(context.attacker.name) \(ability.verb) \(context.defender.name) for \(damage) damage"
+        var result = "\(context.attacker.name) \(ability.verb) \(context.defender.name) for \(damage) damage"
+        if debug {
+            result += " (\(context.hitChanceString))"
+        }
+        return result
     }
     
     private func missMessage(context: AttackContext) -> String {
-        return "\(context.attacker.name) misses"
+        var result = "\(context.attacker.name) misses"
+        if debug {
+            result += " (\(context.hitChanceString))"
+        }
+        return result
     }
 }

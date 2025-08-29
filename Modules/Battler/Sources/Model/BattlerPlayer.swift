@@ -5,10 +5,14 @@ import Foundation
 
 public struct BattlerPlayer: SkilledCombatant, Sendable {
     let id: UUID
-    var health: CombatantValue = .init(10)
+    var health: CombatantValue
     var abilities: [AttackAbility] = [.unarmed(.kick, 1...3)]
     var inventory: Inventory = .init()
-    var skills: SkillDictionary
+    var skills: SkillDictionary {
+        didSet {
+            health.limit = skills.maxHealth
+        }
+    }
     var money: Int64
     var xp: Int { 1 } // Not really used
     var name: String { "Player" }
@@ -17,6 +21,7 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
         self.id = UUID()
         self.money = money
         self.skills = skills
+        self.health = .init(skills.maxHealth)
     }
     
     func value(_ skill: Skill) -> Int {

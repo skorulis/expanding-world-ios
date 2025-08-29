@@ -88,4 +88,9 @@ struct AttackContext {
         return defender is SkilledCombatant
     }
     
+    var hitChanceString: String {
+        guard let hitChance else { return "-%" }
+        return hitChance.formatted(.percent.precision(.fractionLength(2)))
+    }
+    
 }

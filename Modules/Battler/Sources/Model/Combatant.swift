@@ -23,7 +23,7 @@ protocol SkilledCombatant: Combatant {
 // Used for Health or Mana
 struct CombatantValue: CurrentValueType {
     var current: Int
-    let limit: Int
+    var limit: Int
     
     init(current: Int, limit: Int) {
         self.current = current
