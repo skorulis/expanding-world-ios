@@ -57,7 +57,7 @@ final class AttackExecutor {
         case let .monsterSkill(_, details):
             damage = details.damage.randomElement(using: &self.random)!
         }
-        context.logs.append(.init(message: hitMessage(context: context, damage: damage)))
+        context.logs.append(.init(message: hitMessage(context: context, ability: ability, damage: damage)))
         context.addDefenderXP(
             skill: .toughness,
             difficulty: defender.health.percentage(amount: damage)
@@ -92,8 +92,8 @@ final class AttackExecutor {
         return attacker.atkValue(using: ability)
     }
     
-    private func hitMessage(context: AttackContext, damage: Int) -> String {
-        return "\(context.attacker.name) hits \(context.defender.name) for \(damage) damage"
+    private func hitMessage(context: AttackContext, ability: AttackAbility, damage: Int) -> String {
+        return "\(context.attacker.name) \(ability.verb) \(context.defender.name) for \(damage) damage"
     }
     
     private func missMessage(context: AttackContext) -> String {

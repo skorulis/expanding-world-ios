@@ -62,7 +62,7 @@ public enum MonsterSpec: CaseIterable, Identifiable, Codable, Sendable {
             return [
                 .monsterSkill(
                     nil,
-                    .init(action: "Scratch", damage: 3...5, baseAttack: 1)
+                    .init(action: "Scratch", verb: "scratches", damage: 3...5, baseAttack: 1)
                 )
             ]
         }

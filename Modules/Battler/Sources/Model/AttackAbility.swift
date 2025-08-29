@@ -31,6 +31,17 @@ enum AttackAbility: Sendable {
         }
     }
     
+    var verb: String {
+        switch self {
+        case let .unarmed(type, _):
+            return type.attackDetails.verb
+        case let .weapon(item):
+            return item.type.attack!.verb
+        case let .monsterSkill(_, details):
+            return details.verb
+        }
+    }
+    
     var details: AttackDetails {
         switch self {
         case let .unarmed(type, _):
@@ -110,6 +121,7 @@ extension AttackAbility {
             case .punch:
                 return AttackDetails(
                     action: "Punch",
+                    verb: "punches",
                     damage: 1...3,
                     damageBonuses: [.unarmed: 1, .melee: 1],
                     baseAttack: 1,
@@ -118,18 +130,21 @@ extension AttackAbility {
             case .kick:
                 return AttackDetails(
                     action: "Kick",
+                    verb: "kicks",
                     damage: 1...4,
                     baseAttack: 1
                 )
             case .bite:
                 return AttackDetails(
                     action: "Bite",
+                    verb: "bites",
                     damage: 1...3,
                     baseAttack: 1
                 )
             case .slap:
                 return AttackDetails(
                     action: "Slap",
+                    verb: "slaps",
                     damage: 1...4,
                     baseAttack: 4
                 )

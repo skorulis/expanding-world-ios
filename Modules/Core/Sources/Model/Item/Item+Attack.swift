@@ -11,6 +11,7 @@ public extension Item {
         case .copperDagger:
             return AttackDetails(
                 action: "Stab",
+                verb: "stabs",
                 damage: 2...4,
                 damageBonuses: [
                     .blades: 1
@@ -29,6 +30,7 @@ public extension Item {
 
 public struct AttackDetails: Sendable {
     public let action: String
+    public let verb: String
     public let damage: ClosedRange<Int>
     public let damageBonuses: [Skill: Int]
     public let baseAttack: Int
@@ -36,12 +38,14 @@ public struct AttackDetails: Sendable {
     
     public init(
         action: String,
+        verb: String,
         damage: ClosedRange<Int>,
         damageBonuses: [Skill : Int] = [:],
         baseAttack: Int,
         attackBonuses: [Skill : Int] = [:]
     ) {
         self.action = action
+        self.verb = verb
         self.damage = damage
         self.damageBonuses = damageBonuses
         self.baseAttack = baseAttack

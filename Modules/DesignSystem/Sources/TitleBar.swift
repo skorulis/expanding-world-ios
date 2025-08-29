@@ -30,7 +30,8 @@ public struct TitleBar<TrailingIcon: View>: View {
                 trailing()
             }
             .frame(minHeight: 44)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, hasLeadingButton ? 0 : 16)
+            .padding(.trailing, hasLeadingButton ? 16 : 0)
             Divider()
         }
     }
@@ -48,6 +49,8 @@ public struct TitleBar<TrailingIcon: View>: View {
             }
         }
     }
+    
+    private var hasLeadingButton: Bool { backAction != nil }
 }
 
 public extension TitleBar where TrailingIcon == EmptyView {
