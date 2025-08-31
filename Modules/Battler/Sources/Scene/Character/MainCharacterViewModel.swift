@@ -26,6 +26,10 @@ extension MainCharacterViewModel {
         player.money
     }
     
+    func abilities() {
+        coordinator?.push(BattlerPath.characterAbilities)
+    }
+    
     func equipment() {
         coordinator?.push(BattlerPath.equipment)
     }

@@ -48,6 +48,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BestiaryViewModel.self) { BestiaryViewModel.make(resolver: $0) }
         container.register(CombinedShopViewModel.self) { CombinedShopViewModel.make(resolver: $0) }
         container.register(CharacterEffectsViewModel.self) { CharacterEffectsViewModel.make(resolver: $0) }
+        container.register(CharacterAbilitiesViewModel.self) { CharacterAbilitiesViewModel.make(resolver: $0) }
         container.register(SkillDetailsViewModel.self)  { (resolver: Resolver, skill: Skill, showPurchase: Bool) in
             SkillDetailsViewModel.make(resolver: resolver, skill: skill, showPurchase: showPurchase)
         }

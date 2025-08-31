@@ -20,3 +20,8 @@ final class CharacterEffectsViewModel: CoordinatorViewModel {
         []
     }
 }
+
+// MARK: - Logic
+
+extension CharacterEffectsViewModel {
+}

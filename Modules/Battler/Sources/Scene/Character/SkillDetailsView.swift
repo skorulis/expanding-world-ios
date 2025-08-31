@@ -57,7 +57,7 @@ extension SkillDetailsView: View {
             Button(action: viewModel.buy) {
                 HStack {
                     Text("Buy")
-                    MoneyView(amount: viewModel.player.money)
+                    MoneyView(amount: viewModel.skill.purchaseCost)
                 }
             }
             .buttonStyle(RectangleButtonStyle())

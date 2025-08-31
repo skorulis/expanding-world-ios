@@ -91,6 +91,19 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
     
 }
 
+extension BattlerPlayer {
+    var allActions: [AttackAbility] {
+        var actions = abilities
+        if inventory.equipped(.mainHand) == nil {
+            actions.append(.unarmed(.punch, 2...4))
+        }
+        for item in inventory.allEquipped where item.type.attack != nil {
+            actions.append(.weapon(item))
+        }
+        return actions
+    }
+}
+
 struct RoundStats {
     var moneyEarned: Int64 = 0
     var fightsWon: Int = 0

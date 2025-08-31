@@ -41,7 +41,7 @@ final class AttackExecutor {
         defender: inout Defender
     ) -> AttackContext {
         var context = AttackContext(attacker: attacker, defender: defender, ability: ability)
-        context.hitChance = self.hitChance(context: &context)
+        context.hitChance = self.hitChance(context: context)
         context.hitRoll = Double.random(in: 0...1, using: &self.random)
         if context.hitRoll! > context.hitChance! {
             // Miss
@@ -70,10 +70,8 @@ final class AttackExecutor {
     }
     
     func hitChance(
-        context: inout AttackContext
+        context: AttackContext
     ) -> Double {
-        context.atk = attackValue(attacker: context.attacker, ability: context.ability)
-        context.def = defValue(defender: context.defender, ability: context.ability)
         return hitChance(atk: context.atk!, def: context.def!)
     }
     
@@ -83,14 +81,6 @@ final class AttackExecutor {
     
     func difficultyToSkillMultiplier(skill: Skill, diff: Double) -> Double {
         return skill.difficultyToXP(diff)
-    }
-    
-    func defValue(defender: Combatant, ability: AttackAbility) -> Int {
-        return defender.defValue(against: ability)
-    }
-    
-    func attackValue(attacker: Combatant, ability: AttackAbility) -> Int {
-        return attacker.atkValue(using: ability)
     }
     
     private func hitMessage(context: AttackContext, ability: AttackAbility, damage: Int) -> String {

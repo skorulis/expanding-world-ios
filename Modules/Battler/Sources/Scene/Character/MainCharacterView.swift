@@ -33,6 +33,11 @@ extension MainCharacterView: View {
             }
             Text("Level: \(viewModel.player.level)")
             
+            Button(action: viewModel.abilities) {
+                Text("Abilities")
+            }
+            .buttonStyle(RectangleButtonStyle())
+            
             Button(action: viewModel.equipment) {
                 Text("Equipment")
             }
@@ -44,7 +49,7 @@ extension MainCharacterView: View {
             .buttonStyle(RectangleButtonStyle())
             
             Button(action: viewModel.effects) {
-                Text("Effects")
+                Text("Status")
             }
             .buttonStyle(RectangleButtonStyle())
             

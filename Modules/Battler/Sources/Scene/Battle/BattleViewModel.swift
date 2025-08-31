@@ -64,23 +64,14 @@ import SwiftUI
         }
     }
     
-    var playerActions: [AttackAbility] {
-        var actions = player.abilities
-        if player.inventory.equipped(.mainHand) == nil {
-            actions.append(.unarmed(.punch, 2...4))
-        }
-        for item in player.inventory.allEquipped where item.type.attack != nil {
-            actions.append(.weapon(item))
-        }
-        return actions
-    }
+    var playerActions: [AttackAbility] { player.allActions }
     
     func hitChance(action: AttackAbility) -> Double {
         guard let currentMonster else {
             return 0
         }
         var context = AttackContext(attacker: player, defender: currentMonster, ability: action)
-        return executor.hitChance(context: &context)
+        return executor.hitChance(context: context)
     }
     
     func perform(action: AttackAbility) {

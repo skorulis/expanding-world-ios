@@ -11,6 +11,7 @@ public enum BattlerPath: CoordinatorPath {
     case mainCharacter
     case character
     case characterEffects
+    case characterAbilities
     case sequence
     case equipment
     case battle(BattlerFight)
@@ -32,6 +33,8 @@ public enum BattlerPath: CoordinatorPath {
             return "menu"
         case .character:
             return "character"
+        case .characterAbilities:
+            return "characterAbilities"
         case .sequence:
             return "battler.sequence"
         case let .battle(fight):
@@ -71,6 +74,8 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
             CharacterView(viewModel: coordinator.apply(resolver.characterViewModel()))
         case .characterEffects:
             CharacterEffectsView(viewModel: coordinator.apply(resolver.characterEffectsViewModel()))
+        case .characterAbilities:
+            CharacterAbilitiesView(viewModel: coordinator.apply(resolver.characterAbilitiesViewModel()))
         case .equipment:
             PlayerEquipmentView(viewModel: coordinator.apply(resolver.playerEquipmentViewModel()))
         case .sequence:
@@ -82,9 +87,9 @@ public struct BattlerPathRenderer: CoordinatorPathRenderer {
                 )
             )
         case .bestiary:
-            BestiaryView(viewModel: Self.apply(resolver.bestiaryViewModel(), coordinator))
+            BestiaryView(viewModel: coordinator.apply(resolver.bestiaryViewModel()))
         case let .bestiaryEntry(monster):
-            BestiaryEntryView(viewModel: Self.apply(resolver.bestiaryEntryViewModel(monster: monster), coordinator))
+            BestiaryEntryView(viewModel: coordinator.apply(resolver.bestiaryEntryViewModel(monster: monster)))
         case .stats:
             BattlerStatsView(viewModel: Self.apply(resolver.battlerStatsViewModel(), coordinator))
         case .gameOver:
