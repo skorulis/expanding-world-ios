@@ -192,6 +192,18 @@ extension Item {
         }
     }
     
+    // Skills that apply to this item
+    public var skills: [Skill] {
+        switch self {
+        case .copperDagger:
+            return [.blades]
+        case .woodenShield:
+            return [.shield]
+        default:
+            return []
+        }
+    }
+    
 }
 
 

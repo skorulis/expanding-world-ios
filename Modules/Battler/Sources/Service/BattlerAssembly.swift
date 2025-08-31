@@ -48,8 +48,8 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(BestiaryViewModel.self) { BestiaryViewModel.make(resolver: $0) }
         container.register(CombinedShopViewModel.self) { CombinedShopViewModel.make(resolver: $0) }
         container.register(CharacterEffectsViewModel.self) { CharacterEffectsViewModel.make(resolver: $0) }
-        container.register(SkillDetailsViewModel.self)  { (resolver: Resolver, skill: Skill) in
-            SkillDetailsViewModel.make(resolver: resolver, skill: skill)
+        container.register(SkillDetailsViewModel.self)  { (resolver: Resolver, skill: Skill, showPurchase: Bool) in
+            SkillDetailsViewModel.make(resolver: resolver, skill: skill, showPurchase: showPurchase)
         }
         
         container.register(GeneralShopViewModel.self) { (
@@ -87,6 +87,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
             BattlerStatsViewModel.make(resolver: resolver)
         }
         
+        container.register(TrainerViewModel.self) { TrainerViewModel.make(resolver: $0) }
         container.register(GameOverViewModel.self) { GameOverViewModel.make(resolver: $0) }
     }
     

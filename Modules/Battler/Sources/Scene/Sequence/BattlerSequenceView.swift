@@ -37,30 +37,45 @@ extension BattlerSequenceView: View {
     }
     
     private var aliveView: some View {
+        PageLayout {
+            titleBar
+        } content: {
+            content
+        } footer: {
+            options
+        }
+    }
+    
+    private var content: some View {
         VStack {
-            TitleBar(
-                title: "Battler",
-                backAction: viewModel.finish
-            ) {
-                TrailingBarButtons(
-                    money: viewModel.player.money,
-                    coordinator: viewModel.coordinator
-                )
-            }
+            BattleSequenceStack(
+                sequence: viewModel.sequence,
+                selection: $viewModel.selection
+            )
+            .padding(.horizontal, 16)
             
-            VStack {
-                ScrollView(.horizontal) {
-                    BattleSequenceStack(
-                        sequence: viewModel.sequence,
-                        selection: $viewModel.selection
-                    )
-                    .padding(.horizontal, 16)
-                    
-                }
-                
-                maybeDetails
-                Spacer()
+            maybeDetails
+        }
+    }
+    
+    private var titleBar: some View {
+        TitleBar(
+            title: "Battler",
+            backAction: viewModel.finish
+        ) {
+            TrailingBarButtons(
+                money: viewModel.player.money,
+                coordinator: viewModel.coordinator
+            )
+        }
+    }
+    
+    private var options: some View {
+        HStack {
+            Button(action: viewModel.showTrainer) {
+                Text("Trainer")
             }
+            .buttonStyle(RectangleButtonStyle())
         }
     }
     

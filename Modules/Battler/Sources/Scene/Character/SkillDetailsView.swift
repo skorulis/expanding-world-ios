@@ -5,6 +5,7 @@ import SwiftUI
 
 // MARK: - Memory footprint
 
+@MainActor
 struct SkillDetailsView {
     @State var viewModel: SkillDetailsViewModel
 }
@@ -22,25 +23,48 @@ extension SkillDetailsView: View {
         } content: {
             content
                 .padding(.horizontal, 16)
+        } footer: {
+            footer
         }
     }
     
     private var content: some View {
         VStack(alignment: .leading, spacing: 8) {
-            SkillView(
-                skill: viewModel.skill,
-                state: viewModel.state
-            )
-            Text("Bonuses")
+            Text(viewModel.skill.description)
+            
+            if viewModel.player.skills.isKnown(skill: viewModel.skill) {
+                SkillView(
+                    skill: viewModel.skill,
+                    state: viewModel.state
+                )
+            }
+            Text("Bonuses at level \(viewModel.level)")
                 .font(.title)
             ForEach(Array(viewModel.effects.indices), id: \.self) { index in
                 effectView(viewModel.effects[index])
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private func effectView(_ effect: StatusEffect) -> some View {
         Text(effect.skillDescription)
+    }
+    
+    @ViewBuilder
+    private var footer: some View {
+        if viewModel.showPurchase {
+            Button(action: viewModel.buy) {
+                HStack {
+                    Text("Buy")
+                    MoneyView(amount: viewModel.player.money)
+                }
+            }
+            .buttonStyle(RectangleButtonStyle())
+            .disabled(viewModel.player.money < viewModel.skill.purchaseCost)
+        } else {
+            EmptyView()
+        }
     }
 }
 
@@ -61,7 +85,7 @@ extension StatusEffect {
 #Preview {
     let assembler = BattlerAssembly.testing()
     SkillDetailsView(
-        viewModel: assembler.resolver.skillDetailsViewModel(skill: .unarmed)
+        viewModel: assembler.resolver.skillDetailsViewModel(skill: .unarmed, showPurchase: true)
     )
 }
 

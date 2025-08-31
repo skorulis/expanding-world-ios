@@ -28,6 +28,6 @@ extension CharacterViewModel {
     }
     
     func showDetails(skill: Skill) {
-        self.coordinator?.push(BattlerPath.skillDetails(skill))
+        self.coordinator?.push(BattlerPath.skillDetails(skill, false))
     }
 }

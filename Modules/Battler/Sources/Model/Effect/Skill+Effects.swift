@@ -24,6 +24,15 @@ extension Skill {
         case .toughness:
             return []
         case .blades:
+            return [
+                StatusEffect(
+                    name: "Attack",
+                    effect: .attack(level),
+                    conditions: [.blades],
+                    duration: .forever
+                ),
+            ]
+        case .shield:
             return []
         case .melee:
             return []

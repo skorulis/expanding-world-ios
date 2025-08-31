@@ -6,6 +6,9 @@ import Foundation
 public enum StatusEffectCondition: Equatable, Sendable {
     // No weapons in hands
     case unarmed
+    
+    // Blade in the main hand
+    case blades
 }
 
 extension StatusEffectCondition {
@@ -13,6 +16,8 @@ extension StatusEffectCondition {
         switch self {
         case .unarmed:
             return "unarmed"
+        case .blades:
+            return "using a bladed weapon"
         }
     }
 }

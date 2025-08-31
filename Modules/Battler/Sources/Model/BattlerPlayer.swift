@@ -83,6 +83,9 @@ public struct BattlerPlayer: SkilledCombatant, Sendable {
         switch condition {
         case .unarmed:
             return self.inventory.equipped(.mainHand) == nil
+        case .blades:
+            guard let mh = self.inventory.equipped(.mainHand) else { return false }
+            return mh.type.skills.contains(.blades)
         }
     }
     

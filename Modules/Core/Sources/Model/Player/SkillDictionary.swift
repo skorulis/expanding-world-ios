@@ -43,6 +43,13 @@ public struct SkillDictionary: Sendable, Codable {
     public func isKnown(skill: Skill) -> Bool {
         return skills[skill] != nil
     }
+    
+    public mutating func learn(skill: Skill) {
+        if isKnown(skill: skill) {
+            return
+        }
+        skills[skill] = 1
+    }
 
     public func state(skill: Skill) -> SkillState {
         return SkillState(

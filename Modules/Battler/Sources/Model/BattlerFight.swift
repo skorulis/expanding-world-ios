@@ -31,6 +31,6 @@ public struct BattlerFight: Sendable {
     
     var reward: Int64 {
         let money = startMonsters.map { $0.spec.difficultyValue }.reduce(0, +) * startMonsters.count
-        return Int64(money)
+        return Int64(money) * 10
     }
 }
