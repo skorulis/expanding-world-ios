@@ -25,7 +25,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/cashapp/knit.git",
-            branch: "skorulis/spm-plugin"
+            branch: "skorulis/resolver-class"
         ),
         .package(
             url: "https://github.com/skorulis/ASKCore",

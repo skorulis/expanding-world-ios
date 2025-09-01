@@ -11,7 +11,7 @@ final class CharacterEffectsViewModel: CoordinatorViewModel {
     private let playerStore: BattlerRunStore
     var player: BattlerPlayer { playerStore.player }
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: BattlerRunStore) {
         self.playerStore = playerStore
     }

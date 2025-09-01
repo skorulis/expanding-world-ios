@@ -2,11 +2,12 @@
 
 import ASKCore
 import Battler
+import Core
 import Foundation
 import Knit
 
 final class ExpandingWorldAssembly: AutoInitModuleAssembly {
-    typealias TargetResolver = Resolver
+    typealias TargetResolver = BaseResolver
     static var dependencies: [any Knit.ModuleAssembly.Type] = [
         ASKCoreAssembly.self,
         BattlerAssembly.self,
@@ -14,7 +15,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     
     init() {}
     
-    @MainActor func assemble(container: Container<Resolver>) {
+    @MainActor func assemble(container: Container<BaseResolver>) {
         registerBehaviors(container: container)
         registerServices(container: container)
         registerStores(container: container)
@@ -22,7 +23,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     }
     
     @MainActor
-    private func registerServices(container: Container<Resolver>) {
+    private func registerServices(container: Container<BaseResolver>) {
         container.register(ActionService.self) { r in
             ActionService.make(resolver: r)
         }
@@ -36,7 +37,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     }
     
     @MainActor
-    private func registerStores(container: Container<Resolver>) {
+    private func registerStores(container: Container<BaseResolver>) {
         container.register(TimeStore.self) { TimeStore.make(resolver: $0) }
             .inObjectScope(.container)
         
@@ -45,8 +46,8 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
     }
     
     @MainActor
-    private func registerViewModels(container: Container<Resolver>) {
-        container.register(PlaceViewModel.self) { (resolver: Resolver, place: Place) in
+    private func registerViewModels(container: Container<BaseResolver>) {
+        container.register(PlaceViewModel.self) { (resolver: BaseResolver, place: Place) in
             PlaceViewModel.make(resolver: resolver, place: place)
         }
         
@@ -57,12 +58,12 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
         container.register(SettingsViewModel.self) { SettingsViewModel.make(resolver: $0) }
         container.register(GameStatusBarViewModel.self) { GameStatusBarViewModel.make(resolver: $0) }
         
-        container.register(ShopViewModel.self) { (resolver: Resolver, shopID: ShopID) in
+        container.register(ShopViewModel.self) { (resolver: BaseResolver, shopID: ShopID) in
             ShopViewModel.make(resolver: resolver, shopID: shopID)
         }
     }
     
-    private func registerBehaviors(container: Container<Resolver>) {
+    private func registerBehaviors(container: Container<BaseResolver>) {
 //        container.register(InstanceAggregation<ResettableService>.self, name: "resettableService") { _ in
 //            .init(isChild: { $0 is ResettableService.Type })
 //        }
@@ -77,7 +78,7 @@ final class ExpandingWorldAssembly: AutoInitModuleAssembly {
 }
 
 extension ExpandingWorldAssembly {
-    @MainActor static func testing() -> ScopedModuleAssembler<Resolver> {
-        ScopedModuleAssembler<Resolver>([ExpandingWorldAssembly(), ASKCoreAssembly(purpose: .testing)])
+    @MainActor static func testing() -> ScopedModuleAssembler<BaseResolver> {
+        ScopedModuleAssembler<BaseResolver>([ExpandingWorldAssembly(), ASKCoreAssembly(purpose: .testing)])
     }
 }

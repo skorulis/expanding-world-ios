@@ -14,7 +14,7 @@ import SwiftUI
     var coordinator: Coordinator?
     let monster: MonsterSpec
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     public init(
         @Argument monster: MonsterSpec,
         persistentStore: BattlerPersistentStore

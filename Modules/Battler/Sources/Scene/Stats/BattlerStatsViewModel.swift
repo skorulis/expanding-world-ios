@@ -11,7 +11,7 @@ import KnitMacros
     
     private let store: BattlerPersistentStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(store: BattlerPersistentStore) {
         self.store = store
     }

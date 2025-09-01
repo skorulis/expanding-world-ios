@@ -17,7 +17,7 @@ import SwiftUI
     
     var coordinator: Coordinator?
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(@Argument skill: Skill, @Argument showPurchase: Bool, playerStore: BattlerRunStore) {
         self.skill = skill
         self.showPurchase = showPurchase

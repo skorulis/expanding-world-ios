@@ -6,7 +6,7 @@ import Knit
 
 // @knit public
 public final class CoreAssembly: AutoInitModuleAssembly {
-    public typealias TargetResolver = Resolver
+    public typealias TargetResolver = BaseResolver
     
     public static var dependencies: [any ModuleAssembly.Type] { [GameSystemAssembly.self]}
     

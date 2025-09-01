@@ -14,7 +14,7 @@ import SwiftUI
     
     var selectedIndex: Int = 0
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: BattlerRunStore) {
         self.playerStore = playerStore
     }

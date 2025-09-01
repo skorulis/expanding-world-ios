@@ -17,7 +17,7 @@ public final class KnowledgeStore: ObservableObject {
     private let alertService: AlertService
     private let keyValueStore: PKeyValueStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(alertService: AlertService, keyValueStore: PKeyValueStore) {
         self.knowledge = keyValueStore.dataStorable()
         self.alertService = alertService

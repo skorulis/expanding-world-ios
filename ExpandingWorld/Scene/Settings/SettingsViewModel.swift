@@ -11,7 +11,7 @@ import KnitMacros
     private let knowledgeStore: KnowledgeStore
     private let resettableServiceProvider: ResettableServiceProvider
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(
         knowledgeStore: KnowledgeStore,
         resettableServiceProvider: @escaping ResettableServiceProvider

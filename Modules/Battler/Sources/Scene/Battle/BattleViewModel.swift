@@ -27,7 +27,7 @@ import SwiftUI
     
     var logs: [FightLog] = []
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(
         @Argument fight: BattlerFight,
         battlerRunStore: BattlerRunStore,

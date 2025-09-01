@@ -11,7 +11,7 @@ final class PlayerStatusService {
     let timeStore: TimeStore
     let knowledgeStore: KnowledgeStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: PlayerStore, timeStore: TimeStore, knowledgeStore: KnowledgeStore) {
         self.playerStore = playerStore
         self.timeStore = timeStore

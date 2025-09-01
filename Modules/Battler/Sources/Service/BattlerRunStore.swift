@@ -17,7 +17,7 @@ final class BattlerRunStore: ObservableObject {
     
     private let playerStore: PlayerStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: PlayerStore) {
         self.playerStore = playerStore
         self.player = Self.generatePlayer(corePlayer: playerStore.player)

@@ -15,7 +15,7 @@ import SwiftUI
     private let mainPlayerStore: PlayerStore
     private let persistentStore: BattlerPersistentStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(
         playerStore: BattlerRunStore,
         generator: BattleStepGenerator,

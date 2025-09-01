@@ -12,7 +12,7 @@ import KnitMacros
     
     var selectedItem: Item.Instance?
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: PlayerStore, timeStore: TimeStore) {
         self.playerStore = playerStore
         self.timeStore = timeStore

@@ -15,7 +15,7 @@ final class ShopStore: ObservableObject {
     
     private let keyValueStore: PKeyValueStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(keyValueStore: PKeyValueStore) {
         self.keyValueStore = keyValueStore
         shops = keyValueStore.dataStorable()

@@ -10,7 +10,7 @@ import Knit
     
     private let playerStore: BattlerRunStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: BattlerRunStore) {
         self.playerStore = playerStore
     }

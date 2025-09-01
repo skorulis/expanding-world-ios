@@ -9,7 +9,7 @@ import KnitMacros
     
     let playerStore: PlayerStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: PlayerStore) {
         self.playerStore = playerStore
     }

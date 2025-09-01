@@ -20,7 +20,7 @@ import KnitMacros
     
     let generalShopViewModel: GeneralShopViewModel
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: BattlerRunStore) {
         self.player = playerStore.player
         self.playerStore = playerStore

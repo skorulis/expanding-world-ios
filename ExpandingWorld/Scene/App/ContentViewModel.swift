@@ -12,7 +12,7 @@ import KnitMacros
     let alertService: AlertService
     let battlerStatsMonitor: BattlerStatsMonitor
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(alertService: AlertService, battlerStatsMonitor: BattlerStatsMonitor) {
         self.alertService = alertService
         

@@ -16,7 +16,7 @@ final class BattlerPersistentStore: ObservableObject {
         }
     }
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(keyValueStore: PKeyValueStore) {
         self.keyValueStore = keyValueStore
         self.stats = keyValueStore.dataStorable()

@@ -14,7 +14,7 @@ public final class BattlerStatsMonitor {
     private let battlerRunStore: BattlerRunStore
     private let battlerPersistentStore: BattlerPersistentStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(
         eventPublisher: AnyPublisher<BattlerEvent, Never>,
         battlerRunStore: BattlerRunStore,

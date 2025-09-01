@@ -14,7 +14,7 @@ import SwiftUI
     
     private let battlerStore: BattlerRunStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(battlerStore: BattlerRunStore) {
         self.battlerStore = battlerStore
     }

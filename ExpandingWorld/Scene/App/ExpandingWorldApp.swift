@@ -7,8 +7,8 @@ import Knit
 @main
 struct ExpandingWorldApp: App {
     
-    private let assembler: ScopedModuleAssembler<Resolver> = {
-        let assembler = ScopedModuleAssembler<Resolver>(
+    private let assembler: ScopedModuleAssembler<BaseResolver> = {
+        let assembler = ScopedModuleAssembler<BaseResolver>(
             [
                 ExpandingWorldAssembly(),
                 ASKCoreAssembly(purpose: .normal),

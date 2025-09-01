@@ -5,13 +5,13 @@ import Foundation
 
 // @knit public
 public final class GameSystemAssembly: AutoInitModuleAssembly {
-    public typealias TargetResolver = Resolver
+    public typealias TargetResolver = BaseResolver
     
     public static var dependencies: [any Knit.ModuleAssembly.Type] { [] }
     
     public init() {}
     
-    public func assemble(container: Container<any TargetResolver>) {
+    public func assemble(container: Container<TargetResolver>) {
         container.register(AlertService.self) { _ in AlertService() }
             .inObjectScope(.container)
     }

@@ -13,7 +13,7 @@ import SwiftUI
     
     private let persistentStore: BattlerPersistentStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     public init(persistentStore: BattlerPersistentStore) {
         self.persistentStore = persistentStore
     }

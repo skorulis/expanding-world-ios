@@ -15,7 +15,7 @@ final class GameService {
     
     private var cancellables: Set<AnyCancellable> = []
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(alertService: AlertService, knowledgeStore: KnowledgeStore, playerStore: PlayerStore) {
         self.alertService = alertService
         self.knowledgeStore = knowledgeStore

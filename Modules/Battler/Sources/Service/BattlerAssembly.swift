@@ -7,7 +7,7 @@ import Foundation
 import Knit
 
 public final class BattlerAssembly: AutoInitModuleAssembly {
-    public typealias TargetResolver = Resolver
+    public typealias TargetResolver = BaseResolver
     
     public init() {}
     
@@ -49,12 +49,12 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         container.register(CombinedShopViewModel.self) { CombinedShopViewModel.make(resolver: $0) }
         container.register(CharacterEffectsViewModel.self) { CharacterEffectsViewModel.make(resolver: $0) }
         container.register(CharacterAbilitiesViewModel.self) { CharacterAbilitiesViewModel.make(resolver: $0) }
-        container.register(SkillDetailsViewModel.self)  { (resolver: Resolver, skill: Skill, showPurchase: Bool) in
+        container.register(SkillDetailsViewModel.self)  { (resolver: BaseResolver, skill: Skill, showPurchase: Bool) in
             SkillDetailsViewModel.make(resolver: resolver, skill: skill, showPurchase: showPurchase)
         }
         
         container.register(GeneralShopViewModel.self) { (
-            resolver: Resolver,
+            resolver: BaseResolver,
             shop: BattlerShop
         ) in
             GeneralShopViewModel(
@@ -64,7 +64,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         }
         
         container.register(BattleViewModel.self) { (
-            resolver: Resolver,
+            resolver: BaseResolver,
             fight: BattlerFight
         ) in
             BattleViewModel.make(resolver: resolver, fight: fight)
@@ -72,7 +72,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
         
         container.register(BattlerMenuViewModel.self) { BattlerMenuViewModel.make(resolver: $0) }
         
-        container.register(BestiaryEntryViewModel.self) { (r: Resolver, monster: MonsterSpec) in
+        container.register(BestiaryEntryViewModel.self) { (r: BaseResolver, monster: MonsterSpec) in
             BestiaryEntryViewModel.make(resolver: r, monster: monster)
         }
         
@@ -129,7 +129,7 @@ public final class BattlerAssembly: AutoInitModuleAssembly {
 }
 
 public extension BattlerAssembly {
-    @MainActor static func testing() -> ScopedModuleAssembler<Resolver> {
-        return ScopedModuleAssembler<Resolver>([BattlerAssembly()])
+    @MainActor static func testing() -> ScopedModuleAssembler<BaseResolver> {
+        return ScopedModuleAssembler<BaseResolver>([BattlerAssembly()])
     }
 }

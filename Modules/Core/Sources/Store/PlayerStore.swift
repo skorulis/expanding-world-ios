@@ -29,7 +29,7 @@ import KnitMacros
     
     public var playerSubject: CurrentValueSubject<Player, Never>
     
-    @Resolvable<Resolver> @MainActor
+    @Resolvable<BaseResolver> @MainActor
     init(keyValueStore: PKeyValueStore, knowledgeStore: KnowledgeStore) {
         self.keyValueStore = keyValueStore
         self.knowledgeStore = knowledgeStore

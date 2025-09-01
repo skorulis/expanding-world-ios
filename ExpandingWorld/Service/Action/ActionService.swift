@@ -13,7 +13,7 @@ final class ActionService {
     private let knowledgeStore: KnowledgeStore
     private let alertService: AlertService
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(timeStore: TimeStore, knowledgeStore: KnowledgeStore, alertService: AlertService, evaluator: Evaluator) {
         self.timeStore = timeStore
         self.knowledgeStore = knowledgeStore

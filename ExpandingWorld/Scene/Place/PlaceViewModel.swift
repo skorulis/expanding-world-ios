@@ -18,7 +18,7 @@ import KnitMacros
     
     var shopID: ShopID?
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(@Argument place: Place, actionService: ActionService, knowledgeStore: KnowledgeStore, playerStore: PlayerStore) {
         self.place = place
         self.actionService = actionService

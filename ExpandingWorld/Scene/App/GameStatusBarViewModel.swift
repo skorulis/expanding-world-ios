@@ -18,7 +18,7 @@ import SwiftUI
     var seconds: Int64 = 0
     private var cancellables: Set<AnyCancellable> = []
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(timeStore: TimeStore, knowledgeStore: KnowledgeStore) {
         self.timeStore = timeStore
         self.knowledgeStore = knowledgeStore

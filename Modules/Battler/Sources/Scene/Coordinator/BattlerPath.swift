@@ -61,7 +61,7 @@ public enum BattlerPath: CoordinatorPath {
 
 public struct BattlerPathRenderer: CoordinatorPathRenderer {
     
-    let resolver: Resolver
+    let resolver: BaseResolver
     
     @ViewBuilder
     public func render(path: BattlerPath, in coordinator: Coordinator) -> some View {

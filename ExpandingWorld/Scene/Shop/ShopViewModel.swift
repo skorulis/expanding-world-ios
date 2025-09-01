@@ -13,7 +13,7 @@ import Knit
     var shop: Shop
     var selectedItem: Item?
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(
         @Argument shopID: ShopID,
         shopStore: ShopStore,

@@ -751,8 +751,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cashapp/knit";
 			requirement = {
-				kind = exactVersion;
-				version = 2.0.1;
+				branch = "skorulis/resolver-class";
+				kind = branch;
 			};
 		};
 		FA6024842D5EE1D80003286A /* XCRemoteSwiftPackageReference "ASKCore" */ = {

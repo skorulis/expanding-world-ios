@@ -9,7 +9,7 @@ final class Evaluator {
     
     private let playerStore: PlayerStore
     
-    @Resolvable<Resolver>
+    @Resolvable<BaseResolver>
     init(playerStore: PlayerStore) {
         self.playerStore = playerStore
     }
