@@ -121,7 +121,7 @@ import SwiftUI
         player.health.refill()
         player.money += fight.reward
         eventPublisher.send(.battleFinished(fight))
-        coordinator?.push(BattlerPath.combinedShop)
+        coordinator?.dismiss()
     }
     
     private func onAttackComplete(result: AttackResult) {

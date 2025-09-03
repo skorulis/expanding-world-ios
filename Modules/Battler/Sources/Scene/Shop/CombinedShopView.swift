@@ -17,7 +17,10 @@ extension CombinedShopView: View {
     
     var body: some View {
         PageLayout {
-            TitleBar(title: "Shop") {
+            TitleBar(
+                title: "Shop",
+                backAction: { viewModel.coordinator?.pop() }
+            ) {
                 TrailingBarButtons(
                     money: viewModel.player.money,
                     coordinator: viewModel.coordinator
@@ -32,11 +35,6 @@ extension CombinedShopView: View {
         VStack(spacing: 8) {
             selectedContent
             Spacer()
-            Button(action: viewModel.finish) {
-                Text("Finish")
-            }
-            .buttonStyle(RectangleButtonStyle())
-            .padding(.horizontal, 16)
         }
     }
     

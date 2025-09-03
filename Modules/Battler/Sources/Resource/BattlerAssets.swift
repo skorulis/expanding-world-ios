@@ -27,9 +27,13 @@ internal enum Asset {
   internal static let fireworks = ImageAsset(name: "fireworks")
   internal enum Icon {
     internal static let attack = ImageAsset(name: "attack")
+    internal static let book = ImageAsset(name: "book")
     internal static let defence = ImageAsset(name: "defence")
     internal static let heart = ImageAsset(name: "heart")
+    internal static let money = ImageAsset(name: "money")
+    internal static let religion = ImageAsset(name: "religion")
     internal static let skull = ImageAsset(name: "skull")
+    internal static let strUp = ImageAsset(name: "str-up")
   }
   internal enum Monsters {
     internal static let angryCat = ImageAsset(name: "angry-cat")

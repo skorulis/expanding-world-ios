@@ -95,6 +95,10 @@ extension BattlerSequenceViewModel {
         coordinator?.push(BattlerPath.trainer)
     }
     
+    func showShop() {
+        coordinator?.push(BattlerPath.combinedShop)
+    }
+    
     func showInventory() {
         coordinator?.present(BattlerPath.equipment, style: .sheet)
     }

@@ -71,11 +71,20 @@ extension BattlerSequenceView: View {
     }
     
     private var options: some View {
-        HStack {
+        HStack(spacing: 32) {
             Button(action: viewModel.showTrainer) {
-                Text("Trainer")
+                Asset.Icon.strUp.swiftUIImage
+                    .resizable()
+                    .frame(width: 48, height: 48)
             }
-            .buttonStyle(RectangleButtonStyle())
+            .buttonStyle(CircleButtonStyle())
+            
+            Button(action: viewModel.showShop) {
+                Asset.Icon.money.swiftUIImage
+                    .resizable()
+                    .frame(width: 48, height: 48)
+            }
+            .buttonStyle(CircleButtonStyle())
         }
     }
     
